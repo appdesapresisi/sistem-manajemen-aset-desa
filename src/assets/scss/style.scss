@@ -1,0 +1,38 @@
+/**======================================================================
+=========================================================================
+Template Name: Datta Able - Tailwind Admin Template
+Author: CodedThemes
+Support: https://codedthemes.support-hub.io/
+File: style.css
+=========================================================================
+=================================================================================== */
+
+@import url('plugins/simplebar.min.css');
+
+@import 'themes/tailwind';
+
+.px-25px {
+	padding-left: 25px !important;
+	padding-right: 25px !important;
+}
+
+.px-16px {
+	padding-left: 16px !important;
+	padding-right: 16px !important;
+}
+
+.card-header.px-25px {
+	padding-left: 25px !important;
+	padding-right: 25px !important;
+}
+
+.card-header.px-16px {
+	padding-left: 16px !important;
+	padding-right: 16px !important;
+}
+
+.p-\[5px_-\] {
+	padding: 5px 0 !important;
+}
+
+

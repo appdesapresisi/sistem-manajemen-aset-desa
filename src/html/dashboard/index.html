@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="en" @@bodySetup>
+  <!-- [Head] start -->
+
+  <head>
+    @@include('../layouts/head-page-meta.html', {'title': 'Home'})
+    @@include('../layouts/head-css.html')
+    <style>
+      /* Premium Dashboard Styles */
+      .dashboard-header {
+        background: linear-gradient(135deg, #3f4d67 0%, #2d3a4f 50%, #1a2535 100%);
+        border-radius: 20px;
+        padding: 28px 32px;
+        margin-bottom: 28px;
+        position: relative;
+        overflow: hidden;
+      }
+      .dashboard-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+        animation: pulse-slow 8s ease-in-out infinite;
+      }
+      .dashboard-header::after {
+        content: '';
+        position: absolute;
+        bottom: -60%;
+        left: -10%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+        animation: pulse-slow 10s ease-in-out infinite reverse;
+      }
+      @keyframes pulse-slow {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.15); opacity: 0.8; }
+      }
+      .dashboard-title {
+        position: relative;
+        z-index: 10;
+      }
+      .dashboard-title h1 {
+        font-size: 26px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 6px;
+      }
+      .dashboard-title p {
+        font-size: 14px;
+        color: rgba(255,255,255,0.75);
+        margin: 0;
+      }
+
+      /* Premium KPI Cards */
+      .kpi-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 20px;
+        border: 1px solid rgba(0,0,0,0.04);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .kpi-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+      }
+      .kpi-card-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .kpi-card-icon::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 14px;
+        background: inherit;
+        opacity: 0.15;
+        transform: scale(1.4);
+        z-index: -1;
+      }
+      .kpi-card-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+      }
+      .kpi-card-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1f2937;
+        line-height: 1.2;
+      }
+      .kpi-card-trend {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 8px;
+        border-radius: 20px;
+        margin-top: 8px;
+      }
+      .kpi-card-trend.up { background: #d1fae5; color: #059669; }
+      .kpi-card-trend.down { background: #fee2e2; color: #dc2626; }
+
+      /* Premium Chart Cards */
+      .chart-card {
+        background: #fff;
+        border-radius: 20px;
+        border: 1px solid rgba(0,0,0,0.04);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        overflow: hidden;
+      }
+      .chart-card-header {
+        padding: 20px 24px;
+        border-bottom: 1px solid #f3f4f6;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .chart-card-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .chart-card-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .chart-card-icon i { width: 20px; height: 20px; color: #fff; }
+      .chart-card-title h5 { margin: 0; font-size: 16px; font-weight: 600; color: #1f2937; }
+      .chart-card-title span { font-size: 13px; color: #6b7280; }
+      .chart-card-body { padding: 20px 24px; }
+
+      /* Status Badge Pills */
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .status-pill.baik { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); color: #059669; }
+      .status-pill.rusak-ringan { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #d97706; }
+      .status-pill.rusak-berat { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); color: #dc2626; }
+
+      /* Info Panel */
+      .info-panel {
+        background: #fff;
+        border-radius: 20px;
+        border: 1px solid rgba(0,0,0,0.04);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        overflow: hidden;
+      }
+      .info-panel-header {
+        padding: 18px 24px;
+        border-bottom: 1px solid #f3f4f6;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .info-panel-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .info-panel-icon i { width: 18px; height: 18px; color: #fff; }
+      .info-panel-title { font-size: 15px; font-weight: 600; color: #1f2937; margin: 0; }
+      .info-panel-body { padding: 20px 24px; }
+
+      /* Activity Timeline */
+      .activity-timeline { list-style: none; padding: 0; margin: 0; }
+      .activity-item {
+        display: flex;
+        gap: 16px;
+        padding: 14px 0;
+        border-bottom: 1px solid #f3f4f6;
+        transition: all 0.2s;
+      }
+      .activity-item:last-child { border-bottom: none; }
+      .activity-item:hover { background: #fafafa; margin: 0 -24px; padding-left: 24px; padding-right: 24px; }
+      .activity-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
+      .activity-content { flex: 1; }
+      .activity-text { font-size: 14px; color: #374151; margin-bottom: 2px; }
+      .activity-time { font-size: 12px; color: #9ca3af; }
+
+      /* Pending Table */
+      .pending-table { width: 100%; }
+      .pending-table th { 
+        font-size: 11px; 
+        font-weight: 600; 
+        color: #6b7280; 
+        text-transform: uppercase; 
+        letter-spacing: 0.5px; 
+        padding: 10px 0; 
+        border-bottom: 2px solid #e5e7eb; 
+      }
+      .pending-table td { 
+        padding: 12px 0; 
+        font-size: 13px; 
+        color: #374151; 
+        border-bottom: 1px solid #f3f4f6; 
+      }
+      .pending-table tr:hover td { background: #fafafa; }
+    </style>
+  </head>
+  <!-- [Head] end -->
+  <!-- [Body] Start -->
+
+  <body>
+    @@include('../layouts/layout-vertical.html')
+
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+      <div class="pc-content">
+        @@include('../layouts/breadcrumb.html', {'breadcrumb-item-home': 'Navigasi','breadcrumb-item': 'Home', 'breadcrumb-item-active': ''})
+        
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+          <div class="dashboard-title">
+            <h1>Sistem Manajemen Aset Desa Mengwi</h1>
+            <p>Selamat datang! Pantau dan kelola inventaris aset desa dengan mudah.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 1: Premium KPI Cards -->
+        <div class="grid grid-cols-12 gap-5 mb-6">
+          <!-- Total Aset -->
+          <div class="col-span-6 md:col-span-3">
+            <div class="kpi-card">
+              <div class="flex items-start justify-between">
+                <div>
+                  <div class="kpi-card-label">Total Aset</div>
+                  <div class="kpi-card-value" id="kpi-total-assets">—</div>
+                  <div class="kpi-card-trend up">
+                    <i data-feather="trending-up" style="width:14px;height:14px;"></i>
+                    <span>+12%</span>
+                  </div>
+                </div>
+                <div class="kpi-card-icon" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+                  <i data-feather="box" class="text-white" style="width:24px;height:24px;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Total Nilai -->
+          <div class="col-span-6 md:col-span-3">
+            <div class="kpi-card">
+              <div class="flex items-start justify-between">
+                <div>
+                  <div class="kpi-card-label">Total Nilai</div>
+                  <div class="kpi-card-value" id="kpi-total-value" style="font-size:20px;">—</div>
+                  <div class="kpi-card-trend up">
+                    <i data-feather="trending-up" style="width:14px;height:14px;"></i>
+                    <span>+8%</span>
+                  </div>
+                </div>
+                <div class="kpi-card-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                  <i data-feather="dollar-sign" class="text-white" style="width:24px;height:24px;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Total Pejabat -->
+          <div class="col-span-6 md:col-span-3">
+            <div class="kpi-card">
+              <div class="flex items-start justify-between">
+                <div>
+                  <div class="kpi-card-label">Total Pejabat</div>
+                  <div class="kpi-card-value" id="kpi-pejabat">—</div>
+                  <div class="kpi-card-trend up">
+                    <i data-feather="check" style="width:14px;height:14px;"></i>
+                    <span>Aktif</span>
+                  </div>
+                </div>
+                <div class="kpi-card-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                  <i data-feather="award" class="text-white" style="width:24px;height:24px;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- User Aktif -->
+          <div class="col-span-6 md:col-span-3">
+            <div class="kpi-card">
+              <div class="flex items-start justify-between">
+                <div>
+                  <div class="kpi-card-label">User Aktif</div>
+                  <div class="kpi-card-value" id="kpi-users">—</div>
+                  <div class="kpi-card-trend up">
+                    <i data-feather="users" style="width:14px;height:14px;"></i>
+                    <span>Online</span>
+                  </div>
+                </div>
+                <div class="kpi-card-icon" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">
+                  <i data-feather="user-check" class="text-white" style="width:24px;height:24px;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: Kondisi Aset Status Bar -->
+        <div class="grid grid-cols-12 gap-5 mb-6">
+          <div class="col-span-12">
+            <div class="kpi-card">
+              <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="kpi-card-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); width:44px; height:44px;">
+                    <i data-feather="activity" class="text-white" style="width:20px;height:20px;"></i>
+                  </div>
+                  <div>
+                    <div class="kpi-card-label" style="margin:0;">Kondisi Aset</div>
+                    <div style="font-size:13px; color:#6b7280;">Ringkasan status kondisi seluruh aset</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4 flex-wrap">
+                  <div class="status-pill baik">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    Baik: <strong id="kpi-kondisi-baik">—</strong>
+                  </div>
+                  <div class="status-pill rusak-ringan">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    Rusak Ringan: <strong id="kpi-kondisi-rr">—</strong>
+                  </div>
+                  <div class="status-pill rusak-berat">
+                    <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                    Rusak Berat: <strong id="kpi-kondisi-rb">—</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: Charts Row -->
+        <div class="grid grid-cols-12 gap-5 mb-6">
+          <!-- Bar Chart -->
+          <div class="col-span-12 xl:col-span-8">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <div class="chart-card-title">
+                  <div class="chart-card-icon" style="background: linear-gradient(135deg, #3f4d67 0%, #5a6b8a 100%);">
+                    <i data-feather="bar-chart-2"></i>
+                  </div>
+                  <div>
+                    <h5>Distribusi Nilai Aset per Jenis</h5>
+                    <span>Total nilai aset berdasarkan kategori</span>
+                  </div>
+                </div>
+              </div>
+              <div class="chart-card-body">
+                <canvas id="chart-value-by-type" style="width:100%; height:280px;"></canvas>
+              </div>
+            </div>
+          </div>
+          <!-- Pie Chart -->
+          <div class="col-span-12 xl:col-span-4">
+            <div class="chart-card h-full">
+              <div class="chart-card-header">
+                <div class="chart-card-title">
+                  <div class="chart-card-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <i data-feather="pie-chart"></i>
+                  </div>
+                  <div>
+                    <h5>Komposisi Aset</h5>
+                    <span>Distribusi jumlah per jenis</span>
+                  </div>
+                </div>
+              </div>
+              <div class="chart-card-body">
+                <canvas id="chart-jenis-pie" style="width:100%; height:280px;"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: Info Panels Row -->
+        <div class="grid grid-cols-12 gap-5 mb-6">
+          <!-- Aktivitas Terbaru -->
+          <div class="col-span-12 xl:col-span-5">
+            <div class="info-panel h-full">
+              <div class="info-panel-header">
+                <div class="info-panel-icon" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+                  <i data-feather="activity"></i>
+                </div>
+                <h5 class="info-panel-title">Aktivitas Terbaru</h5>
+              </div>
+              <div class="info-panel-body">
+                <ul class="activity-timeline" id="recent-activities"></ul>
+              </div>
+            </div>
+          </div>
+          <!-- Info Operasional -->
+          <div class="col-span-12 xl:col-span-4">
+            <div class="info-panel h-full">
+              <div class="info-panel-header">
+                <div class="info-panel-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                  <i data-feather="clock"></i>
+                </div>
+                <h5 class="info-panel-title">Menunggu Persetujuan</h5>
+                <span id="op-pending-count" style="margin-left:auto; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #92400e; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">—</span>
+              </div>
+              <div class="info-panel-body">
+                <table class="pending-table">
+                  <thead>
+                    <tr>
+                      <th style="text-align:left;">Kode</th>
+                      <th style="text-align:left;">Nama Aset</th>
+                    </tr>
+                  </thead>
+                  <tbody id="op-pending-list"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- Trend Chart -->
+          <div class="col-span-12 xl:col-span-3">
+            <div class="chart-card h-full">
+              <div class="chart-card-header" style="padding: 16px 20px;">
+                <div class="chart-card-title">
+                  <div class="chart-card-icon" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); width:36px; height:36px;">
+                    <i data-feather="trending-up" style="width:16px;height:16px;"></i>
+                  </div>
+                  <div>
+                    <h5 style="font-size:14px;">Trend Bulanan</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="chart-card-body" style="padding: 16px 20px;">
+                <canvas id="chart-month-trend" style="width:100%; height:200px;"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 5: Export Log -->
+        <div class="grid grid-cols-12 gap-5 mb-6">
+          <div class="col-span-12 xl:col-span-6">
+            <div class="info-panel">
+              <div class="info-panel-header">
+                <div class="info-panel-icon" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">
+                  <i data-feather="download"></i>
+                </div>
+                <h5 class="info-panel-title">Export Terbaru</h5>
+              </div>
+              <div class="info-panel-body">
+                <table class="pending-table">
+                  <thead>
+                    <tr>
+                      <th style="text-align:left;">User</th>
+                      <th style="text-align:left;">Jenis</th>
+                      <th style="text-align:left;">Tanggal</th>
+                    </tr>
+                  </thead>
+                  <tbody id="export-log"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+<!-- SECTION 4: Inventaris per Jenis - Beautiful Cards -->
+        <div class="mb-4">
+          <h5 class="text-lg font-semibold mb-1" style="color:#3f4d67;">Ringkasan Inventaris per Jenis</h5>
+          <p class="text-muted text-sm">Klik pada kartu untuk melihat detail inventaris</p>
+        </div>
+        <div class="grid grid-cols-12 gap-5 mb-6">
+          <!-- Card 1: Buku Inventaris Aset Desa (Main/Featured) -->
+          <div class="col-span-12 md:col-span-6 xl:col-span-4">
+            <div class="card overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer group" style="background: linear-gradient(135deg, #3f4d67 0%, #5a6b8a 100%);">
+              <div class="card-body p-5">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <p class="text-white/70 text-sm mb-1">Buku Inventaris</p>
+                    <h4 class="text-white font-bold text-2xl mb-0">Aset Desa</h4>
+                  </div>
+                  <div class="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <i data-feather="book-open" class="w-7 h-7 text-white"></i>
+                  </div>
+                </div>
+                <div class="mt-5 pt-4 border-t border-white/20">
+                  <div class="flex items-end justify-between">
+                    <div>
+                      <span class="text-white text-4xl font-bold" id="inv-total">120</span>
+                      <span class="text-white/70 text-sm ml-2">Total Data</span>
+                    </div>
+                    <div class="flex items-center gap-1 text-green-300 text-sm">
+                      <i data-feather="trending-up" class="w-4 h-4"></i>
+                      <span>+12%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Kendaraan -->
+          <div class="col-span-6 md:col-span-6 xl:col-span-4">
+            <div class="card overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group">
+              <div class="card-body p-5">
+                <div class="flex items-start justify-between">
+                  <div class="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">
+                    <i data-feather="truck" class="w-6 h-6 text-white"></i>
+                  </div>
+                  <span class="px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-600">Aktif</span>
+                </div>
+                <div class="mt-4">
+                  <h5 class="font-semibold text-gray-800 mb-1">Inventaris Kendaraan</h5>
+                  <p class="text-muted text-xs mb-3">Mobil, motor, dan kendaraan operasional</p>
+                  <div class="flex items-end justify-between">
+                    <span class="text-3xl font-bold" style="color:#3f4d67;" id="inv-kendaraan">20</span>
+                    <span class="text-muted text-sm">data</span>
+                  </div>
+                </div>
+                <div class="mt-3 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full rounded-full" style="width: 16.7%; background: linear-gradient(90deg, #6366f1, #8b5cf6);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Peralatan dan Mesin -->
+          <div class="col-span-6 md:col-span-6 xl:col-span-4">
+            <div class="card overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group">
+              <div class="card-body p-5">
+                <div class="flex items-start justify-between">
+                  <div class="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);">
+                    <i data-feather="settings" class="w-6 h-6 text-white"></i>
+                  </div>
+                  <span class="px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-600">Aktif</span>
+                </div>
+                <div class="mt-4">
+                  <h5 class="font-semibold text-gray-800 mb-1">Peralatan & Mesin</h5>
+                  <p class="text-muted text-xs mb-3">Mesin, generator, pompa air, dll</p>
+                  <div class="flex items-end justify-between">
+                    <span class="text-3xl font-bold" style="color:#3f4d67;" id="inv-peralatan">20</span>
+                    <span class="text-muted text-sm">data</span>
+                  </div>
+                </div>
+                <div class="mt-3 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full rounded-full" style="width: 16.7%; background: linear-gradient(90deg, #f59e0b, #f97316);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Bangunan -->
+          <div class="col-span-6 md:col-span-6 xl:col-span-3">
+            <div class="card overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group">
+              <div class="card-body p-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <i data-feather="home" class="w-5 h-5 text-white"></i>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h6 class="font-semibold text-gray-800 text-sm mb-0 truncate">Bangunan</h6>
+                    <p class="text-muted text-xs mb-0">Gedung & konstruksi</p>
+                  </div>
+                </div>
+                <div class="mt-3 flex items-end justify-between">
+                  <span class="text-2xl font-bold" style="color:#3f4d67;" id="inv-bangunan">20</span>
+                  <div class="flex items-center gap-1 text-green-500 text-xs">
+                    <i data-feather="arrow-up" class="w-3 h-3"></i>
+                    <span>5%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Tanah -->
+          <div class="col-span-6 md:col-span-6 xl:col-span-3">
+            <div class="card overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group">
+              <div class="card-body p-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                    <i data-feather="map" class="w-5 h-5 text-white"></i>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h6 class="font-semibold text-gray-800 text-sm mb-0 truncate">Tanah</h6>
+                    <p class="text-muted text-xs mb-0">Lahan & kavling</p>
+                  </div>
+                </div>
+                <div class="mt-3 flex items-end justify-between">
+                  <span class="text-2xl font-bold" style="color:#3f4d67;" id="inv-tanah">20</span>
+                  <div class="flex items-center gap-1 text-green-500 text-xs">
+                    <i data-feather="arrow-up" class="w-3 h-3"></i>
+                    <span>2%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6: Jalan, Irigasi, Jaringan -->
+          <div class="col-span-6 md:col-span-6 xl:col-span-3">
+            <div class="card overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group">
+              <div class="card-body p-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">
+                    <i data-feather="git-branch" class="w-5 h-5 text-white"></i>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h6 class="font-semibold text-gray-800 text-sm mb-0 truncate">Jalan & Jaringan</h6>
+                    <p class="text-muted text-xs mb-0">Infrastruktur</p>
+                  </div>
+                </div>
+                <div class="mt-3 flex items-end justify-between">
+                  <span class="text-2xl font-bold" style="color:#3f4d67;" id="inv-jalan">20</span>
+                  <div class="flex items-center gap-1 text-green-500 text-xs">
+                    <i data-feather="arrow-up" class="w-3 h-3"></i>
+                    <span>8%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 7: Aset Tetap Lainnya -->
+          <div class="col-span-6 md:col-span-6 xl:col-span-3">
+            <div class="card overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group">
+              <div class="card-body p-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">
+                    <i data-feather="package" class="w-5 h-5 text-white"></i>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h6 class="font-semibold text-gray-800 text-sm mb-0 truncate">Aset Lainnya</h6>
+                    <p class="text-muted text-xs mb-0">Aset tetap lain</p>
+                  </div>
+                </div>
+                <div class="mt-3 flex items-end justify-between">
+                  <span class="text-2xl font-bold" style="color:#3f4d67;" id="inv-lainnya">20</span>
+                  <div class="flex items-center gap-1 text-gray-400 text-xs">
+                    <i data-feather="minus" class="w-3 h-3"></i>
+                    <span>0%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 8: Aset Tidak Ditemukan (Warning style) -->
+          <div class="col-span-12 md:col-span-6 xl:col-span-4">
+            <div class="card overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left: 4px solid #f59e0b;">
+              <div class="card-body p-4">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <i data-feather="alert-triangle" class="w-6 h-6 text-orange-600"></i>
+                  </div>
+                  <div class="flex-1">
+                    <h5 class="font-semibold text-orange-800 mb-1">Aset Tidak Ditemukan</h5>
+                    <p class="text-orange-600/80 text-xs mb-0">Aset yang perlu ditindaklanjuti</p>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-3xl font-bold text-orange-700" id="inv-hilang">20</span>
+                    <span class="text-orange-600/70 text-sm block">data</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- [ Main Content ] end -->
+      </div>
+    </div>
+    <!-- [ Main Content ] end -->
+    @@include('../layouts/footer-block.html') 
+    @@include('../layouts/footer-js.html')
+    <!-- Chart.js CDN and dashboard demo script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      (function(){
+        // Mock/demo data - replace with real API responses
+        const mock = {
+          totalAssets: 120,
+          totalValue: 125000000, // currency
+          kondisiAset: { baik: 85, rusakRingan: 12, rusakBerat: 5 },
+          statusCounts: { draft: 10, pending: 8, approved: 85, rejected: 17 },
+          usersActive: 24,
+          pejabatActive: 6,
+          // monetary value by jenis
+          valueByType: [30000000, 25000000, 20000000, 15000000, 20000000, 10000000, 5000000],
+          // jenis labels and counts (for the small pie)
+          types: ['Kendaraan','Peralatan','Bangunan','Tanah','Jalan','Perabot','Elektronik'],
+          countByType: [30,25,20,15,18,8,5],
+          monthlyCounts: [2,4,5,6,10,8,9,7,5,6,10,18],
+          recentActivities: [
+            {text: 'User A menambah inventaris Toyota Avanza', time: '2 menit lalu', color: '#10b981'},
+            {text: 'Pejabat B menyetujui Inventaris KB-101', time: '1 jam lalu', color: '#6366f1'},
+            {text: 'User C mengekspor Inventaris Jenis Kendaraan (PDF)', time: '3 jam lalu', color: '#f59e0b'},
+            {text: 'Pejabat D menolak Inventaris KB-620', time: '1 hari lalu', color: '#ef4444'}
+          ],
+          topApprover: 'Pejabat B',
+          exportLogs: [
+            'User A — Export Jenis Inventaris: Kendaraan (PDF) — 2025-12-07',
+            'User B — Export Jenis Inventaris: Peralatan (Excel) — 2025-12-06',
+            'User C — Export Jenis Inventaris: Bangunan (PDF) — 2025-12-05'
+          ],
+          pendingList: [
+            {id: 'KB-201', name: 'Suzuki Carry'},
+            {id: 'KB-306', name: 'Generator'},
+            {id: 'KB-512', name: 'Kebun Percobaan'}
+          ]
+        };
+
+        // Populate KPI
+        const el = id => document.getElementById(id);
+        if(el('kpi-total-assets')) el('kpi-total-assets').textContent = mock.totalAssets;
+        if(el('kpi-total-value')) el('kpi-total-value').textContent = new Intl.NumberFormat('id-ID', {style:'currency', currency:'IDR', maximumFractionDigits:0}).format(mock.totalValue);
+        if(el('kpi-pejabat')) el('kpi-pejabat').textContent = mock.pejabatActive;
+        if(el('kpi-users')) el('kpi-users').textContent = mock.usersActive;
+        // Kondisi Aset
+        if(el('kpi-kondisi-baik')) el('kpi-kondisi-baik').textContent = mock.kondisiAset.baik;
+        if(el('kpi-kondisi-rr')) el('kpi-kondisi-rr').textContent = mock.kondisiAset.rusakRingan;
+        if(el('kpi-kondisi-rb')) el('kpi-kondisi-rb').textContent = mock.kondisiAset.rusakBerat;
+
+        // Populate Recent Activities with timeline style
+        const actEl = document.getElementById('recent-activities');
+        if(actEl) actEl.innerHTML = mock.recentActivities.map(a => `
+          <li class="activity-item">
+            <div class="activity-dot" style="background: ${a.color};"></div>
+            <div class="activity-content">
+              <div class="activity-text">${a.text}</div>
+              <div class="activity-time">${a.time}</div>
+            </div>
+          </li>
+        `).join('');
+
+        // Operational widgets
+        if(el('op-pending-count')) el('op-pending-count').textContent = mock.statusCounts.pending;
+        if(el('op-top-approver')) el('op-top-approver').textContent = mock.topApprover;
+
+        // Populate pending list as table rows
+        const pendEl = document.getElementById('op-pending-list');
+        if(pendEl && mock.pendingList){
+          pendEl.innerHTML = mock.pendingList.map(p => `<tr><td style="font-weight:600; color:#3f4d67;">${p.id}</td><td>${p.name}</td></tr>`).join('');
+        }
+
+        // Populate export log as table rows
+        const expEl = document.getElementById('export-log');
+        if(expEl && mock.exportLogs){
+          expEl.innerHTML = mock.exportLogs.map(e => {
+            const parts = e.split(' — ');
+            const user = parts[0] || '';
+            const jenis = parts[1] ? parts[1].replace('Export Jenis Inventaris: ','') : '';
+            const tanggal = parts[2] || '';
+            return `<tr><td style="font-weight:500;">${user}</td><td>${jenis}</td><td style="color:#6b7280;">${tanggal}</td></tr>`;
+          }).join('');
+        }
+
+        // Charts with beautiful gradients
+        function safeChart(ctxId, cfg){
+          const c = document.getElementById(ctxId);
+          if(!c) return null;
+          return new Chart(c.getContext('2d'), cfg);
+        }
+
+        // Bar Chart with Gradient
+        const barCtx = document.getElementById('chart-value-by-type');
+        if(barCtx) {
+          const ctx = barCtx.getContext('2d');
+          const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+          gradient.addColorStop(0, 'rgba(99, 102, 241, 0.9)');
+          gradient.addColorStop(1, 'rgba(79, 70, 229, 0.6)');
+
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: mock.types,
+              datasets: [{
+                label: 'Nilai Aset (IDR)',
+                data: mock.valueByType,
+                backgroundColor: gradient,
+                borderRadius: 8,
+                borderSkipped: false,
+                barThickness: 36
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  backgroundColor: 'rgba(31, 41, 55, 0.95)',
+                  titleFont: { size: 13, weight: '600' },
+                  bodyFont: { size: 12 },
+                  padding: 12,
+                  cornerRadius: 8,
+                  callbacks: {
+                    label: function(context) {
+                      return new Intl.NumberFormat('id-ID', {style:'currency', currency:'IDR', maximumFractionDigits:0}).format(context.raw);
+                    }
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  grid: { display: false },
+                  ticks: { font: { size: 11 }, color: '#6b7280' }
+                },
+                y: {
+                  grid: { color: 'rgba(0,0,0,0.04)' },
+                  ticks: {
+                    font: { size: 11 },
+                    color: '#6b7280',
+                    callback: function(value) {
+                      return (value / 1000000) + 'jt';
+                    }
+                  }
+                }
+              }
+            }
+          });
+        }
+
+        // Doughnut/Pie Chart with beautiful colors
+        const pieCtx = document.getElementById('chart-jenis-pie');
+        if(pieCtx) {
+          new Chart(pieCtx.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+              labels: mock.types,
+              datasets: [{
+                data: mock.countByType,
+                backgroundColor: [
+                  'rgba(99, 102, 241, 0.85)',
+                  'rgba(245, 158, 11, 0.85)',
+                  'rgba(16, 185, 129, 0.85)',
+                  'rgba(139, 92, 246, 0.85)',
+                  'rgba(6, 182, 212, 0.85)',
+                  'rgba(236, 72, 153, 0.85)',
+                  'rgba(239, 68, 68, 0.85)'
+                ],
+                borderWidth: 0,
+                hoverOffset: 8
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              cutout: '60%',
+              plugins: {
+                legend: {
+                  position: 'right',
+                  labels: {
+                    boxWidth: 14,
+                    padding: 16,
+                    font: { size: 12 },
+                    usePointStyle: true,
+                    pointStyle: 'circle'
+                  }
+                },
+                tooltip: {
+                  backgroundColor: 'rgba(31, 41, 55, 0.95)',
+                  titleFont: { size: 13, weight: '600' },
+                  bodyFont: { size: 12 },
+                  padding: 12,
+                  cornerRadius: 8
+                }
+              }
+            }
+          });
+        }
+
+        // Line/Area Chart with Gradient Fill
+        const lineCtx = document.getElementById('chart-month-trend');
+        if(lineCtx) {
+          const ctx = lineCtx.getContext('2d');
+          const gradientFill = ctx.createLinearGradient(0, 0, 0, 200);
+          gradientFill.addColorStop(0, 'rgba(236, 72, 153, 0.3)');
+          gradientFill.addColorStop(1, 'rgba(236, 72, 153, 0.02)');
+
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
+              datasets: [{
+                label: 'Jumlah Aset',
+                data: mock.monthlyCounts,
+                borderColor: 'rgba(236, 72, 153, 1)',
+                backgroundColor: gradientFill,
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#fff',
+                pointBorderColor: 'rgba(236, 72, 153, 1)',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 6
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  backgroundColor: 'rgba(31, 41, 55, 0.95)',
+                  titleFont: { size: 13, weight: '600' },
+                  bodyFont: { size: 12 },
+                  padding: 12,
+                  cornerRadius: 8
+                }
+              },
+              scales: {
+                x: {
+                  grid: { display: false },
+                  ticks: { font: { size: 10 }, color: '#9ca3af' }
+                },
+                y: {
+                  grid: { color: 'rgba(0,0,0,0.04)' },
+                  ticks: { font: { size: 10 }, color: '#9ca3af' }
+                }
+              }
+            }
+          });
+        }
+
+      })();
+    </script>
+  </body>
+  <!-- [Body] end -->
+</html>

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en" @@bodySetup>
+  <head>
+    @@include('../layouts/head-page-meta.html', {'title': 'Tambah Aset'})
+    @@include('../layouts/head-css.html')
+    <style>
+      .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+      .form-row { margin-bottom: 12px; }
+      .label { font-weight: 600; margin-bottom: 6px; display:block; }
+      .small-muted { font-size: .85rem; color: #6b7280; }
+      .kondisi-group { display:flex; gap:.5rem; align-items:center; }
+      @media (max-width: 768px) { .form-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+
+  <body>
+    @@include('../layouts/layout-vertical.html')
+
+    <div class="pc-container">
+      <div class="pc-content">
+        @@include('../layouts/breadcrumb.html', {'breadcrumb-item-home': 'Inventaris','breadcrumb-item': 'Tambah Aset', 'breadcrumb-item-active': ''})
+
+        <div class="grid grid-cols-12 gap-x-6">
+          <div class="col-span-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <h5 class="mb-1">Tambah Aset</h5>
+                    <p class="text-muted text-sm mb-0">Isi data aset. Pilih jenis inventaris terlebih dahulu untuk melihat form spesifik.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-body no-pt">
+                <form id="asset-form">
+                  <div class="px-6 pt-4">
+                    <div class="form-row">
+                      <label class="label" for="jenis_inventaris">Jenis Inventaris</label>
+                      <select id="jenis_inventaris" name="jenis_inventaris" class="form-select">
+                        <option value="">-- Pilih Jenis Inventaris --</option>
+                        <option value="kendaraan">Inventaris Kendaraan</option>
+                        <option value="peralatan_mesin">Inventaris Peralatan dan Mesin</option>
+                        <option value="bangunan">Inventaris Bangunan</option>
+                        <option value="tanah">Inventaris Tanah</option>
+                        <option value="jalan_irigasi">Inventaris Jalan, Irigasi, dan Jaringan</option>
+                        <option value="peralatan_kantor">Inventaris Peralatan Kantor</option>
+                        <option value="elektronik">Inventaris Elektronik</option>
+                        <option value="multimedia">Inventaris Multimedia</option>
+                      </select>
+                    </div>
+
+                    <div id="common-fields" class="form-grid">
+                      <div>
+                        <label class="label" for="nama_barang">Nama Barang</label>
+                        <input id="nama_barang" name="nama_barang" class="form-control" type="text" required />
+                      </div>
+                      <div>
+                        <label class="label" for="kode_barang">Kode Barang</label>
+                        <input id="kode_barang" name="kode_barang" class="form-control" type="text" required />
+                      </div>
+                      <div>
+                        <label class="label" for="nup">NUP</label>
+                        <input id="nup" name="nup" class="form-control" type="text" />
+                      </div>
+                      <div>
+                        <label class="label" for="tahun_perolehan">Tahun Perolehan</label>
+                        <input id="tahun_perolehan" name="tahun_perolehan" class="form-control" type="number" min="1900" max="2100" />
+                      </div>
+                      <div>
+                        <label class="label" for="nilai_perolehan">Nilai Perolehan (Rp)</label>
+                        <input id="nilai_perolehan" name="nilai_perolehan" class="form-control" type="number" step="0.01" />
+                      </div>
+                      <div>
+                        <label class="label" for="barcode">Barcode</label>
+                        <input id="barcode" name="barcode" class="form-control" type="text" />
+                      </div>
+                      <div style="grid-column:1 / -1;">
+                        <label class="label" for="keterangan">Keterangan</label>
+                        <textarea id="keterangan" name="keterangan" class="form-control" rows="3"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Kendaraan specific fields -->
+                    <div id="section-kendaraan" style="display:none; margin-top:12px;">
+                      <h6 class="mb-2">Detail Kendaraan</h6>
+                      <div class="form-grid">
+                        <div>
+                          <label class="label" for="merk_type">Merk / Type</label>
+                          <input id="merk_type" name="merk_type" class="form-control" type="text" />
+                        </div>
+                        <div>
+                          <label class="label" for="nomor_identitas">Nomor Identitas (Nopol / No. Mesin / No. Rangka)</label>
+                          <input id="nomor_identitas" name="nomor_identitas" class="form-control" type="text" />
+                        </div>
+                        <div>
+                          <label class="label" for="kondisi">Kondisi Barang</label>
+                          <div class="kondisi-group">
+                            <label><input type="radio" name="kondisi" value="B" checked /> B</label>
+                            <label><input type="radio" name="kondisi" value="RR" /> RR</label>
+                            <label><input type="radio" name="kondisi" value="RB" /> RB</label>
+                          </div>
+                        </div>
+                        <div>
+                          <label class="label" for="nomor_bpkb">No. BPKB</label>
+                          <input id="nomor_bpkb" name="nomor_bpkb" class="form-control" type="text" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Generic fallback section (for other jenis) -->
+                    <div id="section-generic" style="display:none; margin-top:12px;">
+                      <h6 class="mb-2">Detail Tambahan</h6>
+                      <div class="form-grid">
+                        <div>
+                          <label class="label" for="spesifikasi">Spesifikasi</label>
+                          <input id="spesifikasi" name="spesifikasi" class="form-control" type="text" />
+                        </div>
+                        <div>
+                          <label class="label" for="jumlah">Jumlah</label>
+                          <input id="jumlah" name="jumlah" class="form-control" type="number" min="1" value="1" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="margin-top:18px; display:flex; gap:8px;">
+                      <button id="save-draft" class="btn btn-outline-secondary" type="button">Save Draft</button>
+                      <button id="submit-btn" class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @@include('../layouts/footer-block.html')
+    @@include('../layouts/footer-js.html')
+
+    <script>
+      (function(){
+        const jenis = document.getElementById('jenis_inventaris');
+        const sKend = document.getElementById('section-kendaraan');
+        const sGen = document.getElementById('section-generic');
+        const form = document.getElementById('asset-form');
+        const saveBtn = document.getElementById('save-draft');
+
+        function updateSections(){
+          const v = jenis.value;
+          if(v === 'kendaraan'){
+            sKend.style.display = '';
+            sGen.style.display = 'none';
+          } else if(v){
+            sKend.style.display = 'none';
+            sGen.style.display = '';
+          } else {
+            sKend.style.display = 'none';
+            sGen.style.display = 'none';
+          }
+        }
+
+        jenis.addEventListener('change', updateSections);
+        updateSections();
+
+        function collectFormData(status){
+          const fd = {};
+          fd.jenis_inventaris = jenis.value;
+          fd.nama_barang = document.getElementById('nama_barang').value || null;
+          fd.kode_barang = document.getElementById('kode_barang').value || null;
+          fd.nup = document.getElementById('nup').value || null;
+          fd.tahun_perolehan = document.getElementById('tahun_perolehan').value || null;
+          fd.nilai_perolehan = document.getElementById('nilai_perolehan').value || null;
+          fd.barcode = document.getElementById('barcode').value || null;
+          fd.keterangan = document.getElementById('keterangan').value || null;
+          fd.status = status || 'draft';
+
+          if(jenis.value === 'kendaraan'){
+            fd.merk_type = document.getElementById('merk_type').value || null;
+            fd.nomor_identitas = document.getElementById('nomor_identitas').value || null;
+            const kondisi = document.querySelector('input[name="kondisi"]:checked');
+            fd.kondisi = kondisi ? kondisi.value : null;
+            fd.nomor_bpkb = document.getElementById('nomor_bpkb').value || null;
+          } else {
+            fd.spesifikasi = document.getElementById('spesifikasi').value || null;
+            fd.jumlah = document.getElementById('jumlah').value || 1;
+          }
+
+          // meta fields
+          fd.created_by = 1; // stub: replace with real user id
+          return fd;
+        }
+
+        saveBtn.addEventListener('click', function(){
+          const data = collectFormData('draft');
+          // stub: save draft locally or call endpoint
+          console.log('Save draft payload', data);
+          alert('Draft disimpan (stub). Lihat console untuk payload.');
+        });
+
+        form.addEventListener('submit', function(e){
+          e.preventDefault();
+          const data = collectFormData('pending');
+          // rudimentary validation
+          if(!data.jenis_inventaris){ alert('Pilih jenis inventaris.'); return; }
+          if(!data.nama_barang){ alert('Isi nama barang.'); return; }
+          if(!data.kode_barang){ alert('Isi kode barang.'); return; }
+
+          // Submit stub: replace URL with real API endpoint
+          console.log('Submitting payload', data);
+          fetch('/api/inventaris', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          }).then(r => {
+            if(r.ok) return r.json();
+            throw new Error('Network response not ok');
+          }).then(res => {
+            alert('Data berhasil dikirim (stub).');
+          }).catch(err => {
+            console.warn('API not available, payload logged to console.', data);
+            alert('Simulasi submit: payload ditampilkan di console.');
+          });
+        });
+      })();
+    </script>
+</body>
+</html>
+x

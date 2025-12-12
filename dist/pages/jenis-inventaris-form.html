@@ -1,0 +1,1353 @@
+<!doctype html>
+<html lang="en" data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-direction="ltr" dir="ltr" data-pc-theme="light">
+  <head>
+    <title>Tambah Jenis Inventaris | Sistem Informasi Manajemen Aset</title>
+    <!-- [Base URL for GitHub Pages] -->
+    <base href="/sistem-manajemen-aset-desa/" />
+    <!-- [Meta] -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Datta Able is trending dashboard template made using Bootstrap 5 design framework. Datta Able is available in Bootstrap, React, CodeIgniter, Angular,  and .net Technologies."
+    />
+    <meta
+      name="keywords"
+      content="Bootstrap admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard"
+    />
+    <meta name="author" content="CodedThemes" />
+
+    <!-- [Favicon] icon -->
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/x-icon" />
+
+     <!-- [Font] Family -->
+     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <!-- Tailwind CDN - quick start (development/testing). Replace with compiled CSS for production. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- [phosphor Icons] https://phosphoricons.com/ -->
+    <link rel="stylesheet" href="../assets/fonts/phosphor/duotone/style.css" />
+    <!-- [Tabler Icons] https://tablericons.com -->
+    <link rel="stylesheet" href="../assets/fonts/tabler-icons.min.css" />
+    <!-- [Feather Icons] https://feathericons.com -->
+    <link rel="stylesheet" href="../assets/fonts/feather.css" />
+    <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+    <link rel="stylesheet" href="../assets/fonts/fontawesome.css" />
+    <!-- [Material Icons] https://fonts.google.com/icons -->
+    <link rel="stylesheet" href="../assets/fonts/material.css" />
+    <!-- [Template CSS Files] -->
+    <link rel="stylesheet" href="../assets/css/style.css" id="main-style-link" />
+
+    <style>
+      /* Form Styling */
+      .form-section {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #e2e8f0;
+      }
+      .form-section-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #3f4d67;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .form-section-title i {
+        width: 18px;
+        height: 18px;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .form-group {
+        margin-bottom: 0;
+      }
+      .form-label {
+        font-weight: 500;
+        font-size: 13px;
+        color: #374151;
+        margin-bottom: 6px;
+        display: block;
+      }
+      .form-label .required {
+        color: #ef4444;
+        margin-left: 2px;
+      }
+      .form-label .optional {
+        color: #9ca3af;
+        font-weight: 400;
+        font-size: 11px;
+        margin-left: 4px;
+      }
+      .form-control, .form-select {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        background: #fff;
+      }
+      .form-control:focus, .form-select:focus {
+        outline: none;
+        border-color: #3f4d67;
+        box-shadow: 0 0 0 3px rgba(63, 77, 103, 0.1);
+      }
+      .form-control::placeholder {
+        color: #9ca3af;
+      }
+      .form-hint {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 4px;
+      }
+      .form-full {
+        grid-column: 1 / -1;
+      }
+
+      /* Card Header */
+      .card-header-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #3f4d67 0%, #5a6b8a 100%);
+        margin-right: 12px;
+      }
+      .card-header-icon i {
+        color: #fff;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Pejabat Multi-select */
+      .pejabat-select-area {
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        background: #fff;
+        overflow: hidden;
+      }
+      .pejabat-select-header {
+        background: #f8fafc;
+        padding: 12px 16px;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .pejabat-select-header-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #374151;
+      }
+      .pejabat-count {
+        font-size: 12px;
+        background: #3f4d67;
+        color: #fff;
+        padding: 2px 10px;
+        border-radius: 12px;
+      }
+      .pejabat-list {
+        max-height: 240px;
+        overflow-y: auto;
+      }
+      .pejabat-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border-bottom: 1px solid #f1f5f9;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .pejabat-item:last-child {
+        border-bottom: none;
+      }
+      .pejabat-item:hover {
+        background: #f8fafc;
+      }
+      .pejabat-item.selected {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border-left: 3px solid #3b82f6;
+      }
+      .pejabat-item input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #3f4d67;
+        cursor: pointer;
+      }
+      .pejabat-info {
+        flex: 1;
+      }
+      .pejabat-nama {
+        font-size: 14px;
+        font-weight: 500;
+        color: #374151;
+      }
+      .pejabat-jabatan {
+        font-size: 12px;
+        color: #6b7280;
+      }
+      .pejabat-order {
+        display: none;
+        align-items: center;
+        gap: 4px;
+      }
+      .pejabat-item.selected .pejabat-order {
+        display: flex;
+      }
+      .order-badge {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        background: #3f4d67;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .order-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .order-btn {
+        width: 20px;
+        height: 16px;
+        border: none;
+        background: #e5e7eb;
+        border-radius: 3px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+      }
+      .order-btn:hover {
+        background: #d1d5db;
+      }
+      .order-btn i {
+        width: 12px;
+        height: 12px;
+        color: #374151;
+      }
+
+      /* Dynamic Fields Section */
+      .fields-container {
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        background: #fff;
+        overflow: hidden;
+      }
+      .fields-header {
+        background: linear-gradient(135deg, #3f4d67 0%, #5a6b8a 100%);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .fields-header-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .fields-header-title i {
+        width: 16px;
+        height: 16px;
+      }
+      .btn-add-field {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background: rgba(255,255,255,0.2);
+        border: 1px solid rgba(255,255,255,0.3);
+        border-radius: 6px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-add-field:hover {
+        background: rgba(255,255,255,0.3);
+      }
+      .btn-add-field i {
+        width: 14px;
+        height: 14px;
+      }
+      .fields-body {
+        padding: 0;
+      }
+      .fields-empty {
+        padding: 40px 20px;
+        text-align: center;
+        color: #9ca3af;
+      }
+      .fields-empty-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 12px;
+        background: #f1f5f9;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .fields-empty-icon i {
+        width: 24px;
+        height: 24px;
+        color: #9ca3af;
+      }
+      .fields-empty-text {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+      .fields-empty-hint {
+        font-size: 12px;
+      }
+      .field-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid #f1f5f9;
+        background: #fff;
+        transition: all 0.15s;
+      }
+      .field-item:hover {
+        background: #f8fafc;
+      }
+      .field-item:last-child {
+        border-bottom: none;
+      }
+      .field-drag {
+        cursor: grab;
+        color: #9ca3af;
+        padding: 4px;
+      }
+      .field-drag:active {
+        cursor: grabbing;
+      }
+      .field-drag i {
+        width: 16px;
+        height: 16px;
+      }
+      .field-order-num {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        background: #e5e7eb;
+        color: #374151;
+        font-size: 11px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .field-inputs {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr 100px 80px;
+        gap: 10px;
+        align-items: center;
+      }
+      .field-input {
+        padding: 8px 12px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        font-size: 13px;
+        transition: all 0.15s;
+      }
+      .field-input:focus {
+        outline: none;
+        border-color: #3f4d67;
+        box-shadow: 0 0 0 2px rgba(63, 77, 103, 0.1);
+      }
+      .field-input.field-select {
+        background: #fff;
+        cursor: pointer;
+      }
+      .field-required-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #6b7280;
+      }
+      .field-required-toggle input {
+        width: 16px;
+        height: 16px;
+        accent-color: #3f4d67;
+      }
+      .field-actions {
+        display: flex;
+        gap: 4px;
+      }
+      .field-action-btn {
+        width: 32px;
+        height: 32px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+      }
+      .field-action-btn i {
+        width: 16px;
+        height: 16px;
+      }
+      .field-action-btn.delete {
+        background: #fee2e2;
+        color: #dc2626;
+      }
+      .field-action-btn.delete:hover {
+        background: #fecaca;
+      }
+
+      /* Default Fields Info */
+      .default-fields-info {
+        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        border: 1px solid #6ee7b7;
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+      .default-fields-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #065f46;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .default-fields-title i {
+        width: 16px;
+        height: 16px;
+      }
+      .default-fields-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .default-field-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        background: #fff;
+        border: 1px solid #a7f3d0;
+        border-radius: 6px;
+        font-size: 12px;
+        color: #047857;
+      }
+      .default-field-tag i {
+        width: 12px;
+        height: 12px;
+      }
+
+      /* Info box */
+      .info-box {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border: 1px solid #93c5fd;
+        border-radius: 8px;
+        padding: 12px 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .info-box i {
+        color: #3b82f6;
+        flex-shrink: 0;
+        margin-top: 2px;
+        width: 18px;
+        height: 18px;
+      }
+      .info-box-text {
+        font-size: 13px;
+        color: #1e40af;
+        line-height: 1.5;
+      }
+
+      /* Buttons */
+      .form-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        padding-top: 20px;
+        border-top: 1px solid #e5e7eb;
+        margin-top: 24px;
+      }
+      .btn-cancel {
+        padding: 10px 20px;
+        border: 1px solid #d1d5db;
+        background: #fff;
+        color: #374151;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-cancel:hover {
+        background: #f3f4f6;
+      }
+      .btn-submit {
+        padding: 10px 24px;
+        border: none;
+        background: #3f4d67;
+        color: #fff;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-submit:hover {
+        background: #2d3a4f;
+      }
+      .btn-submit i {
+        width: 18px;
+        height: 18px;
+      }
+
+      @media (max-width: 768px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .field-inputs {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- [ Pre-loader ] start -->
+<div class="loader-bg fixed inset-0 bg-white dark:bg-themedark-cardbg z-[1034]">
+  <div class="loader-track h-[5px] w-full inline-block absolute overflow-hidden top-0">
+    <div class="loader-fill w-[300px] h-[5px] bg-primary-500 absolute top-0 left-0 animate-[hitZak_0.6s_ease-in-out_infinite_alternate]"></div>
+  </div>
+</div>
+<!-- [ Pre-loader ] End -->
+ <!-- [ Sidebar Menu ] start -->
+<nav class="pc-sidebar">
+  <div class="navbar-wrapper">
+    <div class="m-header flex items-center py-4 px-6 h-header-height">
+      <a href="../dashboard/index.html" class="b-brand flex items-center gap-3">
+        <!-- ========   Change your logo from here   ============ -->
+        <!-- <img src="../assets/images/logo-white.svg" class="img-fluid logo logo-lg" alt="logo" />       -->
+          <span class="pc-item pc-caption">
+          <label class="text-white uppercase font-bold">Sistem Manajemen Aset</label>
+          </span> 
+
+        <img src="../assets/images/favicon.svg" class="img-fluid logo logo-sm" alt="logo" />
+      </a>
+    </div>
+    <div class="navbar-content h-[calc(100vh_-_74px)] py-2.5">
+      <ul class="pc-navbar">
+        <li class="pc-item pc-caption">
+          <label>Navigasi</label>
+        </li>
+        <li class="pc-item">
+          <a href="../dashboard/index.html" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="home"></i>
+            </span>
+            <span class="pc-mtext">Home</span>
+          </a>
+        </li>
+        <li class="pc-item pc-caption">
+          <label>Inventaris</label>
+          <i data-feather="monitor"></i>
+        </li>
+        <li class="pc-item pc-hasmenu">
+          <a href="../pages/manajemen-aset.html" class="pc-link">
+            <span class="pc-micon"> <i data-feather="book"></i></span>
+            <span class="pc-mtext">Manajemen Aset</span>
+          </a>
+        </li>
+        <li class="pc-item pc-hasmenu">
+          <a href="../pages/export-data.html" class="pc-link">
+            <span class="pc-micon"> <i data-feather="file-text"></i></span>
+            <span class="pc-mtext">Export Data</span>
+          </a>
+        </li>
+        <li class="pc-item pc-caption">
+          <label>Master Data</label>
+          <i data-feather="feather"></i>
+        </li>
+        <li class="pc-item pc-hasmenu">
+          <a href="../pages/users.html" class="pc-link">
+            <span class="pc-micon"> <i data-feather="users"></i></span>
+            <span class="pc-mtext">Users</span>
+          </a>
+        </li>
+        <li class="pc-item pc-hasmenu">
+          <a href="../pages/pejabats.html" class="pc-link">
+            <span class="pc-micon"> <i data-feather="user-check"></i></span>
+            <span class="pc-mtext">Pejabat</span>
+          </a>
+        </li>
+        <li class="pc-item pc-hasmenu">
+          <a href="../pages/jenis-inventaris.html" class="pc-link">
+            <span class="pc-micon"> <i data-feather="wind"></i></span>
+            <span class="pc-mtext">Jenis Inventaris</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- [ Sidebar Menu ] end -->
+ <!-- [ Header Topbar ] start -->
+<header class="pc-header">
+  <div class="header-wrapper flex max-sm:px-[15px] px-[25px] grow"><!-- [Mobile Media Block] start -->
+<div class="me-auto pc-mob-drp">
+  <ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center">
+    <!-- ======= Menu collapse Icon ===== -->
+    <li class="pc-h-item pc-sidebar-collapse max-lg:hidden lg:inline-flex">
+      <a href="#" class="pc-head-link ltr:!ml-0 rtl:!mr-0" id="sidebar-hide">
+        <i data-feather="menu"></i>
+      </a>
+    </li>
+    <li class="pc-h-item pc-sidebar-popup lg:hidden">
+      <a href="#" class="pc-head-link ltr:!ml-0 rtl:!mr-0" id="mobile-collapse">
+        <i data-feather="menu"></i>
+      </a>
+    </li>
+    <li class="dropdown pc-h-item">
+      <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
+        aria-haspopup="false" aria-expanded="false">
+        <i data-feather="search"></i>
+      </a>
+      <div class="dropdown-menu pc-h-dropdown drp-search">
+        <form class="px-2 py-1">
+          <input type="search" class="form-control !border-0 !shadow-none" placeholder="Search here. . ." />
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>
+<!-- [Mobile Media Block end] -->
+<div class="ms-auto">
+  <ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center">
+    <li class="dropdown pc-h-item">
+      <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
+        aria-haspopup="false" aria-expanded="false">
+        <i data-feather="sun"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-end pc-h-dropdown">
+        <a href="#!" class="dropdown-item" onclick="layout_change('dark')">
+          <i data-feather="moon"></i>
+          <span>Dark</span>
+        </a>
+        <a href="#!" class="dropdown-item" onclick="layout_change('light')">
+          <i data-feather="sun"></i>
+          <span>Light</span>
+        </a>
+        <a href="#!" class="dropdown-item" onclick="layout_change_default()">
+          <i data-feather="settings"></i>
+          <span>Default</span>
+        </a>
+      </div>
+    </li>
+    <li class="dropdown pc-h-item">
+      <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
+        aria-haspopup="false" aria-expanded="false">
+        <i data-feather="settings"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-end pc-h-dropdown">
+        <a href="#!" class="dropdown-item">
+          <i class="ti ti-user"></i>
+          <span>My Account</span>
+        </a>
+        <a href="#!" class="dropdown-item">
+          <i class="ti ti-settings"></i>
+          <span>Settings</span>
+        </a>
+        <a href="#!" class="dropdown-item">
+          <i class="ti ti-headset"></i>
+          <span>Support</span>
+        </a>
+        <a href="#!" class="dropdown-item">
+          <i class="ti ti-lock"></i>
+          <span>Lock Screen</span>
+        </a>
+        <a href="#!" class="dropdown-item">
+          <i class="ti ti-power"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </li>
+    <li class="dropdown pc-h-item">
+      <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
+        aria-haspopup="false" aria-expanded="false">
+        <i data-feather="bell"></i>
+        <span class="badge bg-success-500 text-white rounded-full z-10 absolute right-0 top-0">3</span>
+      </a>
+      <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown p-2">
+        <div class="dropdown-header flex items-center justify-between py-4 px-5">
+          <h5 class="m-0">Notifications</h5>
+          <a href="#!" class="btn btn-link btn-sm">Mark all read</a>
+        </div>
+        <div class="dropdown-body header-notification-scroll relative py-4 px-5"
+          style="max-height: calc(100vh - 215px)">
+          <p class="text-span mb-3">Today</p>
+          <div class="card mb-2">
+            <div class="card-body">
+              <div class="flex gap-4">
+                <div class="shrink-0">
+                  <img class="img-radius w-12 h-12 rounded-0" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image" />
+                </div>
+                <div class="grow">
+                  <span class="float-end text-sm text-muted">2 min ago</span>
+                  <h5 class="text-body mb-2">UI/UX Design</h5>
+                  <p class="mb-0">
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of
+                    type and scrambled it to make a type
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-2">
+            <div class="card-body">
+              <div class="flex gap-4">
+                <div class="shrink-0">
+                  <img class="img-radius w-12 h-12 rounded-0" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image" />
+                </div>
+                <div class="grow">
+                  <span class="float-end text-sm text-muted">1 hour ago</span>
+                  <h5 class="text-body mb-2">Message</h5>
+                  <p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-span mb-3 mt-4">Yesterday</p>
+          <div class="card mb-2">
+            <div class="card-body">
+              <div class="flex gap-4">
+                <div class="shrink-0">
+                  <img class="img-radius w-12 h-12 rounded-0" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image" />
+                </div>
+                <div class="grow ms-3">
+                  <span class="float-end text-sm text-muted">2 hour ago</span>
+                  <h5 class="text-body mb-2">Forms</h5>
+                  <p class="mb-0">
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of
+                    type and scrambled it to make a type
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-2">
+            <div class="card-body">
+              <div class="flex gap-4">
+                <div class="shrink-0">
+                  <img class="img-radius w-12 h-12 rounded-0" src="../assets/images/user/avatar-4.jpg" alt="Generic placeholder image" />
+                </div>
+                <div class="grow ms-3">
+                  <span class="float-end text-sm text-muted">12 hour ago</span>
+                  <h5 class="text-body mb-2">Challenge invitation</h5>
+                  <p class="mb-2">
+                    <strong>Jonny aber</strong>
+                    invites to join the challenge
+                  </p>
+                  <button class="btn btn-sm btn-outline-secondary me-2">Decline</button>
+                  <button class="btn btn-sm btn-primary">Accept</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-2">
+            <div class="card-body">
+              <div class="flex gap-4">
+                <div class="shrink-0">
+                  <img class="img-radius w-12 h-12 rounded-0" src="../assets/images/user/avatar-5.jpg" alt="Generic placeholder image" />
+                </div>
+                <div class="grow ms-3">
+                  <span class="float-end text-sm text-muted">5 hour ago</span>
+                  <h5 class="text-body mb-2">Security</h5>
+                  <p class="mb-0">
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of
+                    type and scrambled it to make a type
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center py-2">
+          <a href="#!" class="text-danger-500 hover:text-danger-600 focus:text-danger-600 active:text-danger-600">
+            Clear all Notifications
+          </a>
+        </div>
+      </div>
+    </li>
+    <li class="dropdown pc-h-item header-user-profile">
+      <a class="pc-head-link dropdown-toggle arrow-none me-0" data-pc-toggle="dropdown" href="#" role="button"
+        aria-haspopup="false" data-pc-auto-close="outside" aria-expanded="false">
+        <i data-feather="user"></i>
+      </a>
+      <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown p-2 overflow-hidden">
+        <div class="dropdown-header flex items-center justify-between py-4 px-5 bg-primary-500">
+          <div class="flex mb-1 items-center">
+            <div class="shrink-0">
+              <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="w-10 rounded-full" />
+            </div>
+            <div class="grow ms-3">
+              <h6 class="mb-1 text-white">Carson Darrin 🖖</h6>
+              <span class="text-white">carson.darrin@company.io</span>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown-body py-4 px-5">
+          <div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 225px)">
+            <a href="#" class="dropdown-item">
+              <span>
+                <svg class="pc-icon text-muted me-2 inline-block">
+                  <use xlink:href="#custom-setting-outline"></use>
+                </svg>
+                <span>Settings</span>
+              </span>
+            </a>
+            <a href="#" class="dropdown-item">
+              <span>
+                <svg class="pc-icon text-muted me-2 inline-block">
+                  <use xlink:href="#custom-share-bold"></use>
+                </svg>
+                <span>Share</span>
+              </span>
+            </a>
+            <a href="#" class="dropdown-item">
+              <span>
+                <svg class="pc-icon text-muted me-2 inline-block">
+                  <use xlink:href="#custom-lock-outline"></use>
+                </svg>
+                <span>Change Password</span>
+              </span>
+            </a>
+            <div class="grid my-3">
+              <button class="btn btn-primary flex items-center justify-center">
+                <svg class="pc-icon me-2 w-[22px] h-[22px]">
+                  <use xlink:href="#custom-logout-1-outline"></use>
+                </svg>
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div></div>
+</header>
+<!-- [ Header ] end -->
+
+
+
+    <div class="pc-container">
+      <div class="pc-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+          <div class="page-block">
+            <div class="page-header-title">
+              <h5 class="mb-0 font-medium">Tambah Jenis</h5>
+            </div>
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="../dashboard/index.html">Master Data</a></li>
+              <li class="breadcrumb-item"><a href="javascript: void(0)">Jenis Inventaris</a></li>
+              <!-- <li class="breadcrumb-item" aria-current="page">Tambah Jenis</li> -->
+            </ul>
+          </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+
+
+        <div class="grid grid-cols-12 gap-x-6">
+          <div class="col-span-12 lg:col-span-10 lg:col-start-2">
+            <div class="card">
+              <div class="card-header border-b border-gray-100">
+                <div class="flex items-center">
+                  <div class="card-header-icon">
+                    <i data-feather="folder-plus"></i>
+                  </div>
+                  <div>
+                    <h5 class="mb-1">Tambah Jenis Inventaris Baru</h5>
+                    <p class="text-muted text-sm mb-0">Buat kategori inventaris baru dengan field dinamis dan pejabat default</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-body pt-4">
+                <form id="jenis-form">
+                  
+                  <!-- Informasi Dasar -->
+                  <div class="form-section">
+                    <div class="form-section-title">
+                      <i data-feather="info"></i>
+                      Informasi Dasar
+                    </div>
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label class="form-label" for="nama">
+                          Nama Jenis Inventaris <span class="required">*</span>
+                        </label>
+                        <input type="text" id="nama" name="nama" class="form-control" placeholder="Contoh: Inventaris Kendaraan" required />
+                        <p class="form-hint">Nama kategori yang akan muncul di menu dan form</p>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="kode">
+                          Kode Jenis <span class="optional">(opsional)</span>
+                        </label>
+                        <input type="text" id="kode" name="kode" class="form-control" placeholder="Contoh: KDR, BNG, TNH" maxlength="10" style="text-transform: uppercase;" />
+                        <p class="form-hint">Kode singkat untuk identifikasi (max 10 karakter)</p>
+                      </div>
+                      <div class="form-group form-full">
+                        <label class="form-label" for="deskripsi">
+                          Deskripsi <span class="optional">(opsional)</span>
+                        </label>
+                        <textarea id="deskripsi" name="deskripsi" class="form-control" rows="3" placeholder="Jelaskan jenis inventaris ini..."></textarea>
+                        <p class="form-hint">Deskripsi singkat tentang jenis inventaris ini</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Default Pejabat Penandatangan -->
+                  <div class="form-section">
+                    <div class="form-section-title">
+                      <i data-feather="users"></i>
+                      Pejabat yang bertanda tangan
+                    </div>
+                    <p class="text-muted text-sm mb-4">Pilih pejabat yang akan menjadi penandatangan default saat export inventaris jenis ini. Urutan menentukan posisi tanda tangan.</p>
+                    
+                    <div class="pejabat-select-area">
+                      <div class="pejabat-select-header">
+                        <span class="pejabat-select-header-title">Daftar Pejabat Tersedia</span>
+                        <span class="pejabat-count" id="selected-count">0 dipilih</span>
+                      </div>
+                      <div class="pejabat-list" id="pejabat-list">
+                        <!-- Pejabat items akan di-render oleh JavaScript -->
+                      </div>
+                    </div>
+
+                    <div class="info-box">
+                      <i data-feather="info"></i>
+                      <div class="info-box-text">
+                        <strong>Catatan:</strong> Pejabat yang sudah dipilih disini bisa diubah lagi saat diperlukan. Urutan pejabat dipilih akan menentukan posisi tanda tangan pada dokumen export.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Data Dinamis -->
+                  <div class="form-section">
+                    <div class="form-section-title">
+                      <i data-feather="sliders"></i>
+                      Kustom Data Dinamis
+                    </div>
+
+                    <!-- Default Fields Info -->
+                    <div class="default-fields-info">
+                      <div class="default-fields-title">
+                        <i data-feather="lock"></i>
+                        Data Default (Tidak dapat dihapus)
+                      </div>
+                      <div class="default-fields-list">
+                        <span class="default-field-tag"><i data-feather="hash"></i> Kode Barang</span>
+                        <span class="default-field-tag"><i data-feather="tag"></i> Nama Barang</span>
+                        <span class="default-field-tag"><i data-feather="layers"></i> NUP</span>
+                        <span class="default-field-tag"><i data-feather="calendar"></i> Tahun Perolehan</span>
+                        <span class="default-field-tag"><i data-feather="dollar-sign"></i> Nilai Perolehan</span>
+                        <span class="default-field-tag"><i data-feather="activity"></i> Kondisi</span>
+                        <span class="default-field-tag"><i data-feather="file-text"></i> Keterangan</span>
+                      </div>
+                    </div>
+
+                    <p class="text-muted text-sm mb-4">Tambahkan data khusus sesuai kebutuhan jenis inventaris ini. Contoh: untuk Kendaraan bisa tambah "Nomor Polisi", "Merk", "Tipe", dll.</p>
+
+                    <div class="fields-container">
+                      <div class="fields-header">
+                        <span class="fields-header-title">
+                          <i data-feather="list"></i>
+                          Field Tambahan
+                        </span>
+                        <button type="button" class="btn-add-field" onclick="addField()">
+                          <i data-feather="plus"></i>
+                          Tambah Field
+                        </button>
+                      </div>
+                      <div class="fields-body" id="fields-body">
+                        <div class="fields-empty" id="fields-empty">
+                          <div class="fields-empty-icon">
+                            <i data-feather="inbox"></i>
+                          </div>
+                          <div class="fields-empty-text">Belum ada data tambahan</div>
+                          <div class="fields-empty-hint">Klik "Tambah Data" untuk menambahkan Data kustom</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Form Actions -->
+                  <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="confirmCancel()">
+                      Batal
+                    </button>
+                    <button type="button" class="btn-submit" onclick="confirmSubmit()">
+                      <i data-feather="save"></i>
+                      Simpan Jenis Inventaris
+                    </button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="pc-footer">
+      <div class="footer-wrapper container-fluid mx-10">
+        <div class="grid grid-cols-12 gap-1.5">
+          <div class="col-span-12 sm:col-span-6 my-1">
+            <p class="m-0">
+              <a href="https://codedthemes.com/" class="text-theme-bodycolor dark:text-themedark-bodycolor hover:text-primary-500 dark:hover:text-primary-500" target="_blank">Sistem</a>
+              Informasi Manajemen Aset
+            </p>
+          </div>
+          <div class="col-span-12 sm:col-span-6 my-1 justify-self-end">
+            <p class="inline-block max-sm:mr-3 sm:ml-2">Build: v1.0.0</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Required Js -->
+    <script src="../assets/js/plugins/simplebar.min.js"></script>
+    <script src="../assets/js/plugins/popper.min.js"></script>
+    <script src="../assets/js/icon/custom-icon.js"></script>
+    <script src="../assets/js/plugins/feather.min.js"></script>
+    <script src="../assets/js/component.js"></script>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/script.js"></script>
+
+    <div class="floting-button fixed bottom-[50px] right-[30px] z-[1030]">
+    </div>
+
+    
+    <script>
+      layout_change('false');
+    </script>
+     
+    
+    <script>
+      layout_theme_sidebar_change('dark');
+    </script>
+    
+     
+    <script>
+      change_box_container('false');
+    </script>
+     
+    <script>
+      layout_caption_change('true');
+    </script>
+     
+    <script>
+      layout_rtl_change('false');
+    </script>
+     
+    <script>
+      preset_change('preset-1');
+    </script>
+     
+    <script>
+      main_layout_change('vertical');
+    </script>
+    
+
+
+    <script>
+      (function(){
+        // Mock pejabat data (akan diganti dengan API call)
+        const pejabatList = [
+          { id: 1, nama: 'I Nyoman Suwarjana, SE', jabatan: 'Perbekel Mengwi', tugas: 'Pemegang Kekuasaan Pengelolaan Aset Desa' },
+          { id: 2, nama: 'I Putu Suadnyana', jabatan: 'Sekretaris Desa Mengwi', tugas: 'Pengelola Barang Milik Desa' },
+          { id: 3, nama: 'I Putu Yudha Asmara Natha, SS.', jabatan: 'Kaur Tata Usaha dan Umum', tugas: 'Pengurus Barang' },
+          { id: 4, nama: 'Ni Made Rai Suartini', jabatan: 'Kaur Keuangan', tugas: 'Pembantu Pengurus Barang' },
+          { id: 5, nama: 'I Wayan Sudiarsa', jabatan: 'Kasi Pelayanan', tugas: 'Pembantu Pengelola' }
+        ];
+
+        const selectedPejabats = [];
+        let fieldCounter = 0;
+
+        // Render pejabat list
+        function renderPejabatList() {
+          const container = document.getElementById('pejabat-list');
+          container.innerHTML = pejabatList.map(p => {
+            const isSelected = selectedPejabats.find(sp => sp.id === p.id);
+            const order = isSelected ? selectedPejabats.indexOf(isSelected) + 1 : 0;
+            return `
+              <div class="pejabat-item ${isSelected ? 'selected' : ''}" data-id="${p.id}">
+                <input type="checkbox" ${isSelected ? 'checked' : ''} onchange="togglePejabat(${p.id})" />
+                <div class="pejabat-info">
+                  <div class="pejabat-nama">${p.nama}</div>
+                  <div class="pejabat-jabatan">${p.jabatan}</div>
+                </div>
+                <div class="pejabat-order">
+                  <span class="order-badge">${order}</span>
+                  <div class="order-controls">
+                    <button type="button" class="order-btn" onclick="movePejabat(${p.id}, -1)" title="Naik">
+                      <i data-feather="chevron-up"></i>
+                    </button>
+                    <button type="button" class="order-btn" onclick="movePejabat(${p.id}, 1)" title="Turun">
+                      <i data-feather="chevron-down"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+          
+          document.getElementById('selected-count').textContent = selectedPejabats.length + ' dipilih';
+          feather.replace();
+        }
+
+        // Toggle pejabat selection
+        window.togglePejabat = function(id) {
+          const idx = selectedPejabats.findIndex(p => p.id === id);
+          if (idx > -1) {
+            selectedPejabats.splice(idx, 1);
+          } else {
+            const pejabat = pejabatList.find(p => p.id === id);
+            if (pejabat) {
+              selectedPejabats.push({ id: pejabat.id, order: selectedPejabats.length + 1 });
+            }
+          }
+          renderPejabatList();
+        };
+
+        // Move pejabat order
+        window.movePejabat = function(id, direction) {
+          const idx = selectedPejabats.findIndex(p => p.id === id);
+          if (idx === -1) return;
+          
+          const newIdx = idx + direction;
+          if (newIdx < 0 || newIdx >= selectedPejabats.length) return;
+          
+          // Swap
+          [selectedPejabats[idx], selectedPejabats[newIdx]] = [selectedPejabats[newIdx], selectedPejabats[idx]];
+          renderPejabatList();
+        };
+
+        // Add dynamic field
+        window.addField = function() {
+          fieldCounter++;
+          const fieldsBody = document.getElementById('fields-body');
+          const emptyState = document.getElementById('fields-empty');
+          
+          if (emptyState) {
+            emptyState.style.display = 'none';
+          }
+
+          const fieldHtml = `
+            <div class="field-item" data-field-id="${fieldCounter}" id="field-${fieldCounter}">
+              <div class="field-drag">
+                <i data-feather="grip-vertical"></i>
+              </div>
+              <div class="field-order-num">${fieldCounter}</div>
+              <div class="field-inputs">
+                <input type="text" class="field-input" name="fields[${fieldCounter}][nama]" placeholder="Nama Field (snake_case)" required />
+                <input type="text" class="field-input" name="fields[${fieldCounter}][label]" placeholder="Label (tampilan)" required />
+                <select class="field-input field-select" name="fields[${fieldCounter}][tipe]">
+                  <option value="text">Text</option>
+                  <option value="number">Number</option>
+                  <option value="date">Date</option>
+                  <option value="textarea">Textarea</option>
+                </select>
+                <label class="field-required-toggle">
+                  <input type="checkbox" name="fields[${fieldCounter}][required]" />
+                  Wajib
+                </label>
+              </div>
+              <div class="field-actions">
+                <button type="button" class="field-action-btn delete" onclick="removeField(${fieldCounter})" title="Hapus Field">
+                  <i data-feather="trash-2"></i>
+                </button>
+              </div>
+            </div>
+          `;
+          
+          fieldsBody.insertAdjacentHTML('beforeend', fieldHtml);
+          feather.replace();
+          updateFieldOrder();
+        };
+
+        // Remove field
+        window.removeField = function(id) {
+          const field = document.getElementById('field-' + id);
+          if (field) {
+            field.remove();
+            updateFieldOrder();
+            checkEmptyFields();
+          }
+        };
+
+        // Update field order numbers
+        function updateFieldOrder() {
+          const fields = document.querySelectorAll('.field-item');
+          fields.forEach((field, idx) => {
+            const orderNum = field.querySelector('.field-order-num');
+            if (orderNum) {
+              orderNum.textContent = idx + 1;
+            }
+          });
+        }
+
+        // Check if fields empty
+        function checkEmptyFields() {
+          const fields = document.querySelectorAll('.field-item');
+          const emptyState = document.getElementById('fields-empty');
+          if (fields.length === 0 && emptyState) {
+            emptyState.style.display = 'block';
+          }
+        }
+
+        // Form submission
+        const form = document.getElementById('jenis-form');
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const nama = document.getElementById('nama').value.trim();
+          const kode = document.getElementById('kode').value.trim().toUpperCase();
+          const deskripsi = document.getElementById('deskripsi').value.trim();
+
+          // Collect dynamic fields
+          const fieldItems = document.querySelectorAll('.field-item');
+          const dynamicFields = [];
+          fieldItems.forEach((item, idx) => {
+            const namaField = item.querySelector('input[name*="[nama]"]').value.trim();
+            const labelField = item.querySelector('input[name*="[label]"]').value.trim();
+            const tipeField = item.querySelector('select[name*="[tipe]"]').value;
+            const isRequired = item.querySelector('input[name*="[required]"]').checked;
+            
+            if (namaField && labelField) {
+              dynamicFields.push({
+                nama_field: namaField.replace(/\s+/g, '_').toLowerCase(),
+                label_field: labelField,
+                tipe: tipeField,
+                is_required: isRequired ? 1 : 0,
+                order: idx + 1
+              });
+            }
+          });
+
+          // Prepare payload
+          const payload = {
+            jenis_inventaris: {
+              nama: nama,
+              kode: kode || null,
+              deskripsi: deskripsi || null,
+              created_at: new Date().toISOString(),
+              updated_at: null
+            },
+            pejabat_defaults: selectedPejabats.map((p, idx) => ({
+              pejabat_id: p.id,
+              order: idx + 1
+            })),
+            dynamic_fields: dynamicFields
+          };
+
+          console.log('Jenis Inventaris Payload:', payload);
+
+          // Simulate API call
+          fetch('/api/jenis-inventaris', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          }).then(r => {
+            if(r.ok) return r.json();
+            throw new Error('Network error');
+          }).then(res => {
+            sessionStorage.setItem('jenisFormSuccess', 'true');
+            sessionStorage.setItem('jenisFormMessage', 'Jenis Inventaris berhasil ditambahkan!');
+            window.location.href = 'jenis-inventaris.html';
+          }).catch(err => {
+            console.warn('API not available, payload logged.');
+            sessionStorage.setItem('jenisFormSuccess', 'true');
+            sessionStorage.setItem('jenisFormMessage', 'Jenis Inventaris berhasil ditambahkan!');
+            window.location.href = 'jenis-inventaris.html';
+          });
+        });
+
+        // Initialize
+        renderPejabatList();
+      })();
+
+      // Confirm Cancel
+      function confirmCancel() {
+        if (confirm('Apakah Anda yakin ingin membatalkan? Data yang sudah diisi tidak akan tersimpan.')) {
+          window.location.href = 'jenis-inventaris.html';
+        }
+      }
+
+      // Confirm Submit
+      function confirmSubmit() {
+        const form = document.getElementById('jenis-form');
+        
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const nama = document.getElementById('nama').value.trim();
+        if (!nama) {
+          alert('Nama jenis inventaris wajib diisi!');
+          return;
+        }
+
+        // Validate dynamic fields if any
+        const fieldItems = document.querySelectorAll('.field-item');
+        for (const item of fieldItems) {
+          const namaField = item.querySelector('input[name*="[nama]"]').value.trim();
+          const labelField = item.querySelector('input[name*="[label]"]').value.trim();
+          
+          if (!namaField || !labelField) {
+            alert('Semua field dinamis harus memiliki nama dan label!');
+            return;
+          }
+        }
+
+        if (confirm('Apakah Anda yakin ingin menyimpan jenis inventaris ini?')) {
+          const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+          form.dispatchEvent(submitEvent);
+        }
+      }
+    </script>
+  </body>
+</html>
