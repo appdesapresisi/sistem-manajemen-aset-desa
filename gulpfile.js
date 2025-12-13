@@ -280,10 +280,11 @@ gulp.task('fix-dist-paths', function (done) {
 
         // Replace plain filename links (e.g. href="inventaris-form.html") to repo-rooted pages
         // only if that file exists under dist/pages
-        content = content.replace(/(href|src)=("|')((?!\/|https?:|#)[^"']+?\.html)\2/gi, (match, attr, quote, filename) => {
+        content = content.replace(/(href|src)=("|')((?!\/|https?:|#)[^"']+?\.html(?:\?[^"']*)?)\2/gi, (match, attr, quote, filenameWithQuery) => {
+          const filename = filenameWithQuery.split('?')[0];
           const candidate = pathmod.join(path.destination.html, 'pages', filename);
           if (fs.existsSync(candidate)) {
-            return `${attr}=${quote}/sistem-manajemen-aset-desa/pages/${filename}${quote}`;
+            return `${attr}=${quote}/sistem-manajemen-aset-desa/pages/${filenameWithQuery}${quote}`;
           }
           return match;
         });
