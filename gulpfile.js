@@ -278,6 +278,16 @@ gulp.task('fix-dist-paths', function (done) {
           return `${q}/sistem-manajemen-aset-desa/pages/${rest}${q}`;
         });
 
+        // Replace plain filename links (e.g. href="inventaris-form.html") to repo-rooted pages
+        // only if that file exists under dist/pages
+        content = content.replace(/(href|src)=("|')((?!\/|https?:|#)[^"']+?\.html)\2/gi, (match, attr, quote, filename) => {
+          const candidate = pathmod.join(path.destination.html, 'pages', filename);
+          if (fs.existsSync(candidate)) {
+            return `${attr}=${quote}/sistem-manajemen-aset-desa/pages/${filename}${quote}`;
+          }
+          return match;
+        });
+
         fs.writeFileSync(full, content, 'utf8');
       }
     });
