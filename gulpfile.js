@@ -259,6 +259,17 @@ gulp.task('fix-dist-paths', function (done) {
           return `url(${q || ''}/sistem-manajemen-aset-desa/assets/${rest}${q || ''})`;
         });
 
+        // Fix navigation links that use relative ../pages/... (these break when <base> is present)
+        // Convert occurrences like href="../pages/foo.html" or href='../../pages/foo.html' to absolute repo path
+        content = content.replace(/(href|src)=("|')([^"']*?)pages\/(.*?)\2/gi, (match, attr, quote, prefix, rest) => {
+          // if already absolute to repo or absolute root, keep as-is
+          if (prefix.startsWith('/sistem-manajemen-aset-desa/') || prefix.startsWith('/')) {
+            return `${attr}=${quote}${prefix}pages/${rest}${quote}`;
+          }
+          // make repo-rooted pages path
+          return `${attr}=${quote}/sistem-manajemen-aset-desa/pages/${rest}${quote}`;
+        });
+
         fs.writeFileSync(full, content, 'utf8');
       }
     });
