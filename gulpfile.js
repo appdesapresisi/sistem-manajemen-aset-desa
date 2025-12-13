@@ -344,6 +344,46 @@ gulp.task('watch-minify', function () {
 
 // build in production mode (includes fix for Pages asset paths)
 gulp.task('build-prod', gulp.series('cleandist', 'build-node-modules', 'tailwind-min-scss', 'min-js', 'min-html', 'fix-dist-paths'));
+// generate simple redirect HTML files at dist root for every page under dist/pages
+// This helps legacy links like /inventaris-form.html redirect to /pages/inventaris-form.html on GitHub Pages
+gulp.task('generate-redirects', function (done) {
+  const fs = require('fs');
+  const pathmod = require('path');
+  const distPagesDir = pathmod.join(path.destination.html, 'pages');
+  const distRoot = path.destination.html;
+
+  if (!fs.existsSync(distPagesDir)) {
+    return done();
+  }
+
+  const entries = fs.readdirSync(distPagesDir, { withFileTypes: true });
+  entries.forEach((entry) => {
+    if (!entry.isFile()) return;
+    if (!entry.name.endsWith('.html')) return;
+    const filename = entry.name;
+    if (filename.toLowerCase() === 'index.html') return; // skip index
+
+    const targetPath = '/sistem-manajemen-aset-desa/pages/' + filename;
+    const redirectFile = pathmod.join(distRoot, filename);
+
+    // If a file already exists at root, do not overwrite it
+    if (fs.existsSync(redirectFile)) return;
+
+    // Create a minimal HTML that preserves querystring/hash via JS and falls back to meta refresh
+    const content = `<!doctype html><html><head><meta charset="utf-8"><title>Redirecting...</title><meta http-equiv="refresh" content="0;url=${targetPath}"></head><body><script>var q=location.search||'';var h=location.hash||'';location.replace('${targetPath}'+q+h);</script></body></html>`;
+
+    try {
+      fs.writeFileSync(redirectFile, content, 'utf8');
+    } catch (e) {
+      console.error('Failed to write redirect for', filename, e && e.message);
+    }
+  });
+
+  done();
+});
+
+// extend build-prod to run redirect generation after path fixes
+gulp.task('build-prod', gulp.series('cleandist', 'build-node-modules', 'tailwind-min-scss', 'min-js', 'min-html', 'fix-dist-paths', 'generate-redirects'));
 // =======================================================
 // ----------- END: Production mode tasks -----------
 // =======================================================
