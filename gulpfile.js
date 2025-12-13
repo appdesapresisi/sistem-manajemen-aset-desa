@@ -230,6 +230,36 @@ gulp.task('min-html', function () {
 });
 //  [ minify html ] end
 
+//  [ fix dist asset paths for Pages ] start
+gulp.task('fix-dist-paths', function (done) {
+  const fs = require('fs');
+  const pathmod = require('path');
+
+  function walk(dir) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    entries.forEach((entry) => {
+      const full = pathmod.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+      } else if (/\.html?$/.test(entry.name)) {
+        let content = fs.readFileSync(full, 'utf8');
+        // Replace occurrences of ../assets/ or assets/ with absolute repo path for Pages
+        content = content.replace(/(href=\")((?:\.\./)?assets\/)/g, '$1/sistem-manajemen-aset-desa/assets/');
+        content = content.replace(/(href=\')((?:\.\./)?assets\/)/g, "$1/sistem-manajemen-aset-desa/assets/");
+        content = content.replace(/(src=\")((?:\.\./)?assets\/)/g, '$1/sistem-manajemen-aset-desa/assets/');
+        content = content.replace(/(src=\')((?:\.\./)?assets\/)/g, "$1/sistem-manajemen-aset-desa/assets/");
+        fs.writeFileSync(full, content, 'utf8');
+      }
+    });
+  }
+
+  if (fs.existsSync(path.destination.html)) {
+    walk(path.destination.html);
+  }
+  done();
+});
+//  [ fix dist asset paths for Pages ] end
+
 //  [ image optimizer ] start
 // Function to compress images with retry mechanism
 function compressImagesWithRetry(src, dest, retries = 40) {
@@ -271,8 +301,8 @@ gulp.task('watch-minify', function () {
 });
 //  [ watch minify ] start
 
-// build in production mode
-gulp.task('build-prod', gulp.series('cleandist', 'build-node-modules', 'tailwind-min-scss', 'min-js', 'min-html'));
+// build in production mode (includes fix for Pages asset paths)
+gulp.task('build-prod', gulp.series('cleandist', 'build-node-modules', 'tailwind-min-scss', 'min-js', 'min-html', 'fix-dist-paths'));
 // =======================================================
 // ----------- END: Production mode tasks -----------
 // =======================================================
