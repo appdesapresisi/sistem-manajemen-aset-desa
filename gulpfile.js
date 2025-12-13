@@ -243,12 +243,22 @@ gulp.task('fix-dist-paths', function (done) {
         walk(full);
       } else if (/\.html?$/.test(entry.name)) {
         let content = fs.readFileSync(full, 'utf8');
-        // Replace occurrences of /assets/, ../assets/, or assets/ with absolute repo path for Pages
-        if (!content.includes('/sistem-manajemen-aset-desa/assets/')) {
-          content = content.split('../assets/').join('/sistem-manajemen-aset-desa/assets/');
-          content = content.split('/assets/').join('/sistem-manajemen-aset-desa/assets/');
-          content = content.split('assets/').join('/sistem-manajemen-aset-desa/assets/');
-        }
+        // Normalize asset references in href/src attributes to absolute repo path for Pages.
+        // This targets attributes like src="../assets/...", href="../../assets/...", src='/assets/...' etc.
+        content = content.replace(/(src|href)=("|')([^"']*?)assets\/(.*?)\2/gi, (match, attr, quote, prefix, rest) => {
+          // If already contains the repo path, keep as-is
+          if ((prefix + 'assets/').includes('/sistem-manajemen-aset-desa/assets/')) {
+            return `${attr}=${quote}${prefix}assets/${rest}${quote}`;
+          }
+          // Replace any relative or plain asset path with absolute repo-rooted path
+          return `${attr}=${quote}/sistem-manajemen-aset-desa/assets/${rest}${quote}`;
+        });
+
+        // Also handle url(...) usages in inline styles or CSS (e.g., url('../assets/...'))
+        content = content.replace(/url\(("|')?([^"')]*?)assets\/(.*?)\1?\)/gi, (match, q, prefix, rest) => {
+          return `url(${q || ''}/sistem-manajemen-aset-desa/assets/${rest}${q || ''})`;
+        });
+
         fs.writeFileSync(full, content, 'utf8');
       }
     });
