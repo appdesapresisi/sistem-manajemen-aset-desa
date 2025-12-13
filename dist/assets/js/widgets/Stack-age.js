@@ -1,1 +1,104 @@
-"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){new ApexCharts(document.querySelector("#Stack-age"),{chart:{type:"bar",height:260,zoom:{enabled:!1},toolbar:{show:!1}},dataLabels:{enabled:!1},colors:["#1de9b6","#a389d4","#1de9b6","#a389d4","#1de9b6","#a389d4"],fill:{type:"gradient",opacity:1,gradient:{shade:"dark",type:"vertical",gradientToColors:["#1dc4e9","#899ed4","#1de9b6","#a389d4","#1de9b6","#a389d4"],stops:[0,100]}},plotOptions:{bar:{columnWidth:"30%",distributed:!0}},series:[{data:[30,35,40,30,32,38]}],legend:{show:!1},xaxis:{categories:["<20","30","40","50","60",">70"],axisBorder:{show:!1},axisTicks:{show:!1}},yaxis:{axisBorder:{show:!1},axisTicks:{show:!1},crosshairs:{width:0},labels:{show:!1}},grid:{padding:{bottom:0,left:10},xaxis:{lines:{show:!1}},yaxis:{lines:{show:!1}}},tooltip:{fixed:{enabled:!1},x:{show:!1},y:{title:{formatter:function(e){return"Statistics :"}}},marker:{show:!1}}}).render()},500)});
+'use strict';
+document.addEventListener('DOMContentLoaded', function () {
+  setTimeout(function () {
+    var options = {
+      chart: {
+        type: 'bar',
+        height: 260,
+        zoom: {
+          enabled: false
+        },
+        toolbar: {
+          show: false
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      colors: ['#1de9b6', '#a389d4', '#1de9b6', '#a389d4', '#1de9b6', '#a389d4'],
+      fill: {
+        type: 'gradient',
+        opacity: 1,
+        gradient: {
+          shade: 'dark',
+          type: 'vertical',
+          gradientToColors: ['#1dc4e9', '#899ed4', '#1de9b6', '#a389d4', '#1de9b6', '#a389d4'],
+          stops: [0, 100]
+        }
+      },
+      plotOptions: {
+        bar: {
+          columnWidth: '30%',
+          distributed: true
+        }
+      },
+      series: [
+        {
+          data: [30, 35, 40, 30, 32, 38]
+        }
+      ],
+      legend: {
+        show: false
+      },
+      xaxis: {
+        categories: ['<20', '30', '40', '50', '60', '>70'],
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        }
+      },
+      yaxis: {
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        crosshairs: {
+          width: 0
+        },
+        labels: {
+          show: false
+        }
+      },
+      grid: {
+        padding: {
+          bottom: 0,
+          left: 10
+        },
+        xaxis: {
+          lines: {
+            show: false
+          }
+        },
+        yaxis: {
+          lines: {
+            show: false
+          }
+        }
+      },
+      tooltip: {
+        fixed: {
+          enabled: false
+        },
+        x: {
+          show: false
+        },
+        y: {
+          title: {
+            formatter: function (seriesName) {
+              return 'Statistics :';
+            }
+          }
+        },
+        marker: {
+          show: false
+        }
+      }
+    };
+    var chart = new ApexCharts(document.querySelector('#Stack-age'), options);
+    chart.render();
+  }, 500);
+});

@@ -1,1 +1,275 @@
-"use strict";!function(){document.getElementsByTagName("html")[0].setAttribute("data-pc-layout","tab");for(var r,c,l,d,o,e=document.querySelector(".navbar-wrapper"),t=document.querySelector(".pc-sidebar >.navbar-wrapper >.navbar-content"),t=(t&&(t.style.display="none"),document.createElement("div")),a=(t.className="tab-container",document.createElement("div")),n=(a.className="tab-sidemenu",document.createElement("ul")),n=(n.className="pc-tab-link nav flex-column",n.setAttribute("role","tablist"),n.id="pc-layout-submenus",a.appendChild(n),document.createElement("div")),i=(n.className="tab-link",document.createElement("div")),s=(i.className="navbar-content",document.createElement("div")),p=(s.className="tab-content",s.id="pc-layout-tab",document.createElement("ul")),b=(p.className="pc-navbar",document.querySelector(".pc-navbar > .menu-list")),u=(b&&(p.appendChild(b.cloneNode(!0)),b.parentNode.removeChild(b)),i.appendChild(s),i.appendChild(p),n.appendChild(i),t.appendChild(a),t.appendChild(n),e.appendChild(t),document.querySelector(".tab-container > .tab-sidemenu > .pc-tab-link")),m=document.querySelector(".tab-container > .tab-link > .navbar-content > .tab-content"),v=(document.querySelector(".tab-container > .tab-sidemenu")&&new SimpleBar(document.querySelector(".tab-container > .tab-sidemenu")),document.querySelector(".tab-container > .tab-link .navbar-content")&&new SimpleBar(document.querySelector(".tab-container > .tab-link .navbar-content")),document.querySelectorAll(".pc-navbar li .pc-submenu")),N=0;N<v.length;N++)v[N].style.display="none";r=document.querySelectorAll(".pc-navbar > li.pc-item"),l=0,d=!1,o=c="",r.forEach(function(t,e){if(t.classList.contains("pc-caption")){if(u){l+=1;var a="";try{a=t.children[1].outerHTML}catch(e){a=t.children[0].innerHTML.charAt(0)}u.insertAdjacentHTML("beforeend",'<li class="nav-item"><a class="nav-link" data-pc-toggle="tab" data-pc-target="#pc-tab-'+l+'" role="tab">'+a+"</a></li>")}!0===d&&m&&(0==(n=l-1)&&(o=c),1==n&&(c=o+=c,o=""),m.insertAdjacentHTML("beforeend",'<div class="tab-pane" id="pc-tab-'+n+'" role="tabpanel" aria-labelledby="pc-tab-link-'+n+'" tabindex="'+n+'"><ul class="pc-navbar">              '+c+"              </ul></div>"),c=""),t.remove()}else{var n;c+=t.outerHTML,d=!0,t.remove(),e+1===r.length&&m&&(n=l,m.insertAdjacentHTML("beforeend",'<div class="tab-pane" id="pc-tab-'+n+'" role="tabpanel" aria-labelledby="pc-tab-link-'+n+'" tabindex="'+n+'"><ul class="pc-navbar">              '+c+"              </ul></div>"),c="")}});for(var y=document.querySelectorAll(".pc-sidebar .pc-navbar a"),h=0;h<y.length;h++){var g=window.location.href.split(/[?#]/)[0];if(y[h].href==g&&""!=y[h].getAttribute("href")){y[h].parentNode.classList.add("active"),y[h].parentNode.parentNode.parentNode.classList.add("pc-trigger"),y[h].parentNode.parentNode.parentNode.classList.add("active"),y[h].parentNode.parentNode.style.display="block",y[h].parentNode.parentNode.parentNode.parentNode.parentNode.classList.add("pc-trigger"),y[h].parentNode.parentNode.parentNode.parentNode.style.display="block";for(var f=!0,k=y[h];f;)(k=k.parentNode).classList.contains("tab-pane")&&(L("#"+k.getAttribute("id")),f=!1)}}function L(t){var e,a,n=document.querySelector(t);n&&(e=n.parentElement.querySelectorAll(".tab-pane"),a=document.querySelectorAll(".pc-tab-link .nav-link"),e.forEach(e=>{e.classList.add("hidden"),e.classList.remove("block")}),a.forEach(e=>{e.classList.remove("active"),e.getAttribute("data-pc-target")===t&&e.classList.add("active")}),n.classList.remove("hidden"),n.classList.add("block"))}menu_click(),document.querySelectorAll(".pc-tab-link .nav-link").forEach(e=>{e.addEventListener("click",e=>{e.preventDefault();let t=e.target;L((t="use"===(t=["I","svg","SPAN"].includes(t.tagName)?t.parentNode:t).tagName?t.parentNode.parentNode:t).getAttribute("data-pc-target"))})})}();
+'use strict';
+(function () {
+  document.getElementsByTagName('html')[0].setAttribute('data-pc-layout', 'tab');
+
+  // Modify the HTML structure
+  var sidebar = document.querySelector('.navbar-wrapper');
+
+  // Get the navbar-content element
+  var navContent = document.querySelector('.pc-sidebar >.navbar-wrapper >.navbar-content');
+  // Check if the navbar-content element exists
+  if (navContent) {
+    navContent.style.display = 'none';
+  }
+
+  // Create the tab-container div
+  var tabContainer = document.createElement('div');
+  tabContainer.className = 'tab-container';
+
+  // Create the tab-sidemenu div
+  var tabSidemenu = document.createElement('div');
+  tabSidemenu.className = 'tab-sidemenu';
+
+  // Create the ul element with class "pc-tab-link"
+  var tabLinkUl = document.createElement('ul');
+  tabLinkUl.className = 'pc-tab-link nav flex-column';
+  tabLinkUl.setAttribute('role', 'tablist');
+  tabLinkUl.id = 'pc-layout-submenus';
+
+  // Append the ul to the tab-sidemenu div
+  tabSidemenu.appendChild(tabLinkUl);
+
+  // Create the tab-link div
+  var tabLinkDiv = document.createElement('div');
+  tabLinkDiv.className = 'tab-link';
+
+  // Create the navbar-content div
+  var navbarContentDiv = document.createElement('div');
+  navbarContentDiv.className = 'navbar-content';
+
+  // Create the tab-content div
+  var tabContentDiv = document.createElement('div');
+  tabContentDiv.className = 'tab-content';
+  tabContentDiv.id = 'pc-layout-tab';
+
+  // Create the ul element with class "pc-navbar"
+  var pcNavbarUl = document.createElement('ul');
+  pcNavbarUl.className = 'pc-navbar';
+
+  // Append the existing menu list (assuming it's a sibling) to pc-navbar
+  var menuList = document.querySelector('.pc-navbar > .menu-list');
+  if (menuList) {
+    pcNavbarUl.appendChild(menuList.cloneNode(true));
+    menuList.parentNode.removeChild(menuList);
+  }
+
+  // Append the tab-content and pc-navbar to the navbar-content div
+  navbarContentDiv.appendChild(tabContentDiv);
+  navbarContentDiv.appendChild(pcNavbarUl);
+
+  // Append the navbar-content div to the tab-link div
+  tabLinkDiv.appendChild(navbarContentDiv);
+
+  // Append the tab-sidemenu and tab-link to the tab-container
+  tabContainer.appendChild(tabSidemenu);
+  tabContainer.appendChild(tabLinkDiv);
+
+  // Append the nav element to the sidebar
+  sidebar.appendChild(tabContainer);
+
+  // add tooltip and open/close it's submenu list for first level icon
+  // var pc_link_click = document.querySelectorAll('.pc-navbar > li:not(.pc-caption)');
+  // for (var i = 0; i < pc_link_click.length; i++) {
+  //   new bootstrap.Tooltip(pc_link_click[i], {
+  //     trigger: 'hover',
+  //     placement: 'right',
+  //     title: pc_link_click[i].children[0].children[1].innerHTML
+  //   });
+  // }
+  var pc_tab_menu_list = document.querySelector('.tab-container > .tab-sidemenu > .pc-tab-link');
+  var pc_tab_link_list = document.querySelector('.tab-container > .tab-link > .navbar-content > .tab-content');
+
+  if (document.querySelector('.tab-container > .tab-sidemenu')) {
+    new SimpleBar(document.querySelector('.tab-container > .tab-sidemenu'));
+  }
+
+  if (document.querySelector('.tab-container > .tab-link .navbar-content')) {
+    new SimpleBar(document.querySelector('.tab-container > .tab-link .navbar-content'));
+  }
+
+  // for all submenu hide
+  var elem = document.querySelectorAll('.pc-navbar li .pc-submenu');
+  for (var j = 0; j < elem.length; j++) {
+    elem[j].style.display = 'none';
+  }
+
+  set_tab_menu();
+
+  // set tab menu (Update html structure)
+  function set_tab_menu() {
+    var pc_menu_list = document.querySelectorAll('.pc-navbar > li.pc-item');
+    var pc_new_list = '';
+    var flag_count = 0;
+    var flag_hit = false;
+    var tab_blank_list = '';
+
+    pc_menu_list.forEach(function (item, list_index) {
+      if (item.classList.contains('pc-caption')) {
+        if (pc_tab_menu_list) {
+          flag_count += 1;
+          var menuicon = '';
+          try {
+            menuicon = item.children[1].outerHTML;
+          } catch (err) {
+            menuicon = item.children[0].innerHTML.charAt(0);
+          }
+          pc_tab_menu_list.insertAdjacentHTML(
+            'beforeend',
+            '<li class="nav-item">' +
+            '<a class="nav-link" data-pc-toggle="tab" data-pc-target="#pc-tab-' +
+            flag_count +
+            '" role="tab">' +
+            menuicon +
+            '</a></li>'
+          );
+        }
+        if (flag_hit === true) {
+          if (pc_tab_link_list) {
+            var tmp_flag_count = flag_count - 1;
+            if (tmp_flag_count == 0) {
+              tab_blank_list = pc_new_list;
+            }
+            if (tmp_flag_count == 1) {
+              tab_blank_list += pc_new_list;
+              pc_new_list = tab_blank_list;
+              tab_blank_list = '';
+            }
+            pc_tab_link_list.insertAdjacentHTML(
+              'beforeend',
+              '<div class="tab-pane" id="pc-tab-' +
+              tmp_flag_count +
+              '" role="tabpanel" aria-labelledby="pc-tab-link-' +
+              tmp_flag_count +
+              '" tabindex="' +
+              tmp_flag_count +
+              '"><ul class="pc-navbar">\
+              ' +
+              pc_new_list +
+              '\
+              </ul></div>'
+            );
+            pc_new_list = '';
+          }
+        }
+        item.remove();
+      } else {
+        pc_new_list += item.outerHTML;
+        flag_hit = true;
+        item.remove();
+        if (list_index + 1 === pc_menu_list.length) {
+          if (pc_tab_link_list) {
+            var tmp_flag_count = flag_count;
+            pc_tab_link_list.insertAdjacentHTML(
+              'beforeend',
+              '<div class="tab-pane" id="pc-tab-' +
+              tmp_flag_count +
+              '" role="tabpanel" aria-labelledby="pc-tab-link-' +
+              tmp_flag_count +
+              '" tabindex="' +
+              tmp_flag_count +
+              '"><ul class="pc-navbar">\
+              ' +
+              pc_new_list +
+              '\
+              </ul></div>'
+            );
+            pc_new_list = '';
+          }
+        }
+      }
+    });
+
+    active_menu();
+    menu_click();
+  }
+
+  // set active item (when href match with url set active class, it's parent submenu also open and it's parent tab also open)
+  function active_menu() {
+    // active menu item list start
+    var elem = document.querySelectorAll('.pc-sidebar .pc-navbar a');
+    for (var l = 0; l < elem.length; l++) {
+      var pageUrl = window.location.href.split(/[?#]/)[0];
+      if (elem[l].href == pageUrl && elem[l].getAttribute('href') != '') {
+        elem[l].parentNode.classList.add('active');
+
+        elem[l].parentNode.parentNode.parentNode.classList.add('pc-trigger');
+        elem[l].parentNode.parentNode.parentNode.classList.add('active');
+        elem[l].parentNode.parentNode.style.display = 'block';
+
+        elem[l].parentNode.parentNode.parentNode.parentNode.parentNode.classList.add('pc-trigger');
+        elem[l].parentNode.parentNode.parentNode.parentNode.style.display = 'block';
+        var active_flag = true;
+        var cont = elem[l];
+
+        while (active_flag) {
+          var cont = cont.parentNode;
+          if (cont.classList.contains('tab-pane')) {
+            var active_tab = cont.getAttribute('id');
+            change_tab('#' + active_tab);
+            var active_flag = false;
+          }
+        }
+      }
+    }
+  }
+
+  // Select all sidebar links with the class 'pc-tab-link' and 'nav-link'
+  const pcSidebarLink = document.querySelectorAll('.pc-tab-link .nav-link');
+
+  // Iterate over each link and add a click event listener
+  pcSidebarLink.forEach(link => {
+    link.addEventListener('click', event => {
+      // Prevent the default action of the link
+      event.preventDefault();
+
+      // Get the target element of the click event
+      let targetElement = event.target;
+
+      // If the clicked element is an icon or certain other elements, traverse up to find the actual link element
+      if (['I', 'svg', 'SPAN'].includes(targetElement.tagName)) {
+        targetElement = targetElement.parentNode;
+      }
+      if (targetElement.tagName === 'use') {
+        targetElement = targetElement.parentNode.parentNode;
+      }
+
+      // Retrieve the ID of the target tab from the data attribute
+      const pcTargetTabID = targetElement.getAttribute('data-pc-target');
+
+      // Call the change_tab function to switch to the selected tab
+      change_tab(pcTargetTabID);
+    });
+  });
+
+  function change_tab(tab_name) {
+    const pcTargetTabID = tab_name;
+    const targetTabElement = document.querySelector(pcTargetTabID);
+
+    if (targetTabElement) {
+      // Get all tab contents within the same parent element
+      const pcTabContents = targetTabElement.parentElement.querySelectorAll('.tab-pane');
+
+      // Get all sidebar links
+      const pcSidebarLink = document.querySelectorAll('.pc-tab-link .nav-link');
+
+      // Hide all tab contents
+      pcTabContents.forEach(tabContent => {
+        tabContent.classList.add('hidden');
+        tabContent.classList.remove('block');
+      });
+
+      // Remove 'active' class from all sidebar links and add to the clicked one
+      pcSidebarLink.forEach(linkContent => {
+        linkContent.classList.remove('active');
+        if (linkContent.getAttribute('data-pc-target') === tab_name) {
+          linkContent.classList.add('active');
+        }
+      });
+
+      // Show the target tab content
+      targetTabElement.classList.remove('hidden');
+      targetTabElement.classList.add('block');
+    }
+  }
+
+})();
