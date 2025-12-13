@@ -243,11 +243,12 @@ gulp.task('fix-dist-paths', function (done) {
         walk(full);
       } else if (/\.html?$/.test(entry.name)) {
         let content = fs.readFileSync(full, 'utf8');
-        // Replace occurrences of ../assets/ or assets/ with absolute repo path for Pages
-        content = content.replace(/(href=\")((?:\.\./)?assets\/)/g, '$1/sistem-manajemen-aset-desa/assets/');
-        content = content.replace(/(href=\')((?:\.\./)?assets\/)/g, "$1/sistem-manajemen-aset-desa/assets/");
-        content = content.replace(/(src=\")((?:\.\./)?assets\/)/g, '$1/sistem-manajemen-aset-desa/assets/');
-        content = content.replace(/(src=\')((?:\.\./)?assets\/)/g, "$1/sistem-manajemen-aset-desa/assets/");
+        // Replace occurrences of /assets/, ../assets/, or assets/ with absolute repo path for Pages
+        if (!content.includes('/sistem-manajemen-aset-desa/assets/')) {
+          content = content.split('../assets/').join('/sistem-manajemen-aset-desa/assets/');
+          content = content.split('/assets/').join('/sistem-manajemen-aset-desa/assets/');
+          content = content.split('assets/').join('/sistem-manajemen-aset-desa/assets/');
+        }
         fs.writeFileSync(full, content, 'utf8');
       }
     });
