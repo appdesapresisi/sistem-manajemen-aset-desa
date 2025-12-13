@@ -241,7 +241,7 @@ gulp.task('fix-dist-paths', function (done) {
       const full = pathmod.join(dir, entry.name);
       if (entry.isDirectory()) {
         walk(full);
-      } else if (/\.html?$/.test(entry.name)) {
+      } else if (/\.(html?|js)$/.test(entry.name)) {
         let content = fs.readFileSync(full, 'utf8');
         // Normalize asset references in href/src attributes to absolute repo path for Pages.
         // This targets attributes like src="../assets/...", href="../../assets/...", src='/assets/...' etc.
@@ -268,6 +268,14 @@ gulp.task('fix-dist-paths', function (done) {
           }
           // make repo-rooted pages path
           return `${attr}=${quote}/sistem-manajemen-aset-desa/pages/${rest}${quote}`;
+        });
+
+        // Also rewrite JS/inline-script navigation strings like './pages/login.html'
+        // Handles single- or double-quoted strings in JS inside .html/.js files
+        content = content.replace(/([\"'])\.\/pages\/(.*?|)\1/gi, (m, q, rest) => {
+          // if already absolute, keep
+          if (rest.startsWith('/sistem-manajemen-aset-desa/')) return `${q}${rest}${q}`;
+          return `${q}/sistem-manajemen-aset-desa/pages/${rest}${q}`;
         });
 
         fs.writeFileSync(full, content, 'utf8');
