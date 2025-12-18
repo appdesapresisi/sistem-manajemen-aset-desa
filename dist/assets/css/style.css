@@ -1,3 +1,38 @@
+/* Mobile: Perbesar dan center icon KPI di pojok kanan bawah */
+@import url("plugins/simplebar.min.css");
+@media (max-width: 430px) {
+  .pc-content .grid.grid-cols-12 > .col-span-6 {
+    grid-column: 1/-1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
+  }
+  .pc-content .grid.grid-cols-12 > .col-span-6 .kpi-card {
+    padding: 18px 18px 24px 18px !important;
+    position: relative;
+    min-height: 120px;
+  }
+  .pc-content .grid.grid-cols-12 > .col-span-6 .kpi-card-icon {
+    position: absolute !important;
+    right: 18px !important;
+    bottom: 18px !important;
+    width: 64px !important;
+    height: 64px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 16px !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    background: inherit;
+    z-index: 2;
+  }
+  .pc-content .grid.grid-cols-12 > .col-span-6 .kpi-card-icon i {
+    width: 32px !important;
+    height: 32px !important;
+    display: block;
+    margin: 0 auto;
+  }
+}
 /**======================================================================
 =========================================================================
 Template Name: Datta Able - Tailwind Admin Template
@@ -6,8 +41,7 @@ Support: https://codedthemes.support-hub.io/
 File: style.css
 =========================================================================
 =================================================================================== */
-@import url("plugins/simplebar.min.css");
-/*! tailwindcss v3.4.10 | MIT License | https://tailwindcss.com */
+/* ! tailwindcss v3.4.10 | MIT License | https://tailwindcss.com */
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
