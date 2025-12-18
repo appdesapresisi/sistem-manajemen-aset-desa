@@ -136,7 +136,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Menu collapse click start (when click it's open and close sidebar for mobile screen)
   var mobile_collapse_over = document.querySelector('#mobile-collapse');
   if (mobile_collapse_over) {
-    mobile_collapse_over.addEventListener('click', function () {
+    mobile_collapse_over.addEventListener('click', function (e) {
+      e.preventDefault();
       var mobile_sidebar = document.querySelector('.pc-sidebar');
       if (mobile_sidebar) {
         if (document.querySelector('.pc-sidebar').classList.contains('mob-sidebar-active')) {
@@ -173,7 +174,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // for sidebar close
   var sidebar_hide = document.querySelector('#sidebar-hide');
   if (sidebar_hide) {
-    sidebar_hide.addEventListener('click', function () {
+    sidebar_hide.addEventListener('click', function (e) {
+      e.preventDefault();
       if (document.querySelector('.pc-sidebar').classList.contains('pc-sidebar-hide')) {
         document.querySelector('.pc-sidebar').classList.remove('pc-sidebar-hide');
       } else {
