@@ -60,4 +60,56 @@ File: style.css
 	}
 }
 
+/* Additional small-screen refinements for form buttons, kondisi options, footer, and KPI cards */
+@media (max-width: 480px) {
+	/* Form action buttons: slightly smaller padding and stacked if needed */
+	.form-actions {
+		flex-wrap: wrap;
+		gap: 8px;
+		padding-top: 14px;
+	}
+	.form-actions-left, .form-actions-right {
+		width: 100%;
+		display: flex;
+		gap: 8px;
+		justify-content: flex-start;
+	}
+	.form-actions-right {
+		justify-content: flex-end;
+	}
+	.form-actions .btn-cancel,
+	.form-actions .btn-draft,
+	.form-actions .btn-submit {
+		padding: 8px 12px !important;
+		font-size: 14px !important;
+		border-radius: 8px;
+	}
+	.form-actions .btn-submit i,
+	.form-actions .btn-draft i {
+		width: 16px;
+		height: 16px;
+	}
+
+	/* Kondisi options: make first two share a row equally and keep the third full width */
+	.kondisi-group { gap: 8px; }
+	.kondisi-option { flex: 0 1 calc(50% - 8px); min-width: 0; }
+	.kondisi-option.rusak-berat { flex-basis: 100%; }
+	.kondisi-option label { padding: 10px 12px; font-size: 14px; }
+
+	/* Footer: keep build/version aligned with left text on small screens */
+	.pc-footer .footer-wrapper .grid {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+	}
+	.pc-footer .footer-wrapper .grid > div { width: auto; }
+
+	/* KPI/Card icons: reduce icon size so they don't overflow in narrow cards */
+	.kpi-card-icon { width: 44px; height: 44px; }
+	.kpi-card-icon i { width: 18px; height: 18px; }
+	.kpi-card-value { font-size: 22px; }
+	.kpi-card-label { font-size: 11px; }
+}
+
 
