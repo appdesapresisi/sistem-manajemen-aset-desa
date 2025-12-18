@@ -121,6 +121,13 @@ document.addEventListener('DOMContentLoaded', function () {
   feather.replace();
   // feather icon end
 
+  // Prevent default navigation for header links (defensive: avoid unexpected redirects)
+  document.querySelectorAll('a.pc-head-link').forEach(function (el) {
+    el.addEventListener('click', function (ev) {
+      ev.preventDefault();
+    });
+  });
+
   // Check for specific layout and add scrollbar if necessary(add scrollbar from 1024 screen size in horizontal layout)
   if (document.querySelector('html').hasAttribute('data-pc-layout')) {
     if (document.querySelector('html').getAttribute('data-pc-layout') == 'horizontal') {
