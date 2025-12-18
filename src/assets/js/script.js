@@ -429,5 +429,26 @@ var slideToggle = (target, duration = 0) => {
   }
 };
 
+// Wrap tables with known table classes into a `.table-responsive` wrapper at runtime
+// so they become horizontally scrollable on small screens without changing markup.
+document.addEventListener('DOMContentLoaded', function () {
+  var tableClasses = ['modern-table', 'history-table', 'preview-data-table', 'pending-table'];
+  tableClasses.forEach(function (cls) {
+    document.querySelectorAll('table.' + cls).forEach(function (tbl) {
+      try {
+        if (!tbl.parentElement || !tbl.parentElement.classList.contains('table-responsive')) {
+          var wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentNode.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      } catch (e) {
+        // If any DOM issue occurs, silently continue so we don't break page behaviour
+        console && console.warn && console.warn('responsive-table wrap failed', e);
+      }
+    });
+  });
+});
+
 // =======================================================
 // =======================================================

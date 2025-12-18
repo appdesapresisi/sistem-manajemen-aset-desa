@@ -35,4 +35,29 @@ File: style.css
 	padding: 5px 0 !important;
 }
 
+/* Responsive tables: wrap tables in a horizontal-scroll container on small screens
+	 We intentionally only add styling for the responsive wrapper so appearance
+	 remains unchanged on larger screens. */
+@media (max-width: 991px) {
+	.table-responsive {
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		-ms-overflow-style: -ms-autohiding-scrollbar;
+		width: 100%;
+	}
+
+	/* Ensure table content keeps its natural layout and allows horizontal scrolling */
+	.table-responsive table {
+		width: 100%;
+		min-width: 700px;
+		border-collapse: collapse;
+	}
+
+	/* Prevent cells from wrapping so columns remain readable and the table can scroll */
+	.table-responsive th,
+	.table-responsive td {
+		white-space: nowrap;
+	}
+}
+
 

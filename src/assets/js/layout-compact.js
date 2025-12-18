@@ -5,7 +5,8 @@
   // add / remove class for body tag (for compact sidebar open/close)
   var sidebar_hide = document.querySelector('#sidebar-hide');
   if (sidebar_hide) {
-    sidebar_hide.addEventListener('click', function () {
+    sidebar_hide.addEventListener('click', function (event) {
+      event.preventDefault();
       if (document.querySelector('body').classList.contains('pc-sidebar-hide')) {
         document.querySelector('body').classList.remove('pc-sidebar-hide');
       } else {
