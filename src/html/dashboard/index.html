@@ -74,17 +74,30 @@
         width: 52px;
         height: 52px;
         border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         position: relative;
+        isolation: isolate;
       }
+
+      .kpi-card-icon i, 
+      .kpi-card-icon svg {
+        position: static !important; 
+        margin: 0 !important;
+        transform: none !important; 
+        
+        width: 24px !important;
+        height: 24px !important;
+        display: block;
+      }
+
       .kpi-card-icon::after {
         content: '';
         position: absolute;
         inset: 0;
         border-radius: 14px;
-        background: inherit;
+        background: #fff;
         opacity: 0.15;
         transform: scale(1.4);
         z-index: -1;
