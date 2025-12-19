@@ -79,17 +79,25 @@
         justify-content: center !important;
         position: relative;
         isolation: isolate;
+        padding: 0 !important;
       }
 
-      .kpi-card-icon i, 
-      .kpi-card-icon svg {
-        position: static !important; 
-        margin: 0 !important;
-        transform: none !important; 
+      .kpi-card-icon svg,
+      .kpi-card-icon i {
+        /* RESET POSISI: Menghancurkan aturan 'absolute' dari template */
+        position: relative !important; 
+        top: unset !important;
+        left: unset !important;
+        right: unset !important;
+        bottom: unset !important;
+
+        /* TRICK TERBAIK: Force center di dalam flexbox */
+        margin: auto !important; 
         
+        /* Pastikan ukuran tetap sesuai keinginan Anda */
         width: 24px !important;
         height: 24px !important;
-        display: block;
+        flex-shrink: 0; /* Mencegah icon penyet */
       }
 
       .kpi-card-icon::after {
