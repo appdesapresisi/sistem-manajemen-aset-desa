@@ -168,9 +168,24 @@
         align-items: center;
         justify-content: center;
       }
-      .chart-card-icon i { width: 20px; height: 20px; color: #fff; }
-      .chart-card-title h5 { margin: 0; font-size: 16px; font-weight: 600; color: #1f2937; }
-      .chart-card-title span { font-size: 13px; color: #6b7280; }
+      .chart-card-icon svg,
+      .chart-card-icon i { 
+        width: 20px; 
+        height: 20px; 
+        color: #fff !important; 
+        stroke: #fff !important;
+      }
+      .chart-card-title h5 { 
+        margin: 0; 
+        font-size: 16px; 
+        font-weight: 600; 
+        color: #1f2937; 
+      }
+      .chart-card-title span { 
+        font-size: 13px; 
+        color: #6b7280; 
+      
+      }
       .chart-card-body { padding: 20px 24px; }
 
       /* Status Badge Pills */
@@ -210,9 +225,16 @@
         align-items: center;
         justify-content: center;
       }
-      .info-panel-icon i { width: 18px; height: 18px; color: #fff; }
-      .info-panel-title { font-size: 15px; font-weight: 600; color: #1f2937; margin: 0; }
-      .info-panel-body { padding: 20px 24px; }
+
+      .info-panel-icon svg,
+      .info-panel-icon i { width: 18px; height: 18px; color: #fff !important; 
+        stroke: #fff !important;
+      }
+      .info-panel-title { 
+        font-size: 15px; font-weight: 600; color: #1f2937; margin: 0; 
+      }
+      .info-panel-body { padding: 20px 24px; 
+      }
 
       /* Activity Timeline */
       .activity-timeline { list-style: none; padding: 0; margin: 0; }
@@ -549,7 +571,7 @@
           <div class="col-span-6 md:col-span-6 xl:col-span-4">
             <div class="card overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group">
               <div class="card-body p-5">
-                <div class="flex items-start justify-between">
+                <div class="flex items-center justify-between">
                   <div class="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">
                     <i data-feather="truck" class="w-6 h-6 text-white"></i>
                   </div>
@@ -574,8 +596,8 @@
           <div class="col-span-6 md:col-span-6 xl:col-span-4">
             <div class="card overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group">
               <div class="card-body p-5">
-                <div class="flex items-start justify-between">
-                  <div class="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);">
+                <div class="flex items-center justify-between">
+                  <div class="w-12 h-12 rounded-xl flex items-center justify-center  group-hover:scale-110 transition-transform" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);">
                     <i data-feather="settings" class="w-6 h-6 text-white"></i>
                   </div>
                   <span class="px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-600">Aktif</span>
