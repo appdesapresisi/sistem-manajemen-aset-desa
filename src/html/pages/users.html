@@ -4,6 +4,35 @@
         @@include('../layouts/head-page-meta.html', {'title': 'Users - Sistem Manajemen Aset Desa Mengwi'})
         @@include('../layouts/head-css.html')
         <style>
+            /* Icon color fixes: force feather SVG and <i> icons to white */
+            svg.feather,
+            i[data-feather],
+            .stat-icon i,
+            .stat-icon svg,
+            .data-card-icon i,
+            .data-card-icon svg,
+            .aset-icon i,
+            .aset-icon svg,
+            .jenis-badge i,
+            .status-badge i,
+            .action-btn i,
+            .filter-btn i,
+            .add-btn i,
+            .search-box button i,
+            .page-header-card i,
+            .pagination-nav i,
+            .modern-table i {
+                color: #fff !important;
+                stroke: #fff !important;
+                fill: #fff !important;
+            }
+
+            svg.feather, i[data-feather] {
+                width: auto !important;
+                height: auto !important;
+            }
+        </style>
+        <style>
             /* Gradient Animation */
             @keyframes gradientShift {
                 0% { background-position: 0% 50%; }
