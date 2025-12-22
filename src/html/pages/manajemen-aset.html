@@ -461,6 +461,16 @@
                 display: none !important;
             }
         </style>
+        <style>
+            /* Also hide Feather-inserted SVG for the same topbar search dropdown (post-replace)
+               but do not hide in-page search buttons (.search-box) */
+            .me-auto.pc-mob-drp .pc-head-link.dropdown-toggle svg.feather {
+                display: none !important;
+            }
+            .me-auto.pc-mob-drp .pc-head-link.dropdown-toggle i[data-feather="search"] {
+                display: none !important;
+            }
+        </style>
     </head>
 
     <body>
