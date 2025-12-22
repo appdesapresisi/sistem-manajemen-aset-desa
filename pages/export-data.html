@@ -1,0 +1,1165 @@
+<!DOCTYPE html><html lang="en"><head><title>Export Data - Sistem Manajemen Aset Desa Mengwi | Sistem Informasi Manajemen Aset</title><!-- [Base URL for GitHub Pages] --><base href="/sistem-manajemen-aset-desa/"><!-- [Meta] --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="description" content="Datta Able is trending dashboard template made using Bootstrap 5 design framework. Datta Able is available in Bootstrap, React, CodeIgniter, Angular,  and .net Technologies."><meta name="keywords" content="Bootstrap admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard"><meta name="author" content="CodedThemes"><!-- [Favicon] icon --><link rel="icon" href="/sistem-manajemen-aset-desa/assets/images/favicon.svg" type="image/x-icon"><!-- [Font] Family --><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><!-- Tailwind CDN - quick start (development/testing). Replace with compiled CSS for production. --><script src="https://cdn.tailwindcss.com"></script><!-- [phosphor Icons] https://phosphoricons.com/ --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/phosphor/duotone/style.css"><!-- [Tabler Icons] https://tablericons.com --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/tabler-icons.min.css"><!-- [Feather Icons] https://feathericons.com --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/feather.css"><!-- [Font Awesome Icons] https://fontawesome.com/icons --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/fontawesome.css"><!-- [Material Icons] https://fonts.google.com/icons --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/material.css"><!-- [Template CSS Files] --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/css/style.css" id="main-style-link"><style>/* Gradient Animation */
+            @keyframes gradientShift {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            
+            /* Page Header Card */
+            .page-header-card {
+                background: linear-gradient(135deg, #3f4d67 0%, #2d3a4f 50%, #1a2234 100%);
+                background-size: 200% 200%;
+                animation: gradientShift 8s ease infinite;
+                border-radius: 20px;
+                padding: 32px 40px;
+                margin-bottom: 28px;
+                position: relative;
+                overflow: hidden;
+                box-shadow: 0 10px 40px rgba(63, 77, 103, 0.3);
+            }
+            .page-header-card::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                right: -20%;
+                width: 400px;
+                height: 400px;
+                background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+                pointer-events: none;
+            }
+            .page-header-card h1 {
+                color: #fff;
+                font-size: 28px;
+                font-weight: 700;
+                margin: 0 0 8px 0;
+                position: relative;
+                z-index: 1;
+            }
+            .page-header-card p {
+                color: rgba(255,255,255,0.8);
+                font-size: 15px;
+                margin: 0;
+                position: relative;
+                z-index: 1;
+            }
+
+            /* Main Content Grid */
+            .export-container {
+                display: grid;
+                grid-template-columns: 1fr 320px;
+                gap: 20px;
+                margin-bottom: 20px;
+            }
+            @media (max-width: 1400px) { .export-container { grid-template-columns: 1fr; } }
+
+            /* Section Card */
+            .section-card {
+                background: #fff;
+                border-radius: 16px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+                border: 1px solid rgba(0,0,0,0.04);
+                overflow: hidden;
+            }
+            .section-header {
+                padding: 20px 24px;
+                border-bottom: 1px solid #f3f4f6;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            .section-header-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .section-header-icon svg,
+            .section-header-icon i { 
+                width: 20px; 
+                height: 20px; 
+                color: #fff !important; 
+                stroke: #fff !important;
+            }
+            .section-header-icon.blue { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+            .section-header-icon.green { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+            .section-header-icon.orange { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+            .section-header-title h5 {
+                font-size: 16px;
+                font-weight: 600;
+                color: #1f2937;
+                margin: 0 0 2px 0;
+            }
+            .section-header-title span {
+                font-size: 12px;
+                color: #9ca3af;
+            }
+            .section-body {
+                padding: 20px 24px;
+            }
+
+            /* Data Selection Section */
+            .jenis-selection-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            @media (max-width: 768px) { .jenis-selection-grid { grid-template-columns: 1fr; } }
+
+            .jenis-option {
+                position: relative;
+            }
+            .jenis-option input {
+                display: none;
+            }
+            .jenis-option label {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                padding: 14px;
+                background: #f8fafc;
+                border: 2px solid #e2e8f0;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .jenis-option label:hover {
+                border-color: #3f4d67;
+                background: #f1f5f9;
+            }
+            .jenis-option input:checked + label {
+                border-color: #3f4d67;
+                background: linear-gradient(135deg, #f0f4f8 0%, #e8ecf0 100%);
+                box-shadow: 0 4px 12px rgba(63,77,103,0.2);
+            }
+            .jenis-option-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .jenis-option-icon svg,
+            .jenis-option-icon i { 
+                width: 22px; 
+                height: 22px; 
+                color: #fff !important; 
+                stroke: #fff !important;
+            }
+            .jenis-option-info {
+                flex: 1;
+            }
+            .jenis-option-name { font-size: 13px; font-weight: 600; color: #1f2937; margin-bottom: 2px; }
+            .jenis-option-count { font-size: 11px; color: #9ca3af; }
+
+            .data-controls {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 20px;
+                flex-wrap: wrap;
+            }
+            .search-box {
+                display: flex;
+                align-items: center;
+                background: #f9fafb;
+                border-radius: 10px;
+                padding: 0 14px;
+                border: 1px solid #e5e7eb;
+                transition: all 0.2s;
+                flex: 1;
+                min-width: 200px;
+            }
+            .search-box:focus-within {
+                border-color: #3f4d67;
+                box-shadow: 0 0 0 3px rgba(63,77,103,0.1);
+            }
+            .search-box input {
+                border: none;
+                background: transparent;
+                padding: 10px 0;
+                font-size: 13px;
+                width: 100%;
+                outline: none;
+            }
+            .search-box button {
+                border: none;
+                background: transparent;
+                padding: 0;
+                cursor: pointer;
+                color: #9ca3af;
+            }
+            .search-box button i { width: 16px; height: 16px; }
+
+            .filter-select {
+                padding: 10px 12px;
+                border: 1px solid #e5e7eb;
+                background: #f9fafb;
+                border-radius: 10px;
+                font-size: 13px;
+                color: #374151;
+                outline: none;
+                transition: all 0.2s;
+                min-width: 100px;
+            }
+            .filter-select:focus {
+                border-color: #3f4d67;
+                box-shadow: 0 0 0 3px rgba(63,77,103,0.1);
+            }
+
+            .btn-action {
+                padding: 10px 16px;
+                border: 1px solid #e5e7eb;
+                background: #f3f4f6;
+                border-radius: 10px;
+                font-size: 12px;
+                font-weight: 600;
+                color: #374151;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .btn-action:hover {
+                background: #e5e7eb;
+                border-color: #d1d5db;
+            }
+
+            /* Table */
+            .data-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 13px;
+            }
+            .data-table thead th {
+                background: #f9fafb;
+                padding: 14px 16px;
+                text-align: left;
+                font-weight: 600;
+                color: #6b7280;
+                border-bottom: 1px solid #f3f4f6;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-size: 11px;
+            }
+            .data-table thead th:first-child {
+                width: 50px;
+                text-align: center;
+            }
+            .data-table tbody tr {
+                transition: all 0.2s;
+                border-bottom: 1px solid #f3f4f6;
+            }
+            .data-table tbody tr:hover {
+                background: #f9fafb;
+            }
+            .data-table tbody td {
+                padding: 14px 16px;
+                vertical-align: middle;
+                color: #374151;
+            }
+            .data-table tbody td:first-child {
+                text-align: center;
+            }
+            .data-table input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                accent-color: #3f4d67;
+                cursor: pointer;
+            }
+
+            /* Badge Styles */
+            .jenis-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 4px 10px;
+                border-radius: 16px;
+                font-size: 11px;
+                font-weight: 600;
+            }
+            .jenis-badge.kendaraan { background: #d1fae5; color: #059669; }
+            .jenis-badge.peralatan { background: #fef3c7; color: #b45309; }
+            .jenis-badge.bangunan { background: #dbeafe; color: #2563eb; }
+            .jenis-badge.tanah { background: #fce7f3; color: #be185d; }
+            .jenis-badge.infrastruktur { background: #e9d5ff; color: #7c3aed; }
+
+            .ttd-indicator {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                padding: 4px 10px;
+                border-radius: 6px;
+                font-size: 11px;
+                font-weight: 600;
+            }
+            .ttd-indicator.default { background: #eff6ff; color: #0369a1; }
+            .ttd-indicator.custom { background: #fef3c7; color: #b45309; }
+
+            /* TTD Setup Section */
+            .ttd-setup {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .ttd-subsection {
+                padding: 16px;
+                background: #f8fafc;
+                border-radius: 12px;
+                border: 1px solid #e2e8f0;
+            }
+            .ttd-subsection-title {
+                font-size: 13px;
+                font-weight: 600;
+                color: #3f4d67;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .ttd-subsection-title i { width: 16px; height: 16px; }
+
+            /* Pejabat Display */
+            .pejabat-display {
+                background: #fff;
+                border: 1px solid #e2e8f0;
+                border-radius: 10px;
+                padding: 12px;
+            }
+            .pejabat-display-label {
+                font-size: 11px;
+                font-weight: 600;
+                color: #9ca3af;
+                text-transform: uppercase;
+                margin-bottom: 8px;
+                display: block;
+            }
+            .pejabat-items {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .pejabat-row {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 8px;
+                background: #f9fafb;
+                border-radius: 8px;
+                font-size: 12px;
+            }
+            .pejabat-row-order {
+                width: 24px;
+                height: 24px;
+                border-radius: 4px;
+                background: #3b82f6;
+                color: #fff;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                font-size: 10px;
+            }
+            .pejabat-row-name { font-weight: 600; color: #1f2937; flex: 1; }
+            .pejabat-row-badge {
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 10px;
+                font-weight: 600;
+            }
+            .pejabat-row-badge.default { background: #dbeafe; color: #2563eb; }
+            .pejabat-row-badge.custom { background: #fef3c7; color: #b45309; }
+            .pejabat-empty {
+                font-size: 12px;
+                color: #9ca3af;
+                text-align: center;
+                padding: 12px;
+                font-style: italic;
+            }
+
+            /* Date Input */
+            .date-input-group {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+            .date-input-label {
+                font-size: 11px;
+                font-weight: 600;
+                color: #6b7280;
+                text-transform: uppercase;
+            }
+            .date-input-field {
+                padding: 10px 12px;
+                border: 1px solid #e5e7eb;
+                border-radius: 8px;
+                font-size: 13px;
+                outline: none;
+                transition: all 0.2s;
+            }
+            .date-input-field:focus {
+                border-color: #3f4d67;
+                box-shadow: 0 0 0 3px rgba(63,77,103,0.1);
+            }
+
+            .date-preview-box {
+                background: #eff6ff;
+                border: 1px solid #93c5fd;
+                border-radius: 8px;
+                padding: 10px;
+                margin-top: 8px;
+            }
+            .date-preview-label {
+                font-size: 10px;
+                font-weight: 600;
+                color: #0369a1;
+                margin-bottom: 4px;
+            }
+            .date-preview-text {
+                font-size: 13px;
+                font-weight: 600;
+                color: #0c4a6e;
+            }
+
+            /* Sidebar */
+            .export-sidebar {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            /* Export Options Card */
+            .export-options-card {
+                background: #fff;
+                border-radius: 16px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+                border: 1px solid rgba(0,0,0,0.04);
+                overflow: hidden;
+            }
+            .export-options-header {
+                padding: 16px;
+                background: linear-gradient(135deg, #3f4d67 0%, #2d3a4f 100%);
+                color: #fff;
+            }
+            .export-options-header h5 {
+                font-size: 14px;
+                font-weight: 600;
+                margin: 0;
+            }
+            .export-options-body {
+                padding: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            /* Export Format Options */
+            .format-options {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .format-option {
+                position: relative;
+            }
+            .format-option input {
+                display: none;
+            }
+            .format-option label {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px;
+                background: #f8fafc;
+                border: 2px solid #e2e8f0;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .format-option label:hover {
+                border-color: #3f4d67;
+                background: #f1f5f9;
+            }
+            .format-option input:checked + label {
+                border-color: #3f4d67;
+                background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            }
+            .format-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .format-icon svg,
+            .format-icon i { 
+                width: 18px; 
+                height: 18px; 
+                color: #fff !important; 
+                stroke: #fff !important;
+            }
+
+            .format-icon.excel { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+            .format-icon.pdf { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+            .format-icon.csv { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+            .format-info {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+            .format-label { font-size: 12px; font-weight: 600; color: #1f2937; }
+            .format-desc { font-size: 10px; color: #9ca3af; }
+
+            /* Signature Options */
+            .signature-options {
+                padding: 12px;
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 10px;
+            }
+            .signature-label {
+                font-size: 12px;
+                font-weight: 600;
+                color: #374151;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .signature-label i { width: 16px; height: 16px; }
+            .signature-options-group {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .signature-option {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .signature-option input[type="radio"] {
+                width: 16px;
+                height: 16px;
+                accent-color: #3f4d67;
+                cursor: pointer;
+            }
+            .signature-option label {
+                font-size: 12px;
+                color: #374151;
+                cursor: pointer;
+                flex: 1;
+            }
+            .signature-option span {
+                font-size: 10px;
+                color: #9ca3af;
+            }
+
+            /* Export Button */
+            .export-action-btn {
+                width: 100%;
+                padding: 12px;
+                background: linear-gradient(135deg, #3f4d67 0%, #2d3a4f 100%);
+                color: #fff;
+                border: none;
+                border-radius: 10px;
+                font-weight: 600;
+                font-size: 13px;
+                cursor: pointer;
+                transition: all 0.3s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                box-shadow: 0 4px 12px rgba(63,77,103,0.3);
+            }
+            .export-action-btn:hover:not(:disabled) {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(63,77,103,0.4);
+            }
+            .export-action-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+            .export-action-btn i { width: 16px; height: 16px; }
+
+            /* History Section */
+            .history-card {
+                background: #fff;
+                border-radius: 16px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+                border: 1px solid rgba(0,0,0,0.04);
+                overflow: hidden;
+                margin-top: 20px;
+            }
+
+            .history-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 12px;
+            }
+            .history-table thead th {
+                background: #f9fafb;
+                padding: 12px 16px;
+                text-align: left;
+                font-weight: 600;
+                color: #6b7280;
+                border-bottom: 1px solid #f3f4f6;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-size: 10px;
+            }
+            .history-table tbody tr {
+                border-bottom: 1px solid #f3f4f6;
+            }
+            .history-table tbody tr:hover {
+                background: #f9fafb;
+            }
+            .history-table tbody td {
+                padding: 12px 16px;
+                color: #374151;
+            }
+
+            .user-info {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .user-avatar {
+                width: 28px;
+                height: 28px;
+                border-radius: 6px;
+                background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 10px;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+
+            .export-meta {
+                display: flex;
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+            .meta-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                padding: 3px 8px;
+                background: #f0f9ff;
+                border: 1px solid #bfdbfe;
+                border-radius: 4px;
+                font-size: 10px;
+                color: #0369a1;
+                font-weight: 600;
+            }
+            .meta-badge i { width: 12px; height: 12px; }
+
+            /* Modal */
+            .modal-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.5);
+                align-items: center;
+                justify-content: center;
+                z-index: 2000;
+                backdrop-filter: blur(4px);
+            }
+            .modal-overlay.show { display: flex; }
+            .modal-box {
+                background: #fff;
+                border-radius: 16px;
+                width: 90%;
+                max-width: 900px;
+                max-height: 90vh;
+                overflow: auto;
+                box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+                animation: modalSlideIn 0.3s ease;
+            }
+            @keyframes modalSlideIn {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .modal-header {
+                padding: 20px 24px;
+                background: linear-gradient(135deg, #3f4d67 0%, #2d3a4f 100%);
+                color: #fff;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            .modal-header h5 {
+                font-size: 16px;
+                font-weight: 600;
+                margin: 0;
+            }
+            .modal-body {
+                padding: 24px;
+                max-height: 60vh;
+                overflow-y: auto;
+            }
+            .modal-footer {
+                padding: 16px 24px;
+                background: #f9fafb;
+                border-top: 1px solid #e5e7eb;
+                display: flex;
+                justify-content: flex-end;
+                gap: 12px;
+            }
+            .modal-btn {
+                padding: 10px 20px;
+                border-radius: 10px;
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s;
+                border: none;
+            }
+            .modal-btn-cancel {
+                background: #f3f4f6;
+                color: #374151;
+                border: 1px solid #e5e7eb;
+            }
+            .modal-btn-cancel:hover {
+                background: #e5e7eb;
+            }
+            .modal-btn-confirm {
+                background: linear-gradient(135deg, #3f4d67 0%, #2d3a4f 100%);
+                color: #fff;
+            }
+            .modal-btn-confirm:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(63,77,103,0.3);
+            }
+
+            /* Preview Content */
+            .preview-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                margin-bottom: 20px;
+            }
+            .preview-info-box {
+                padding: 16px;
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 10px;
+            }
+            .preview-info-label {
+                font-size: 11px;
+                font-weight: 600;
+                color: #6b7280;
+                text-transform: uppercase;
+                margin-bottom: 8px;
+            }
+            .preview-info-value {
+                font-size: 13px;
+                font-weight: 600;
+                color: #1f2937;
+            }
+
+            .preview-data-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 11px;
+                border: 1px solid #e5e7eb;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+            .preview-data-table th {
+                background: #f3f4f6;
+                padding: 10px 12px;
+                text-align: left;
+                font-weight: 600;
+                color: #6b7280;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            .preview-data-table td {
+                padding: 10px 12px;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            .preview-data-table tr:last-child td {
+                border-bottom: none;
+            }
+
+            /* History Card */
+            .history-card {
+                background: #fff;
+                border-radius: 16px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+                border: 1px solid rgba(0,0,0,0.04);
+                overflow: hidden;
+                margin-top: 20px;
+            }
+            .history-empty-state {
+                padding: 40px 24px;
+                text-align: center;
+                color: #9ca3af;
+            }
+            .history-empty-state i {
+                width: 48px;
+                height: 48px;
+                color: #d1d5db;
+                margin-bottom: 12px;
+                display: block;
+            }
+            .history-empty-state p {
+                font-size: 14px;
+                margin: 0 0 8px 0;
+                font-weight: 500;
+            }
+            .history-empty-state small {
+                font-size: 12px;
+                color: #d1d5db;
+            }
+            .history-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 13px;
+            }
+            .history-table thead th {
+                background: #f9fafb;
+                padding: 14px 16px;
+                text-align: left;
+                font-weight: 600;
+                color: #6b7280;
+                border-bottom: 1px solid #f3f4f6;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-size: 11px;
+            }
+            .history-table tbody tr {
+                border-bottom: 1px solid #f3f4f6;
+                transition: all 0.2s;
+            }
+            .history-table tbody tr:hover {
+                background: #f9fafb;
+            }
+            .history-table tbody td {
+                padding: 14px 16px;
+                vertical-align: middle;
+                color: #374151;
+            }
+            .user-info {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 11px;
+                font-weight: 700;
+                flex-shrink: 0;
+                background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            }
+            .meta-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 4px 10px;
+                border-radius: 16px;
+                font-size: 11px;
+                font-weight: 600;
+                background: #dbeafe;
+                color: #2563eb;
+            }
+            .meta-badge i { width: 12px; height: 12px; }
+
+            @media (max-width: 768px) {
+                .export-container { grid-template-columns: 1fr; }
+                .section-header { flex-wrap: wrap; }
+                .data-controls { flex-direction: column; align-items: stretch; }
+                .search-box { flex: unset; }
+                .filter-select { width: 100%; }
+                .btn-action { width: 100%; }
+                .preview-grid { grid-template-columns: 1fr; }
+            }</style><style>/* Page-specific: hide topbar search icon/dropdown for this page only */
+            .me-auto.pc-mob-drp i[data-feather="search"],
+            .drp-search {
+                display: none !important;
+            }</style><style>.me-auto.pc-mob-drp .pc-head-link.dropdown-toggle svg.feather,
+            .me-auto.pc-mob-drp .pc-head-link.dropdown-toggle i[data-feather="search"] {
+                display: none !important;
+            }</style></head><body><!-- [ Pre-loader ] start --><div class="loader-bg fixed inset-0 bg-white dark:bg-themedark-cardbg z-[1034]"><div class="loader-track h-[5px] w-full inline-block absolute overflow-hidden top-0"><div class="loader-fill w-[300px] h-[5px] bg-primary-500 absolute top-0 left-0 animate-[hitZak_0.6s_ease-in-out_infinite_alternate]"></div></div></div><!-- [ Pre-loader ] End --><!-- [ Sidebar Menu ] start --><nav class="pc-sidebar"><div class="navbar-wrapper"><div class="m-header flex items-center py-4 px-6 h-header-height"><a href="dashboard/index.html" class="b-brand flex items-center gap-3"><!-- ========   Change your logo from here   ============ --><!-- <img src="/sistem-manajemen-aset-desa/assets/images/logo-white.svg" class="img-fluid logo logo-lg" alt="logo" />       --> <span class="pc-item pc-caption"><label class="text-white uppercase font-bold">Sistem Manajemen Aset</label> </span><img src="/sistem-manajemen-aset-desa/assets/images/favicon.svg" class="img-fluid logo logo-sm" alt="logo"></a></div><div class="navbar-content h-[calc(100vh_-_74px)] py-2.5"><ul class="pc-navbar"><li class="pc-item pc-caption"><label>Navigasi</label></li><li class="pc-item"><a href="dashboard/index.html" class="pc-link"><span class="pc-micon"><i data-feather="home"></i> </span><span class="pc-mtext">Home</span></a></li><li class="pc-item pc-caption"><label>Inventaris</label> <i data-feather="monitor"></i></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/manajemen-aset.html" class="pc-link"><span class="pc-micon"><i data-feather="book"></i></span> <span class="pc-mtext">Manajemen Aset</span></a></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/export-data.html" class="pc-link"><span class="pc-micon"><i data-feather="file-text"></i></span> <span class="pc-mtext">Export Data</span></a></li><li class="pc-item pc-caption"><label>Master Data</label> <i data-feather="feather"></i></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/users.html" class="pc-link"><span class="pc-micon"><i data-feather="users"></i></span> <span class="pc-mtext">Users</span></a></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/pejabats.html" class="pc-link"><span class="pc-micon"><i data-feather="user-check"></i></span> <span class="pc-mtext">Pejabat</span></a></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/jenis-inventaris.html" class="pc-link"><span class="pc-micon"><i data-feather="wind"></i></span> <span class="pc-mtext">Jenis Inventaris</span></a></li></ul></div></div></nav><!-- [ Sidebar Menu ] end --><!-- [ Header Topbar ] start --><header class="pc-header"><div class="header-wrapper flex max-sm:px-[15px] px-[25px] grow"><!-- [Mobile Media Block] start --><div class="me-auto pc-mob-drp"><ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center"><!-- ======= Menu collapse Icon ===== --><li class="pc-h-item pc-sidebar-collapse max-lg:hidden lg:inline-flex"><a href="#" class="pc-head-link ltr:!ml-0 rtl:!mr-0" id="sidebar-hide"><i data-feather="menu"></i></a></li><li class="pc-h-item pc-sidebar-popup lg:hidden"><a href="#" class="pc-head-link ltr:!ml-0 rtl:!mr-0" id="mobile-collapse"><i data-feather="menu"></i></a></li><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="search"></i></a><div class="dropdown-menu pc-h-dropdown drp-search"><form class="px-2 py-1"><input type="search" class="form-control !border-0 !shadow-none" placeholder="Search here. . ."></form></div></li></ul></div><!-- [Mobile Media Block end] --><div class="ms-auto"><ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center"><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="sun"></i></a><div class="dropdown-menu dropdown-menu-end pc-h-dropdown"><a href="#!" class="dropdown-item" onclick="layout_change('dark')"><i data-feather="moon"></i> <span>Dark</span> </a><a href="#!" class="dropdown-item" onclick="layout_change('light')"><i data-feather="sun"></i> <span>Light</span> </a><a href="#!" class="dropdown-item" onclick="layout_change_default()"><i data-feather="settings"></i> <span>Default</span></a></div></li><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="settings"></i></a><div class="dropdown-menu dropdown-menu-end pc-h-dropdown"><a href="#!" class="dropdown-item"><i class="ti ti-user"></i> <span>My Account</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-settings"></i> <span>Settings</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-headset"></i> <span>Support</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-lock"></i> <span>Lock Screen</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-power"></i> <span>Logout</span></a></div></li><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="bell"></i> <span class="badge bg-success-500 text-white rounded-full z-10 absolute right-0 top-0">3</span></a><div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown p-2"><div class="dropdown-header flex items-center justify-between py-4 px-5"><h5 class="m-0">Notifications</h5><a href="#!" class="btn btn-link btn-sm">Mark all read</a></div><div class="dropdown-body header-notification-scroll relative py-4 px-5" style="max-height: calc(100vh - 215px)"><p class="text-span mb-3">Today</p><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-1.jpg" alt="Generic placeholder image"></div><div class="grow"><span class="float-end text-sm text-muted">2 min ago</span><h5 class="text-body mb-2">UI/UX Design</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p></div></div></div></div><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-2.jpg" alt="Generic placeholder image"></div><div class="grow"><span class="float-end text-sm text-muted">1 hour ago</span><h5 class="text-body mb-2">Message</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500.</p></div></div></div></div><p class="text-span mb-3 mt-4">Yesterday</p><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-3.jpg" alt="Generic placeholder image"></div><div class="grow ms-3"><span class="float-end text-sm text-muted">2 hour ago</span><h5 class="text-body mb-2">Forms</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p></div></div></div></div><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-4.jpg" alt="Generic placeholder image"></div><div class="grow ms-3"><span class="float-end text-sm text-muted">12 hour ago</span><h5 class="text-body mb-2">Challenge invitation</h5><p class="mb-2"><strong>Jonny aber</strong> invites to join the challenge</p><button class="btn btn-sm btn-outline-secondary me-2">Decline</button> <button class="btn btn-sm btn-primary">Accept</button></div></div></div></div><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-5.jpg" alt="Generic placeholder image"></div><div class="grow ms-3"><span class="float-end text-sm text-muted">5 hour ago</span><h5 class="text-body mb-2">Security</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p></div></div></div></div></div><div class="text-center py-2"><a href="#!" class="text-danger-500 hover:text-danger-600 focus:text-danger-600 active:text-danger-600">Clear all Notifications</a></div></div></li><li class="dropdown pc-h-item header-user-profile"><a class="pc-head-link dropdown-toggle arrow-none me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" data-pc-auto-close="outside" aria-expanded="false"><i data-feather="user"></i></a><div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown p-2 overflow-hidden"><div class="dropdown-header flex items-center justify-between py-4 px-5 bg-primary-500"><div class="flex mb-1 items-center"><div class="shrink-0"><img src="/sistem-manajemen-aset-desa/assets/images/user/avatar-2.jpg" alt="user-image" class="w-10 rounded-full"></div><div class="grow ms-3"><h6 class="mb-1 text-white">Carson Darrin 🖖</h6><span class="text-white">carson.darrin@company.io</span></div></div></div><div class="dropdown-body py-4 px-5"><div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 225px)"><a href="#" class="dropdown-item"><span><svg class="pc-icon text-muted me-2 inline-block"><use xlink:href="#custom-setting-outline"></use></svg> <span>Settings</span> </span></a><a href="#" class="dropdown-item"><span><svg class="pc-icon text-muted me-2 inline-block"><use xlink:href="#custom-share-bold"></use></svg> <span>Share</span> </span></a><a href="#" class="dropdown-item"><span><svg class="pc-icon text-muted me-2 inline-block"><use xlink:href="#custom-lock-outline"></use></svg> <span>Change Password</span></span></a><div class="grid my-3"><button class="btn btn-primary flex items-center justify-center"><svg class="pc-icon me-2 w-[22px] h-[22px]"><use xlink:href="#custom-logout-1-outline"></use></svg> Logout</button></div></div></div></div></li></ul></div></div></header><!-- [ Header ] end --><div class="pc-container"><div class="pc-content"><!-- [ breadcrumb ] start --><div class="page-header"><div class="page-block"><div class="page-header-title"><h5 class="mb-0 font-medium">Export Jenis</h5></div><ul class="breadcrumb"><li class="breadcrumb-item"><a href="dashboard/index.html">Inventaris</a></li><li class="breadcrumb-item"><a href="javascript: void(0)">Export Data</a></li><!-- <li class="breadcrumb-item" aria-current="page">Export Jenis</li> --></ul></div></div><!-- [ breadcrumb ] end --><!-- Page Header --><div class="page-header-card"><h1><i data-feather="download" style="width: 32px; height: 32px; display: inline-block; vertical-align: middle; margin-right: 12px;"></i>Export Data Jenis Inventaris</h1><p>Ekspor data keseluruhan untuk setiap jenis inventaris dengan kustomisasi pejabat dan tanggal dokumen sesuai kebutuhan.</p></div><!-- Main Content --><div class="export-container"><!-- Left Column: Jenis Selection & TTD Setup --><div class="export-main"><!-- Section 1: Pilih Jenis Inventaris --><div class="section-card" id="section-pilih-jenis"><div class="section-header"><div class="section-header-icon blue"><i data-feather="layers"></i></div><div class="section-header-title"><h5>Pilih Jenis Inventaris</h5><span>Pilih jenis inventaris yang akan diekspor</span></div></div><div class="section-body"><div class="jenis-selection-grid"><div class="jenis-option" data-jenis="kendaraan"><input type="radio" name="jenis-selected" id="jenis-kendaraan" value="kendaraan"> <label for="jenis-kendaraan"><div class="jenis-option-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i data-feather="truck"></i></div><div class="jenis-option-info"><div class="jenis-option-name">Inventaris Kendaraan</div><div class="jenis-option-count">12 data</div></div></label></div><div class="jenis-option" data-jenis="peralatan"><input type="radio" name="jenis-selected" id="jenis-peralatan" value="peralatan"> <label for="jenis-peralatan"><div class="jenis-option-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i data-feather="tool"></i></div><div class="jenis-option-info"><div class="jenis-option-name">Inventaris Peralatan & Mesin</div><div class="jenis-option-count">28 data</div></div></label></div><div class="jenis-option" data-jenis="bangunan"><input type="radio" name="jenis-selected" id="jenis-bangunan" value="bangunan"> <label for="jenis-bangunan"><div class="jenis-option-icon" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);"><i data-feather="home"></i></div><div class="jenis-option-info"><div class="jenis-option-name">Inventaris Bangunan</div><div class="jenis-option-count">18 data</div></div></label></div><div class="jenis-option" data-jenis="tanah"><input type="radio" name="jenis-selected" id="jenis-tanah" value="tanah"> <label for="jenis-tanah"><div class="jenis-option-icon" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);"><i data-feather="map"></i></div><div class="jenis-option-info"><div class="jenis-option-name">Inventaris Tanah</div><div class="jenis-option-count">22 data</div></div></label></div><div class="jenis-option" data-jenis="jalan"><input type="radio" name="jenis-selected" id="jenis-jalan" value="jalan"> <label for="jenis-jalan"><div class="jenis-option-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);"><i data-feather="git-branch"></i></div><div class="jenis-option-info"><div class="jenis-option-name">Jalan, Irigasi & Jaringan</div><div class="jenis-option-count">15 data</div></div></label></div><div class="jenis-option" data-jenis="buku"><input type="radio" name="jenis-selected" id="jenis-buku" value="buku"> <label for="jenis-buku"><div class="jenis-option-icon" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);"><i data-feather="book"></i></div><div class="jenis-option-info"><div class="jenis-option-name">Buku Inventaris Desa</div><div class="jenis-option-count">45 data</div></div></label></div><div class="jenis-option" data-jenis="lainnya"><input type="radio" name="jenis-selected" id="jenis-lainnya" value="lainnya"> <label for="jenis-lainnya"><div class="jenis-option-icon" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);"><i data-feather="archive"></i></div><div class="jenis-option-info"><div class="jenis-option-name">Aset Tetap Lainnya</div><div class="jenis-option-count">10 data</div></div></label></div><div class="jenis-option" data-jenis="notfound"><input type="radio" name="jenis-selected" id="jenis-notfound" value="notfound"> <label for="jenis-notfound"><div class="jenis-option-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"><i data-feather="alert-circle"></i></div><div class="jenis-option-info"><div class="jenis-option-name">Barang Tidak Ditemukan</div><div class="jenis-option-count">6 data</div></div></label></div></div></div></div><!-- Section 2: Atur TTD & Filter Tahun --><div class="section-card" id="section-ttd-setup" style="margin-top: 20px;"><div class="section-header"><div class="section-header-icon green"><i data-feather="users"></i></div><div class="section-header-title"><h5>Atur Pejabat & Tanggal Export</h5><span>Konfigurasi pejabat dan filter tahun data untuk export</span></div></div><div class="section-body"><div class="ttd-setup"><!-- Filter Tahun --><div class="ttd-subsection"><div class="ttd-subsection-title"><i data-feather="calendar"></i> Filter Tahun Data</div><div style="display: flex; gap: 12px; align-items: center;"><select id="filter-tahun" class="filter-select" style="flex: 1;"><option value="2025">Tahun 2025 (15 data)</option><option value="2024">Tahun 2024 (28 data)</option><option value="2023">Tahun 2023 (18 data)</option><option value="2022">Tahun 2022 (12 data)</option></select><div class="data-info-badge" style="background: #dbeafe; color: #2563eb; padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; white-space: nowrap;"><span id="tahun-data-count">15 data</span> akan diexport</div></div></div><!-- Pejabat Default --><div class="ttd-subsection"><div class="ttd-subsection-title"><i data-feather="check"></i> Pejabat Default</div><div class="pejabat-display"><span class="pejabat-display-label">Pejabat yang akan menandatangani:</span><div class="pejabat-items" id="default-pejabat-list"><div class="pejabat-row"><div class="pejabat-row-order">1</div><div class="pejabat-row-name">I Nyoman Suwarjana, SE</div><div class="pejabat-row-badge default">Perbekel</div></div><div class="pejabat-row"><div class="pejabat-row-order">2</div><div class="pejabat-row-name">I Putu Suadnyana</div><div class="pejabat-row-badge default">Sekdes</div></div></div></div></div><!-- Pejabat Custom --><div class="ttd-subsection"><div class="ttd-subsection-title"><i data-feather="edit-3"></i> Pejabat Custom (Opsional)</div><div class="pejabat-display"><span class="pejabat-display-label">Pilih untuk mengganti pejabat default:</span><div class="pejabat-items" id="custom-pejabat-list"><div class="pejabat-empty">Belum ada pejabat custom. Klik tombol di bawah untuk menambah.</div></div><button class="btn-action" style="width: 100%; margin-top: 10px;" onclick="openCustomPejabatModal()">+ Tambah Pejabat Custom</button></div></div><!-- Tanggal Dokumen --><div class="ttd-subsection"><div class="ttd-subsection-title"><i data-feather="calendar"></i> Tanggal Dokumen</div><div class="date-input-group"><label class="date-input-label">Lokasi</label> <input type="text" id="doc-lokasi" class="date-input-field" value="Mengwi"></div><div class="date-input-group" style="margin-top: 10px;"><label class="date-input-label">Tanggal Dokumen</label> <input type="date" id="doc-tanggal" class="date-input-field"></div><div class="date-preview-box"><div class="date-preview-label">Preview Tanggal:</div><div class="date-preview-text" id="date-preview">Mengwi, -</div></div></div></div></div></div><!-- Section 3: History Export --><div class="history-card" id="history-section" style="display: none;"><div class="section-header"><div class="section-header-icon orange"><i data-feather="server"></i></div><div class="section-header-title"><h5 id="history-title">Riwayat Export</h5><span id="history-subtitle">Daftar export yang telah dilakukan</span></div></div><table class="history-table"><thead><tr><th style="width: 180px;">User & Tanggal</th><th>Format</th><th style="width: 80px;">TTD</th><th style="width: 80px;">Jumlah</th><th>Keterangan</th></tr></thead><tbody id="history-tbody"></tbody></table><div style="padding: 16px 20px; border-top: 1px solid #f3f4f6; display: flex; justify-content: flex-end;"><a href="/sistem-manajemen-aset-desa/pages/export-history.html" id="history-view-all-btn" class="btn-action" style="background: #dbeafe; color: #2563eb; border-color: #bfdbfe;"><i data-feather="arrow-right" style="width: 14px; height: 14px; margin-right: 4px;"></i> Lihat Semua Riwayat</a></div></div><!-- History Empty State --><div class="history-card" id="history-empty" style="display: block;"><div class="history-empty-state"><i data-feather="inbox"></i><p>Riwayat Export</p><small>Pilih jenis inventaris terlebih dahulu untuk melihat riwayat export</small></div></div></div><!-- Right Sidebar: Export Options --><div class="export-sidebar"><!-- Export Options --><div class="export-options-card"><div class="export-options-header"><h5 class="text-white">Opsi Export</h5></div><div class="export-options-body"><!-- Format Selection --><div><div style="font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;"><i data-feather="download" style="width: 14px; height: 14px;"></i> Format File</div><div class="format-options"><div class="format-option"><input type="radio" name="export-format" id="format-excel" value="excel" checked="checked"> <label for="format-excel"><div class="format-icon excel"><i data-feather="file-minus"></i></div><div class="format-info"><div class="format-label">Excel</div><div class="format-desc">Format .xlsx</div></div></label></div><div class="format-option"><input type="radio" name="export-format" id="format-pdf" value="pdf"> <label for="format-pdf"><div class="format-icon pdf"><i data-feather="file-text"></i></div><div class="format-info"><div class="format-label">PDF</div><div class="format-desc">Format PDF</div></div></label></div><div class="format-option"><input type="radio" name="export-format" id="format-csv" value="csv"> <label for="format-csv"><div class="format-icon csv"><i data-feather="file-plus"></i></div><div class="format-info"><div class="format-label">CSV</div><div class="format-desc">Format CSV</div></div></label></div></div></div><!-- Signature Options --><div class="signature-options"><div class="signature-label"><i data-feather="pen-tool"></i> Opsi Tanda Tangan</div><div class="signature-options-group"><div class="signature-option"><input type="radio" name="signature-option" id="sig-with" value="with" checked="checked"> <label for="sig-with">Dengan Tanda Tangan</label></div><div class="signature-option"><input type="radio" name="signature-option" id="sig-without" value="without"> <label for="sig-without">Tanpa Tanda Tangan</label></div></div></div><!-- Export Button --> <button class="export-action-btn" id="btn-preview-export" disabled="disabled"><i data-feather="eye"></i> Preview Export</button></div></div><!-- Summary Card --><div class="section-card"><div class="section-header"><div class="section-header-icon blue"><i data-feather="info"></i></div><div class="section-header-title"><h5>Ringkasan Export</h5></div></div><div class="section-body"><div style="display: flex; flex-direction: column; gap: 12px; font-size: 12px;"><div style="padding: 10px; background: #eff6ff; border-radius: 8px; color: #0369a1;"><strong>Jenis:</strong> <span id="info-jenis">Pilih jenis</span></div><div style="padding: 10px; background: #fef3c7; border-radius: 8px; color: #92400e;"><strong>Tahun:</strong> <span id="info-tahun">2025</span></div><div style="padding: 10px; background: #f0fdf4; border-radius: 8px; color: #15803d;"><strong>Format:</strong> <span id="info-format">Excel (.xlsx)</span></div><div style="padding: 10px; background: #fecaca; border-radius: 8px; color: #7f1d1d;"><strong>TTD:</strong> <span id="info-signature">Dengan Tanda Tangan</span></div></div></div></div></div></div></div></div><!-- Custom Pejabat Modal --><div id="custom-pejabat-modal" class="modal-overlay"><div class="modal-box"><div class="modal-header"><h5>Pilih Pejabat Custom</h5></div><div class="modal-body"><div class="pejabat-list" id="modal-pejabat-list" style="border: 1px solid #e2e8f0; border-radius: 10px; max-height: 300px; overflow-y: auto;"><!-- Populated by JS --></div></div><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeCustomPejabatModal()">Batal</button> <button class="modal-btn modal-btn-confirm" onclick="saveCustomPejabat()">Simpan</button></div></div></div><!-- Preview Export Modal --><div id="preview-export-modal" class="modal-overlay"><div class="modal-box"><div class="modal-header"><h5>Preview Export Data</h5></div><div class="modal-body"><div class="preview-grid"><div class="preview-info-box"><div class="preview-info-label">Format File</div><div class="preview-info-value" id="preview-format">Excel (.xlsx)</div></div><div class="preview-info-box"><div class="preview-info-label">Jumlah Data</div><div class="preview-info-value" id="preview-count">0 aset</div></div><div class="preview-info-box"><div class="preview-info-label">Opsi Tanda Tangan</div><div class="preview-info-value" id="preview-sig">Dengan Tanda Tangan</div></div><div class="preview-info-box"><div class="preview-info-label">Tanggal Dokumen</div><div class="preview-info-value" id="preview-date">Mengwi, -</div></div></div><div style="margin-bottom: 20px;"><h6 style="font-size: 12px; font-weight: 600; color: #374151; margin: 0 0 10px 0; text-transform: uppercase;">Data yang akan diekspor:</h6><table class="preview-data-table"><thead><tr><th>No</th><th>Nama Aset</th><th>Jenis</th><th>TTD</th></tr></thead><tbody id="preview-table-body"><!-- Populated by JS --></tbody></table></div><div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; font-size: 12px; color: #374151;"><strong>Catatan:</strong> Pastikan semua data sudah sesuai sebelum melakukan export. Tanda tangan akan ditambahkan sesuai dengan pejabat yang telah dipilih.</div></div><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closePreviewModal()">Batal</button> <button class="modal-btn modal-btn-confirm" onclick="confirmExport()"><i data-feather="download" style="width: 12px; height: 12px; margin-right: 4px;"></i> Export Sekarang</button></div></div></div><footer class="pc-footer"><div class="footer-wrapper container-fluid mx-10"><div class="grid grid-cols-12 gap-1.5"><div class="col-span-12 sm:col-span-6 my-1"><p class="m-0"><a href="https://codedthemes.com/" class="text-theme-bodycolor dark:text-themedark-bodycolor hover:text-primary-500 dark:hover:text-primary-500" target="_blank">Sistem</a> Informasi Manajemen Aset</p></div><div class="col-span-12 sm:col-span-6 my-1 justify-self-end"><p class="inline-block max-sm:mr-3 sm:ml-2">Build: v1.0.0</p></div></div></div></footer><!-- Required Js --><script src="/sistem-manajemen-aset-desa/assets/js/plugins/simplebar.min.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/plugins/popper.min.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/icon/custom-icon.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/plugins/feather.min.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/component.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/theme.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/script.js"></script><div class="floting-button fixed bottom-[50px] right-[30px] z-[1030]"></div><script>layout_change('false');</script><script>layout_theme_sidebar_change('dark');</script><script>change_box_container('false');</script><script>layout_caption_change('true');</script><script>layout_rtl_change('false');</script><script>preset_change('preset-1');</script><script>main_layout_change('vertical');</script><script>// Initialize
+            const jenisData = {
+                kendaraan: { nama: 'Inventaris Kendaraan', count: 12, default_pejabat: [1, 2] },
+                peralatan: { nama: 'Inventaris Peralatan & Mesin', count: 28, default_pejabat: [1, 2] },
+                bangunan: { nama: 'Inventaris Bangunan', count: 18, default_pejabat: [1, 2] },
+                tanah: { nama: 'Inventaris Tanah', count: 22, default_pejabat: [1, 2] },
+                jalan: { nama: 'Jalan, Irigasi & Jaringan', count: 15, default_pejabat: [1, 2] },
+                buku: { nama: 'Buku Inventaris Desa', count: 45, default_pejabat: [1, 2] },
+                lainnya: { nama: 'Aset Tetap Lainnya', count: 10, default_pejabat: [1, 2] },
+                notfound: { nama: 'Barang Tidak Ditemukan', count: 6, default_pejabat: [1, 2] }
+            };
+
+            const pejabatData = [
+                { id: 1, nama: 'I Nyoman Suwarjana, SE', jabatan: 'Perbekel' },
+                { id: 2, nama: 'I Putu Suadnyana', jabatan: 'Sekdes' },
+                { id: 3, nama: 'Budi Santoso', jabatan: 'Bendahara Desa' },
+                { id: 4, nama: 'Siti Nurhaliza', jabatan: 'Kaur Pembangunan' }
+            ];
+
+            const tahunData = {
+                2025: 15,
+                2024: 28,
+                2023: 18,
+                2022: 12
+            };
+
+            let selectedJenis = null;
+            let selectedTahun = '2025';
+            let customPejabat = [];
+
+            // History data per jenis
+            const historyData = {
+                kendaraan: [
+                    { user: 'I Made', avatar: 'IM', bg: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)', date: '2024-12-11', time: '14:30', format: 'Excel', ttd: 'Ada', jumlah: '12 data', note: 'Export laporan aset tahunan' },
+                    { user: 'Putri Sari', avatar: 'PS', bg: 'linear-gradient(135deg, #10b981 0%, #059669 100%)', date: '2024-12-10', time: '10:15', format: 'PDF', ttd: 'Tidak', jumlah: '12 data', note: 'Verifikasi data aset' }
+                ],
+                peralatan: [
+                    { user: 'Ahmad Wijaya', avatar: 'AW', bg: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', date: '2024-12-09', time: '09:45', format: 'CSV', ttd: 'Ada', jumlah: '28 data', note: 'Import ke sistem lain' },
+                    { user: 'Siti Nur', avatar: 'SN', bg: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)', date: '2024-12-08', time: '13:20', format: 'Excel', ttd: 'Ada', jumlah: '28 data', note: 'Laporan inventaris' }
+                ],
+                bangunan: [
+                    { user: 'Rudi Hartono', avatar: 'RH', bg: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)', date: '2024-12-07', time: '11:00', format: 'PDF', ttd: 'Tidak', jumlah: '18 data', note: 'Dokumen arsip' }
+                ],
+                tanah: [
+                    { user: 'Made Rikrik', avatar: 'MR', bg: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)', date: '2024-12-06', time: '15:45', format: 'Excel', ttd: 'Ada', jumlah: '22 data', note: 'Laporan pertanahan' }
+                ],
+                jalan: [
+                    { user: 'Nita Kusuma', avatar: 'NK', bg: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', date: '2024-12-05', time: '10:30', format: 'CSV', ttd: 'Ada', jumlah: '15 data', note: 'Data infrastruktur' }
+                ],
+                buku: [
+                    { user: 'Budi Santoso', avatar: 'BS', bg: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', date: '2024-12-04', time: '14:20', format: 'Excel', ttd: 'Ada', jumlah: '45 data', note: 'Master aset desa tahunan' }
+                ],
+                lainnya: [
+                    { user: 'Hendra Riyanto', avatar: 'HR', bg: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)', date: '2024-12-03', time: '09:00', format: 'PDF', ttd: 'Ada', jumlah: '10 data', note: 'Aset lainnya' }
+                ],
+                notfound: [
+                    { user: 'Lisa Suwandi', avatar: 'LS', bg: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)', date: '2024-12-02', time: '16:15', format: 'CSV', ttd: 'Tidak', jumlah: '6 data', note: 'Barang hilang/tidak ditemukan' }
+                ]
+            };
+
+            // Set default date
+            document.getElementById('doc-tanggal').valueAsDate = new Date();
+            updateDatePreview();
+
+            // Jenis Selection Handler
+            document.querySelectorAll('input[name="jenis-selected"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    selectedJenis = this.value;
+                    updateUI();
+                });
+            });
+
+            // Tahun Filter Handler
+            document.getElementById('filter-tahun').addEventListener('change', function() {
+                selectedTahun = this.value;
+                document.getElementById('tahun-data-count').textContent = tahunData[selectedTahun] + ' data';
+                updateUI();
+            });
+
+            // Date preview
+            function updateDatePreview() {
+                const lokasi = document.getElementById('doc-lokasi').value || 'Lokasi';
+                const tanggal = document.getElementById('doc-tanggal').value;
+                const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                
+                if (tanggal) {
+                    const date = new Date(tanggal);
+                    const preview = `${lokasi}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+                    document.getElementById('date-preview').textContent = preview;
+                } else {
+                    document.getElementById('date-preview').textContent = `${lokasi}, -`;
+                }
+            }
+
+            document.getElementById('doc-lokasi').addEventListener('change', updateDatePreview);
+            document.getElementById('doc-tanggal').addEventListener('change', updateDatePreview);
+
+            // Format & Signature update
+            document.querySelectorAll('input[name="export-format"], input[name="signature-option"]').forEach(input => {
+                input.addEventListener('change', updateUI);
+            });
+
+            // Update UI
+            function updateUI() {
+                const format = document.querySelector('input[name="export-format"]:checked').value;
+                const sig = document.querySelector('input[name="signature-option"]:checked').value;
+
+                document.getElementById('info-jenis').textContent = selectedJenis ? jenisData[selectedJenis].nama : 'Pilih jenis';
+                document.getElementById('info-tahun').textContent = selectedTahun;
+                document.getElementById('info-format').textContent = formatLabel(format);
+                document.getElementById('info-signature').textContent = sig === 'with' ? 'Dengan Tanda Tangan' : 'Tanpa Tanda Tangan';
+
+                document.getElementById('btn-preview-export').disabled = !selectedJenis;
+
+                // Show/hide history section
+                const historySection = document.getElementById('history-section');
+                const historyEmpty = document.getElementById('history-empty');
+
+                if (selectedJenis && historyData[selectedJenis]) {
+                    historyEmpty.style.display = 'none';
+                    historySection.style.display = 'block';
+                    updateHistoryTable();
+                } else {
+                    historyEmpty.style.display = 'block';
+                    historySection.style.display = 'none';
+                }
+            }
+
+            // Update history table
+            function updateHistoryTable() {
+                const tbody = document.getElementById('history-tbody');
+                const data = historyData[selectedJenis] || [];
+                const viewAllBtn = document.getElementById('history-view-all-btn');
+
+                tbody.innerHTML = data.map(record => `
+                    <tr>
+                        <td>
+                            <div class="user-info">
+                                <div class="user-avatar" style="background: ${record.bg};">${record.avatar}</div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 13px;">${record.user}</div>
+                                    <div style="font-size: 11px; color: #9ca3af;">${record.date} ${record.time}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="meta-badge"><i data-feather="file"></i> ${record.format}</span></td>
+                        <td><span style="background: ${record.ttd === 'Ada' ? '#ecfdf5' : '#fee2e2'}; color: ${record.ttd === 'Ada' ? '#059669' : '#dc2626'}; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600;">${record.ttd}</span></td>
+                        <td style="font-weight: 500;">${record.jumlah}</td>
+                        <td><span style="font-size: 11px; color: #6b7280;">${record.note}</span></td>
+                    </tr>
+                `).join('');
+
+                // Update button href with jenis parameter
+                if (viewAllBtn) {
+                    viewAllBtn.href = `export-history.html?jenis=${selectedJenis}`;
+                }
+
+                if(typeof feather !== 'undefined') feather.replace();
+            }
+
+            function formatLabel(format) {
+                const labels = { excel: 'Excel (.xlsx)', pdf: 'PDF', csv: 'CSV' };
+                return labels[format] || format;
+            }
+
+            // Custom Pejabat Modal
+            function openCustomPejabatModal() {
+                const list = document.getElementById('modal-pejabat-list');
+                list.innerHTML = pejabatData.map(p => `
+                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; cursor: pointer;" onclick="togglePejabat(${p.id})">
+                        <input type="checkbox" class="pejabat-cb" data-id="${p.id}" style="width: 16px; height: 16px; accent-color: #3f4d67;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; font-size: 12px; color: #1f2937;">${p.nama}</div>
+                            <div style="font-size: 11px; color: #9ca3af;">${p.jabatan}</div>
+                        </div>
+                    </div>
+                `).join('');
+                document.getElementById('custom-pejabat-modal').classList.add('show');
+                if(typeof feather !== 'undefined') feather.replace();
+            }
+
+            function closeCustomPejabatModal() {
+                document.getElementById('custom-pejabat-modal').classList.remove('show');
+            }
+
+            function togglePejabat(id) {
+                const cb = event.target.closest('.pejabat-cb');
+                if (cb && cb.tagName === 'INPUT') cb.click();
+            }
+
+            function saveCustomPejabat() {
+                const selected = document.querySelectorAll('.pejabat-cb:checked');
+                customPejabat = Array.from(selected).map(cb => {
+                    const id = parseInt(cb.dataset.id);
+                    return pejabatData.find(p => p.id === id);
+                });
+
+                const customList = document.getElementById('custom-pejabat-list');
+                if (customPejabat.length > 0) {
+                    customList.innerHTML = customPejabat.map((p, idx) => `
+                        <div class="pejabat-row">
+                            <div class="pejabat-row-order">${idx + 1}</div>
+                            <div class="pejabat-row-name">${p.nama}</div>
+                            <div class="pejabat-row-badge custom">${p.jabatan}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    customList.innerHTML = '<div class="pejabat-empty">Belum ada pejabat custom. Klik tombol di bawah untuk menambah.</div>';
+                }
+
+                closeCustomPejabatModal();
+                showToast('Pejabat custom berhasil disimpan!');
+            }
+
+            // Preview & Export
+            document.getElementById('btn-preview-export').addEventListener('click', function() {
+                if (!selectedJenis) return;
+                
+                const format = document.querySelector('input[name="export-format"]:checked').value;
+                const sig = document.querySelector('input[name="signature-option"]:checked').value;
+                const dataCount = tahunData[selectedTahun];
+
+                document.getElementById('preview-format').textContent = formatLabel(format);
+                document.getElementById('preview-count').textContent = dataCount + ' data ' + jenisData[selectedJenis].nama.toLowerCase();
+                document.getElementById('preview-sig').textContent = sig === 'with' ? 'Dengan Tanda Tangan' : 'Tanpa Tanda Tangan';
+                document.getElementById('preview-date').textContent = document.getElementById('date-preview').textContent;
+
+                const tbody = document.getElementById('preview-table-body');
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
+                            <strong>${jenisData[selectedJenis].nama}</strong> - Tahun ${selectedTahun} (${dataCount} data)
+                        </td>
+                    </tr>
+                `;
+
+                document.getElementById('preview-export-modal').classList.add('show');
+                if(typeof feather !== 'undefined') feather.replace();
+            });
+
+            function closePreviewModal() {
+                document.getElementById('preview-export-modal').classList.remove('show');
+            }
+
+            function confirmExport() {
+                const format = document.querySelector('input[name="export-format"]:checked').value;
+                const dataCount = tahunData[selectedTahun];
+                showToast(`Export ${jenisData[selectedJenis].nama} (${dataCount} data) ke format ${format.toUpperCase()} sedang diproses...`);
+                closePreviewModal();
+                setTimeout(() => {
+                    showToast('Export berhasil! File sedang diunduh...');
+                }, 1500);
+            }
+
+            // Toast
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.className = 'fixed top-4 right-4 z-50 flex items-center gap-3 bg-green-500 text-white px-5 py-4 rounded-xl shadow-xl';
+                toast.innerHTML = `
+                    <i data-feather="check-circle" style="width:20px;height:20px;"></i>
+                    <span style="font-size: 13px; font-weight: 500;">${message}</span>
+                `;
+                document.body.appendChild(toast);
+                if(typeof feather !== 'undefined') feather.replace();
+                setTimeout(() => toast.remove(), 4000);
+            }
+
+            // Initialize UI
+            updateUI();</script></body></html>

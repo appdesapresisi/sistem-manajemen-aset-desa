@@ -1,0 +1,1 @@
+"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){new ApexCharts(document.querySelector("#chart-percent1"),{chart:{height:180,type:"donut"},dataLabels:{enabled:!1},plotOptions:{pie:{donut:{size:"85%"}}},series:[23,35,28],colors:["#1de9b6","#a389d4","#04a9f5"],labels:["Desktop","Mobile","Tablet"],legend:{show:!1}}).render()},500)});

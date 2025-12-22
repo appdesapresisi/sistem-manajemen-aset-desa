@@ -1,0 +1,615 @@
+<!doctype html><html lang="en" data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-direction="ltr" dir="ltr" data-pc-theme="light"><head><title>Tambah User | Sistem Informasi Manajemen Aset</title><!-- [Base URL for GitHub Pages] --><base href="/sistem-manajemen-aset-desa/"><!-- [Meta] --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="description" content="Datta Able is trending dashboard template made using Bootstrap 5 design framework. Datta Able is available in Bootstrap, React, CodeIgniter, Angular,  and .net Technologies."><meta name="keywords" content="Bootstrap admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard"><meta name="author" content="CodedThemes"><!-- [Favicon] icon --><link rel="icon" href="/sistem-manajemen-aset-desa/assets/images/favicon.svg" type="image/x-icon"><!-- [Font] Family --><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><!-- Tailwind CDN - quick start (development/testing). Replace with compiled CSS for production. --><script src="https://cdn.tailwindcss.com"></script><!-- [phosphor Icons] https://phosphoricons.com/ --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/phosphor/duotone/style.css"><!-- [Tabler Icons] https://tablericons.com --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/tabler-icons.min.css"><!-- [Feather Icons] https://feathericons.com --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/feather.css"><!-- [Font Awesome Icons] https://fontawesome.com/icons --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/fontawesome.css"><!-- [Material Icons] https://fonts.google.com/icons --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/material.css"><!-- [Template CSS Files] --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/css/style.css" id="main-style-link"><style>/* Form Styling */
+      .form-section {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #e2e8f0;
+      }
+      .form-section-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #3f4d67;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .form-section-title i {
+        width: 18px;
+        height: 18px;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .form-group {
+        margin-bottom: 0;
+      }
+      .form-label {
+        font-weight: 500;
+        font-size: 13px;
+        color: #374151;
+        margin-bottom: 6px;
+        display: block;
+      }
+      .form-label .required {
+        color: #ef4444;
+        margin-left: 2px;
+      }
+      .form-label .optional {
+        color: #9ca3af;
+        font-weight: 400;
+        font-size: 11px;
+        margin-left: 4px;
+      }
+      .form-control, .form-select {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        background: #fff;
+      }
+      .form-control:focus, .form-select:focus {
+        outline: none;
+        border-color: #3f4d67;
+        box-shadow: 0 0 0 3px rgba(63, 77, 103, 0.1);
+      }
+      .form-control::placeholder {
+        color: #9ca3af;
+      }
+      .form-hint {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 4px;
+      }
+      .form-full {
+        grid-column: 1 / -1;
+      }
+      
+      /* Toggle Switch */
+      .toggle-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .toggle-switch {
+        position: relative;
+        width: 48px;
+        height: 26px;
+      }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #cbd5e1;
+        transition: 0.3s;
+        border-radius: 26px;
+      }
+      .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .toggle-switch input:checked + .toggle-slider {
+        background-color: #22c55e;
+      }
+      .toggle-switch input:checked + .toggle-slider:before {
+        transform: translateX(22px);
+      }
+      .toggle-label {
+        font-size: 14px;
+        color: #374151;
+      }
+      .toggle-status {
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 500;
+      }
+      .toggle-status.active {
+        background: #dcfce7;
+        color: #16a34a;
+      }
+      .toggle-status.inactive {
+        background: #fee2e2;
+        color: #dc2626;
+      }
+
+      /* Checkbox styled */
+      .checkbox-wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 14px 16px;
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .checkbox-wrapper:hover {
+        border-color: #3f4d67;
+        background: #f8fafc;
+      }
+      .checkbox-wrapper.checked {
+        border-color: #3f4d67;
+        background: rgba(63, 77, 103, 0.05);
+      }
+      .checkbox-wrapper input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        accent-color: #3f4d67;
+        cursor: pointer;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .checkbox-content {
+        flex: 1;
+      }
+      .checkbox-title {
+        font-weight: 600;
+        font-size: 14px;
+        color: #374151;
+        margin-bottom: 2px;
+      }
+      .checkbox-desc {
+        font-size: 12px;
+        color: #6b7280;
+        line-height: 1.4;
+      }
+
+      /* Pejabat Section */
+      .pejabat-section {
+        display: none;
+        margin-top: 16px;
+        padding: 20px;
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border: 1px solid #93c5fd;
+        border-radius: 10px;
+      }
+      .pejabat-section.show {
+        display: block;
+        animation: slideDown 0.3s ease;
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .pejabat-section-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1e40af;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .pejabat-section-title i {
+        width: 18px;
+        height: 18px;
+        color: #3b82f6;
+      }
+
+      /* Info box */
+      .info-box {
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        border: 1px solid #fbbf24;
+        border-radius: 8px;
+        padding: 12px 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .info-box i {
+        color: #d97706;
+        flex-shrink: 0;
+        margin-top: 2px;
+        width: 18px;
+        height: 18px;
+      }
+      .info-box-text {
+        font-size: 13px;
+        color: #92400e;
+        line-height: 1.5;
+      }
+
+      /* File upload */
+      .file-upload-wrapper {
+        position: relative;
+      }
+      .file-upload-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: #fff;
+        border: 2px dashed #d1d5db;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: #6b7280;
+        font-size: 14px;
+      }
+      .file-upload-label:hover {
+        border-color: #3f4d67;
+        background: #f8fafc;
+      }
+      .file-upload-label i {
+        width: 20px;
+        height: 20px;
+      }
+      .file-upload-wrapper input[type="file"] {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+      }
+      .file-name {
+        font-size: 12px;
+        color: #16a34a;
+        margin-top: 6px;
+        display: none;
+      }
+      .file-name.show {
+        display: block;
+      }
+
+      /* Buttons */
+      .form-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        padding-top: 20px;
+        border-top: 1px solid #e5e7eb;
+        margin-top: 24px;
+      }
+      .btn-cancel {
+        padding: 10px 20px;
+        border: 1px solid #d1d5db;
+        background: #fff;
+        color: #374151;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-cancel:hover {
+        background: #f3f4f6;
+      }
+      .btn-submit {
+        padding: 10px 24px;
+        border: none;
+        background: #3f4d67;
+        color: #fff;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-submit:hover {
+        background: #2d3a4f;
+      }
+      .btn-submit i {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* Card Header */
+      .card-header-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: rgba(63, 77, 103, 0.1);
+        margin-right: 12px;
+      }
+      .card-header-icon i {
+        color: #3f4d67;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Password visibility toggle */
+      .password-wrapper {
+        position: relative;
+      }
+      .password-toggle {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #6b7280;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .password-toggle:hover {
+        color: #374151;
+      }
+      .password-toggle i {
+        width: 18px;
+        height: 18px;
+      }
+      .password-wrapper .form-control {
+        padding-right: 44px;
+      }
+
+      @media (max-width: 768px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }</style></head><body><!-- [ Pre-loader ] start --><div class="loader-bg fixed inset-0 bg-white dark:bg-themedark-cardbg z-[1034]"><div class="loader-track h-[5px] w-full inline-block absolute overflow-hidden top-0"><div class="loader-fill w-[300px] h-[5px] bg-primary-500 absolute top-0 left-0 animate-[hitZak_0.6s_ease-in-out_infinite_alternate]"></div></div></div><!-- [ Pre-loader ] End --><!-- [ Sidebar Menu ] start --><nav class="pc-sidebar"><div class="navbar-wrapper"><div class="m-header flex items-center py-4 px-6 h-header-height"><a href="dashboard/index.html" class="b-brand flex items-center gap-3"><!-- ========   Change your logo from here   ============ --><!-- <img src="/sistem-manajemen-aset-desa/assets/images/logo-white.svg" class="img-fluid logo logo-lg" alt="logo" />       --> <span class="pc-item pc-caption"><label class="text-white uppercase font-bold">Sistem Manajemen Aset</label> </span><img src="/sistem-manajemen-aset-desa/assets/images/favicon.svg" class="img-fluid logo logo-sm" alt="logo"></a></div><div class="navbar-content h-[calc(100vh_-_74px)] py-2.5"><ul class="pc-navbar"><li class="pc-item pc-caption"><label>Navigasi</label></li><li class="pc-item"><a href="dashboard/index.html" class="pc-link"><span class="pc-micon"><i data-feather="home"></i> </span><span class="pc-mtext">Home</span></a></li><li class="pc-item pc-caption"><label>Inventaris</label> <i data-feather="monitor"></i></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/manajemen-aset.html" class="pc-link"><span class="pc-micon"><i data-feather="book"></i></span> <span class="pc-mtext">Manajemen Aset</span></a></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/export-data.html" class="pc-link"><span class="pc-micon"><i data-feather="file-text"></i></span> <span class="pc-mtext">Export Data</span></a></li><li class="pc-item pc-caption"><label>Master Data</label> <i data-feather="feather"></i></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/users.html" class="pc-link"><span class="pc-micon"><i data-feather="users"></i></span> <span class="pc-mtext">Users</span></a></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/pejabats.html" class="pc-link"><span class="pc-micon"><i data-feather="user-check"></i></span> <span class="pc-mtext">Pejabat</span></a></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/jenis-inventaris.html" class="pc-link"><span class="pc-micon"><i data-feather="wind"></i></span> <span class="pc-mtext">Jenis Inventaris</span></a></li></ul></div></div></nav><!-- [ Sidebar Menu ] end --><!-- [ Header Topbar ] start --><header class="pc-header"><div class="header-wrapper flex max-sm:px-[15px] px-[25px] grow"><!-- [Mobile Media Block] start --><div class="me-auto pc-mob-drp"><ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center"><!-- ======= Menu collapse Icon ===== --><li class="pc-h-item pc-sidebar-collapse max-lg:hidden lg:inline-flex"><a href="#" class="pc-head-link ltr:!ml-0 rtl:!mr-0" id="sidebar-hide"><i data-feather="menu"></i></a></li><li class="pc-h-item pc-sidebar-popup lg:hidden"><a href="#" class="pc-head-link ltr:!ml-0 rtl:!mr-0" id="mobile-collapse"><i data-feather="menu"></i></a></li><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="search"></i></a><div class="dropdown-menu pc-h-dropdown drp-search"><form class="px-2 py-1"><input type="search" class="form-control !border-0 !shadow-none" placeholder="Search here. . ."></form></div></li></ul></div><!-- [Mobile Media Block end] --><div class="ms-auto"><ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center"><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="sun"></i></a><div class="dropdown-menu dropdown-menu-end pc-h-dropdown"><a href="#!" class="dropdown-item" onclick="layout_change('dark')"><i data-feather="moon"></i> <span>Dark</span> </a><a href="#!" class="dropdown-item" onclick="layout_change('light')"><i data-feather="sun"></i> <span>Light</span> </a><a href="#!" class="dropdown-item" onclick="layout_change_default()"><i data-feather="settings"></i> <span>Default</span></a></div></li><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="settings"></i></a><div class="dropdown-menu dropdown-menu-end pc-h-dropdown"><a href="#!" class="dropdown-item"><i class="ti ti-user"></i> <span>My Account</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-settings"></i> <span>Settings</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-headset"></i> <span>Support</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-lock"></i> <span>Lock Screen</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-power"></i> <span>Logout</span></a></div></li><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="bell"></i> <span class="badge bg-success-500 text-white rounded-full z-10 absolute right-0 top-0">3</span></a><div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown p-2"><div class="dropdown-header flex items-center justify-between py-4 px-5"><h5 class="m-0">Notifications</h5><a href="#!" class="btn btn-link btn-sm">Mark all read</a></div><div class="dropdown-body header-notification-scroll relative py-4 px-5" style="max-height: calc(100vh - 215px)"><p class="text-span mb-3">Today</p><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-1.jpg" alt="Generic placeholder image"></div><div class="grow"><span class="float-end text-sm text-muted">2 min ago</span><h5 class="text-body mb-2">UI/UX Design</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p></div></div></div></div><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-2.jpg" alt="Generic placeholder image"></div><div class="grow"><span class="float-end text-sm text-muted">1 hour ago</span><h5 class="text-body mb-2">Message</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500.</p></div></div></div></div><p class="text-span mb-3 mt-4">Yesterday</p><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-3.jpg" alt="Generic placeholder image"></div><div class="grow ms-3"><span class="float-end text-sm text-muted">2 hour ago</span><h5 class="text-body mb-2">Forms</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p></div></div></div></div><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-4.jpg" alt="Generic placeholder image"></div><div class="grow ms-3"><span class="float-end text-sm text-muted">12 hour ago</span><h5 class="text-body mb-2">Challenge invitation</h5><p class="mb-2"><strong>Jonny aber</strong> invites to join the challenge</p><button class="btn btn-sm btn-outline-secondary me-2">Decline</button> <button class="btn btn-sm btn-primary">Accept</button></div></div></div></div><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-5.jpg" alt="Generic placeholder image"></div><div class="grow ms-3"><span class="float-end text-sm text-muted">5 hour ago</span><h5 class="text-body mb-2">Security</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p></div></div></div></div></div><div class="text-center py-2"><a href="#!" class="text-danger-500 hover:text-danger-600 focus:text-danger-600 active:text-danger-600">Clear all Notifications</a></div></div></li><li class="dropdown pc-h-item header-user-profile"><a class="pc-head-link dropdown-toggle arrow-none me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" data-pc-auto-close="outside" aria-expanded="false"><i data-feather="user"></i></a><div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown p-2 overflow-hidden"><div class="dropdown-header flex items-center justify-between py-4 px-5 bg-primary-500"><div class="flex mb-1 items-center"><div class="shrink-0"><img src="/sistem-manajemen-aset-desa/assets/images/user/avatar-2.jpg" alt="user-image" class="w-10 rounded-full"></div><div class="grow ms-3"><h6 class="mb-1 text-white">Carson Darrin 🖖</h6><span class="text-white">carson.darrin@company.io</span></div></div></div><div class="dropdown-body py-4 px-5"><div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 225px)"><a href="#" class="dropdown-item"><span><svg class="pc-icon text-muted me-2 inline-block"><use xlink:href="#custom-setting-outline"></use></svg> <span>Settings</span> </span></a><a href="#" class="dropdown-item"><span><svg class="pc-icon text-muted me-2 inline-block"><use xlink:href="#custom-share-bold"></use></svg> <span>Share</span> </span></a><a href="#" class="dropdown-item"><span><svg class="pc-icon text-muted me-2 inline-block"><use xlink:href="#custom-lock-outline"></use></svg> <span>Change Password</span></span></a><div class="grid my-3"><button class="btn btn-primary flex items-center justify-center"><svg class="pc-icon me-2 w-[22px] h-[22px]"><use xlink:href="#custom-logout-1-outline"></use></svg> Logout</button></div></div></div></div></li></ul></div></div></header><!-- [ Header ] end --><div class="pc-container"><div class="pc-content"><!-- [ breadcrumb ] start --><div class="page-header"><div class="page-block"><div class="page-header-title"><h5 class="mb-0 font-medium">Tambah User</h5></div><ul class="breadcrumb"><li class="breadcrumb-item"><a href="dashboard/index.html">Master Data</a></li><li class="breadcrumb-item"><a href="javascript: void(0)">Users</a></li><!-- <li class="breadcrumb-item" aria-current="page">Tambah User</li> --></ul></div></div><!-- [ breadcrumb ] end --><div class="grid grid-cols-12 gap-x-6"><div class="col-span-12 lg:col-span-8 lg:col-start-3"><div class="card"><div class="card-header border-b border-gray-100"><div class="flex items-center"><div class="card-header-icon"><i data-feather="user-plus"></i></div><div><h5 class="mb-1">Tambah User Baru</h5><p class="text-muted text-sm mb-0">Isi data untuk menambahkan user admin baru ke sistem</p></div></div></div><div class="card-body pt-4"><form id="user-form"><!-- Informasi Akun --><div class="form-section"><div class="form-section-title"><i data-feather="user"></i> Informasi Akun</div><div class="form-grid"><div class="form-group"><label class="form-label" for="nama">Nama Lengkap <span class="required">*</span></label> <input type="text" id="nama" name="nama" class="form-control" placeholder="Masukkan nama lengkap" required></div><div class="form-group"><label class="form-label" for="email">Email <span class="required">*</span></label> <input type="email" id="email" name="email" class="form-control" placeholder="contoh@email.com" required></div><div class="form-group"><label class="form-label" for="password">Password <span class="required">*</span></label><div class="password-wrapper"><input type="password" id="password" name="password" class="form-control" placeholder="Minimal 8 karakter" required minlength="8"> <button type="button" class="password-toggle" onclick="togglePassword('password', this)"><i data-feather="eye"></i></button></div><p class="form-hint">Password minimal 8 karakter</p></div><div class="form-group"><label class="form-label" for="password_confirm">Konfirmasi Password <span class="required">*</span></label><div class="password-wrapper"><input type="password" id="password_confirm" name="password_confirm" class="form-control" placeholder="Ulangi password" required> <button type="button" class="password-toggle" onclick="togglePassword('password_confirm', this)"><i data-feather="eye"></i></button></div></div></div></div><!-- Role & Akses --><div class="form-section"><div class="form-section-title"><i data-feather="shield"></i> Role & Hak Akses</div><div class="form-grid"><div class="form-group"><label class="form-label" for="role_id">Role <span class="required">*</span></label> <select id="role_id" name="role_id" class="form-select" required><option value="">-- Pilih Role --</option><option value="1" selected="selected">Admin</option></select></div><div class="form-group"><label class="form-label" for="tugas_admin">Tugas <span class="required">*</span></label> <select id="tugas_admin" name="tugas_admin" class="form-select" required><option value="">-- Pilih Tugas --</option><option value="kaur">Kaur - Request Data</option><option value="sekdes">Sekdes - Request & Approval Data</option></select><p class="form-hint">Kaur hanya bisa request, Sekdes bisa request dan approval</p></div><div class="form-group form-full"><label class="form-label">Status Akun</label><div class="toggle-wrapper" style="margin-top: 8px;"><label class="toggle-switch"><input type="checkbox" id="is_aktif" name="is_aktif" checked="checked"> <span class="toggle-slider"></span></label> <span class="toggle-label">User</span> <span id="status-badge" class="toggle-status active">Aktif</span></div><p class="form-hint">User tidak aktif tidak dapat login ke sistem</p></div></div></div><!-- Pejabat TTD Option --><div class="form-section"><div class="form-section-title"><i data-feather="edit-3"></i> Pejabat Tanda Tangan</div><label class="checkbox-wrapper" id="pejabat-checkbox-wrapper"><input type="checkbox" id="is_pejabat" name="is_pejabat"><div class="checkbox-content"><div class="checkbox-title">User ini adalah Pejabat yang perlu Tanda Tangan</div><div class="checkbox-desc">Centang jika user ini perlu menandatangani dokumen pada Export Data manajemen aset. Data pejabat akan otomatis dibuat bersamaan dengan user.</div></div></label><!-- Form Pejabat (muncul jika checkbox dicentang) --><div class="pejabat-section" id="pejabat-section"><div class="pejabat-section-title"><i data-feather="file-text"></i> Data Pejabat</div><div class="form-grid"><div class="form-group"><label class="form-label" for="pejabat_nama">Nama Pejabat <span class="required">*</span></label> <input type="text" id="pejabat_nama" name="pejabat_nama" class="form-control" placeholder="Nama lengkap dengan gelar"><p class="form-hint">Contoh: I Nyoman Suwarjana, SE</p></div><div class="form-group"><label class="form-label" for="pejabat_jabatan">Jabatan <span class="required">*</span></label> <input type="text" id="pejabat_jabatan" name="pejabat_jabatan" class="form-control" placeholder="Jabatan pejabat"><p class="form-hint">Contoh: Perbekel Mengwi, Sekretaris Desa</p></div><div class="form-group form-full"><label class="form-label" for="pejabat_tugas">Tugas Pejabat <span class="optional">(opsional)</span></label> <textarea id="pejabat_tugas" name="pejabat_tugas" class="form-control" rows="2" placeholder="Deskripsi tugas pejabat..."></textarea><p class="form-hint">Contoh: Pemegang Kekuasaan Pengelolaan Aset Desa</p></div><div class="form-group form-full"><label class="form-label" for="ttd_path">File Tanda Tangan <span class="required">*</span></label><div class="file-upload-wrapper"><label class="file-upload-label"><i data-feather="upload"></i> <span>Pilih file gambar tanda tangan (PNG/JPG)</span></label> <input type="file" id="ttd_path" name="ttd_path" accept="image/png,image/jpeg"></div><p class="file-name" id="ttd-file-name"></p><p class="form-hint">Upload gambar tanda tangan untuk dokumen export. Max 2MB.</p></div></div></div><div class="info-box"><i data-feather="info"></i><div class="info-box-text"><strong>Catatan:</strong> Jika user adalah pejabat, maka data pejabat dan user akan dibuat bersamaan. Field <code>pejabat_id</code> pada user akan otomatis terisi dengan ID pejabat yang baru dibuat.</div></div></div><!-- Form Actions --><div class="form-actions"><button type="button" class="btn-cancel" onclick="confirmCancel()">Batal</button> <button type="button" class="btn-submit" onclick="confirmSubmit()"><i data-feather="save"></i> Simpan User</button></div></form></div></div></div></div></div></div><footer class="pc-footer"><div class="footer-wrapper container-fluid mx-10"><div class="grid grid-cols-12 gap-1.5"><div class="col-span-12 sm:col-span-6 my-1"><p class="m-0"><a href="https://codedthemes.com/" class="text-theme-bodycolor dark:text-themedark-bodycolor hover:text-primary-500 dark:hover:text-primary-500" target="_blank">Sistem</a> Informasi Manajemen Aset</p></div><div class="col-span-12 sm:col-span-6 my-1 justify-self-end"><p class="inline-block max-sm:mr-3 sm:ml-2">Build: v1.0.0</p></div></div></div></footer><!-- Required Js --><script src="/sistem-manajemen-aset-desa/assets/js/plugins/simplebar.min.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/plugins/popper.min.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/icon/custom-icon.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/plugins/feather.min.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/component.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/theme.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/script.js"></script><div class="floting-button fixed bottom-[50px] right-[30px] z-[1030]"></div><script>layout_change('false');</script><script>layout_theme_sidebar_change('dark');</script><script>change_box_container('false');</script><script>layout_caption_change('true');</script><script>layout_rtl_change('false');</script><script>preset_change('preset-1');</script><script>main_layout_change('vertical');</script><script>(function(){
+        const form = document.getElementById('user-form');
+        const isAktif = document.getElementById('is_aktif');
+        const statusBadge = document.getElementById('status-badge');
+        const isPejabat = document.getElementById('is_pejabat');
+        const pejabatSection = document.getElementById('pejabat-section');
+        const pejabatNama = document.getElementById('pejabat_nama');
+        const namaUser = document.getElementById('nama');
+        const ttdInput = document.getElementById('ttd_path');
+        const ttdFileName = document.getElementById('ttd-file-name');
+
+        // Toggle status badge
+        isAktif.addEventListener('change', function(){
+          if(this.checked){
+            statusBadge.textContent = 'Aktif';
+            statusBadge.classList.remove('inactive');
+            statusBadge.classList.add('active');
+          } else {
+            statusBadge.textContent = 'Tidak Aktif';
+            statusBadge.classList.remove('active');
+            statusBadge.classList.add('inactive');
+          }
+        });
+
+        // Toggle pejabat section visibility
+        isPejabat.addEventListener('change', function(){
+          if(this.checked){
+            pejabatSection.classList.add('show');
+            // Auto-fill pejabat name from user name
+            if(namaUser.value && !pejabatNama.value){
+              pejabatNama.value = namaUser.value;
+            }
+          } else {
+            pejabatSection.classList.remove('show');
+          }
+        });
+
+        // Sync nama user to pejabat nama if pejabat is checked
+        namaUser.addEventListener('input', function(){
+          if(isPejabat.checked && !pejabatNama.dataset.edited){
+            pejabatNama.value = this.value;
+          }
+        });
+
+        // Mark pejabat nama as manually edited
+        pejabatNama.addEventListener('input', function(){
+          this.dataset.edited = 'true';
+        });
+
+        // File upload display
+        ttdInput.addEventListener('change', function(){
+          if(this.files && this.files[0]){
+            const file = this.files[0];
+            if(file.size > 2 * 1024 * 1024){
+              alert('Ukuran file terlalu besar! Maksimal 2MB.');
+              this.value = '';
+              ttdFileName.textContent = '';
+              return;
+            }
+            ttdFileName.textContent = file.name;
+          } else {
+            ttdFileName.textContent = '';
+          }
+        });
+
+        // Form submission
+        form.addEventListener('submit', async function(e){
+          e.preventDefault();
+          
+          const password = document.getElementById('password').value;
+          const passwordConfirm = document.getElementById('password_confirm').value;
+
+          // Validate password match
+          if(password !== passwordConfirm){
+            alert('Password dan konfirmasi password tidak cocok!');
+            return;
+          }
+
+          // Validate tugas
+          const tugasAdmin = document.getElementById('tugas_admin').value;
+          if(!tugasAdmin){
+            alert('Pilih tugas admin!');
+            return;
+          }
+
+          // If pejabat checkbox is checked, validate pejabat fields
+          if(isPejabat.checked){
+            if(!pejabatNama.value.trim()){
+              alert('Nama pejabat wajib diisi!');
+              pejabatNama.focus();
+              return;
+            }
+            const pejabatJabatan = document.getElementById('pejabat_jabatan').value;
+            if(!pejabatJabatan.trim()){
+              alert('Jabatan pejabat wajib diisi!');
+              document.getElementById('pejabat_jabatan').focus();
+              return;
+            }
+          }
+
+          let pejabatId = null;
+
+          // Step 1: If user is pejabat, create pejabat first
+          if(isPejabat.checked){
+            const pejabatData = {
+              nama: pejabatNama.value,
+              jabatan: document.getElementById('pejabat_jabatan').value,
+              tugas: document.getElementById('pejabat_tugas').value || null,
+              ttd_path: null, // Will be handled by file upload on backend
+              is_aktif: 1,
+              created_at: new Date().toISOString(),
+              updated_at: null
+            };
+
+            console.log('Step 1 - Pejabat payload:', pejabatData);
+
+            // Simulate API call to create pejabat
+            try {
+              const pejabatRes = await fetch('/api/pejabat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(pejabatData)
+              });
+              
+              if(pejabatRes.ok){
+                const pejabatResult = await pejabatRes.json();
+                pejabatId = pejabatResult.id;
+              }
+            } catch(err) {
+              // Simulate: assign random ID for demo
+              pejabatId = Math.floor(Math.random() * 1000) + 100;
+              console.log('Simulated pejabat_id:', pejabatId);
+            }
+          }
+
+          // Step 2: Create user with pejabat_id (if applicable)
+          const userData = {
+            nama: namaUser.value,
+            email: document.getElementById('email').value,
+            password: password,
+            role_id: document.getElementById('role_id').value || 1,
+            tugas: tugasAdmin,
+            pejabat_id: pejabatId,
+            is_aktif: isAktif.checked ? 1 : 0,
+            created_at: new Date().toISOString(),
+            updated_at: null,
+            deleted_at: null,
+            last_login_at: null
+          };
+
+          console.log('Step 2 - User payload:', userData);
+
+          // Submit user data
+          fetch('/api/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+          }).then(r => {
+            if(r.ok) return r.json();
+            throw new Error('Network response not ok');
+          }).then(res => {
+            alert('User berhasil ditambahkan!');
+            window.location.href = 'users.html';
+          }).catch(err => {
+            console.warn('API not available, payload logged to console.');
+            console.log('Final payloads:', { pejabat: isPejabat.checked ? pejabatId : 'Not created', user: userData });
+            
+            // Redirect ke users.html dengan pesan sukses
+            sessionStorage.setItem('userFormSuccess', 'true');
+            sessionStorage.setItem('userFormMessage', isPejabat.checked 
+              ? 'User dan Pejabat berhasil ditambahkan!' 
+              : 'User berhasil ditambahkan!');
+            window.location.href = 'users.html';
+          });
+        });
+      })();
+
+      // Toggle password visibility
+      function togglePassword(fieldId, btn){
+        const field = document.getElementById(fieldId);
+        const icon = btn.querySelector('i');
+        
+        if(field.type === 'password'){
+          field.type = 'text';
+          icon.setAttribute('data-feather', 'eye-off');
+        } else {
+          field.type = 'password';
+          icon.setAttribute('data-feather', 'eye');
+        }
+        feather.replace();
+      }
+
+      // Confirm Cancel
+      function confirmCancel(){
+        if(confirm('Apakah Anda yakin ingin membatalkan? Data yang sudah diisi tidak akan tersimpan.')){
+          window.location.href = 'users.html';
+        }
+      }
+
+      // Confirm Submit
+      function confirmSubmit(){
+        const form = document.getElementById('user-form');
+        
+        // Basic validation
+        if(!form.checkValidity()){
+          form.reportValidity();
+          return;
+        }
+
+        const password = document.getElementById('password').value;
+        const passwordConfirm = document.getElementById('password_confirm').value;
+        if(password !== passwordConfirm){
+          alert('Password dan konfirmasi password tidak cocok!');
+          return;
+        }
+
+        const tugasAdmin = document.getElementById('tugas_admin').value;
+        if(!tugasAdmin){
+          alert('Pilih tugas admin!');
+          return;
+        }
+
+        const isPejabat = document.getElementById('is_pejabat');
+        if(isPejabat.checked){
+          const pejabatNama = document.getElementById('pejabat_nama').value;
+          const pejabatJabatan = document.getElementById('pejabat_jabatan').value;
+          if(!pejabatNama.trim()){
+            alert('Nama pejabat wajib diisi!');
+            return;
+          }
+          if(!pejabatJabatan.trim()){
+            alert('Jabatan pejabat wajib diisi!');
+            return;
+          }
+        }
+
+        if(confirm('Apakah Anda yakin ingin menyimpan data user ini?')){
+          // Trigger form submission
+          const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+          form.dispatchEvent(submitEvent);
+        }
+      }</script></body></html>

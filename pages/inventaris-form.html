@@ -1,0 +1,817 @@
+<!doctype html><html lang="en" data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-direction="ltr" dir="ltr" data-pc-theme="light"><head><title>Tambah Inventaris | Sistem Informasi Manajemen Aset</title><!-- [Base URL for GitHub Pages] --><base href="/sistem-manajemen-aset-desa/"><!-- [Meta] --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="description" content="Datta Able is trending dashboard template made using Bootstrap 5 design framework. Datta Able is available in Bootstrap, React, CodeIgniter, Angular,  and .net Technologies."><meta name="keywords" content="Bootstrap admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard"><meta name="author" content="CodedThemes"><!-- [Favicon] icon --><link rel="icon" href="/sistem-manajemen-aset-desa/assets/images/favicon.svg" type="image/x-icon"><!-- [Font] Family --><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><!-- Tailwind CDN - quick start (development/testing). Replace with compiled CSS for production. --><script src="https://cdn.tailwindcss.com"></script><!-- [phosphor Icons] https://phosphoricons.com/ --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/phosphor/duotone/style.css"><!-- [Tabler Icons] https://tablericons.com --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/tabler-icons.min.css"><!-- [Feather Icons] https://feathericons.com --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/feather.css"><!-- [Font Awesome Icons] https://fontawesome.com/icons --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/fontawesome.css"><!-- [Material Icons] https://fonts.google.com/icons --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/fonts/material.css"><!-- [Template CSS Files] --><link rel="stylesheet" href="/sistem-manajemen-aset-desa/assets/css/style.css" id="main-style-link"><style>/* Form Styling */
+      .form-section {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #e2e8f0;
+      }
+      .form-section-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #3f4d67;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .form-section-title i {
+        width: 18px;
+        height: 18px;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .form-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .form-group {
+        margin-bottom: 0;
+      }
+      .form-label {
+        font-weight: 500;
+        font-size: 13px;
+        color: #374151;
+        margin-bottom: 6px;
+        display: block;
+      }
+      .form-label .required {
+        color: #ef4444;
+        margin-left: 2px;
+      }
+      .form-label .optional {
+        color: #9ca3af;
+        font-weight: 400;
+        font-size: 11px;
+        margin-left: 4px;
+      }
+      .form-control, .form-select {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        background: #fff;
+      }
+      .form-control:focus, .form-select:focus {
+        outline: none;
+        border-color: #3f4d67;
+        box-shadow: 0 0 0 3px rgba(63, 77, 103, 0.1);
+      }
+      .form-control::placeholder {
+        color: #9ca3af;
+      }
+      .form-hint {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 4px;
+      }
+      .form-full {
+        grid-column: 1 / -1;
+      }
+      .form-span-2 {
+        grid-column: span 2;
+      }
+
+      /* Card Header */
+      .card-header-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #3f4d67 0%, #5a6b8a 100%);
+        margin-right: 14px;
+      }
+      .card-header-icon svg,
+      .card-header-icon i {
+        color: #fff !important;
+        stroke: #fff !important;
+        width: 22px;
+        height: 22px;
+      }
+
+      /* Jenis Selector */
+      .jenis-selector {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .jenis-option {
+        padding: 16px 12px;
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+      }
+      .jenis-option:hover {
+        border-color: #3f4d67;
+        background: #f8fafc;
+      }
+      .jenis-option.selected {
+        border-color: #3f4d67;
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      }
+      .jenis-option-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        margin: 0 auto 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .jenis-option-icon svg,
+      .jenis-option-icon i {
+        width: 20px;
+        height: 20px;
+        color: #fff !important;
+        stroke: #fff !important;
+      }
+      .jenis-option-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #374151;
+      }
+      .jenis-option input {
+        display: none;
+      }
+
+      /* Dynamic Fields Section */
+      .dynamic-fields-section {
+        display: none;
+        animation: fadeIn 0.3s ease;
+      }
+      .dynamic-fields-section.show {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .dynamic-fields-header {
+        background: linear-gradient(135deg, #3f4d67 0%, #5a6b8a 100%);
+        color: #fff;
+        padding: 12px 16px;
+        border-radius: 8px 8px 0 0;
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .dynamic-fields-header i {
+        width: 16px;
+        height: 16px;
+      }
+      .dynamic-fields-body {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-top: none;
+        border-radius: 0 0 8px 8px;
+        padding: 16px;
+      }
+
+      /* Kondisi Radio Group */
+      .kondisi-group {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .kondisi-option {
+        flex: 1;
+        min-width: 120px;
+      }
+      .kondisi-option input {
+        display: none;
+      }
+      .kondisi-option label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .kondisi-option input:checked + label {
+        border-color: currentColor;
+      }
+      .kondisi-option.baik label {
+        color: #16a34a;
+      }
+      .kondisi-option.baik input:checked + label {
+        background: #dcfce7;
+        border-color: #16a34a;
+      }
+      .kondisi-option.rusak-ringan label {
+        color: #d97706;
+      }
+      .kondisi-option.rusak-ringan input:checked + label {
+        background: #fef3c7;
+        border-color: #d97706;
+      }
+      .kondisi-option.rusak-berat label {
+        color: #dc2626;
+      }
+      .kondisi-option.rusak-berat input:checked + label {
+        background: #fee2e2;
+        border-color: #dc2626;
+      }
+      .kondisi-option label i {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Pejabat Default Section */
+      .pejabat-default-section {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border: 1px solid #93c5fd;
+        border-radius: 10px;
+        padding: 16px;
+        margin-top: 16px;
+      }
+      .pejabat-default-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .pejabat-default-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #1e40af;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .pejabat-default-title i {
+        width: 16px;
+        height: 16px;
+      }
+      .pejabat-info-text {
+        font-size: 12px;
+        color: #1e40af;
+        margin-bottom: 12px;
+      }
+      .pejabat-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .pejabat-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        background: #fff;
+        border: 1px solid #93c5fd;
+        border-radius: 8px;
+        flex: 1;
+        min-width: 200px;
+      }
+      .pejabat-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .pejabat-item-info h6 {
+        font-size: 12px;
+        font-weight: 600;
+        color: #1f2937;
+        margin: 0 0 2px 0;
+      }
+      .pejabat-item-info span {
+        font-size: 11px;
+        color: #6b7280;
+      }
+      .pejabat-item-order {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        background: #3b82f6;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        flex-shrink: 0;
+        margin-left: auto;
+      }
+
+      /* Status Badge */
+      .status-selector {
+        display: flex;
+        gap: 10px;
+      }
+      .status-option {
+        flex: 1;
+      }
+      .status-option input {
+        display: none;
+      }
+      .status-option label {
+        display: block;
+        padding: 10px 16px;
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .status-option.draft input:checked + label {
+        background: #f1f5f9;
+        border-color: #64748b;
+        color: #475569;
+      }
+      .status-option.pending input:checked + label {
+        background: #fef3c7;
+        border-color: #f59e0b;
+        color: #d97706;
+      }
+
+      /* Info box */
+      .info-box {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border: 1px solid #93c5fd;
+        border-radius: 8px;
+        padding: 12px 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .info-box i {
+        color: #3b82f6;
+        flex-shrink: 0;
+        margin-top: 2px;
+        width: 18px;
+        height: 18px;
+      }
+      .info-box-text {
+        font-size: 13px;
+        color: #1e40af;
+        line-height: 1.5;
+      }
+
+      /* Buttons */
+      .form-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+        padding-top: 20px;
+        border-top: 1px solid #e5e7eb;
+        margin-top: 24px;
+      }
+      .form-actions-left {
+        display: flex;
+        gap: 12px;
+      }
+      .form-actions-right {
+        display: flex;
+        gap: 12px;
+      }
+      .btn-cancel {
+        padding: 10px 20px;
+        border: 1px solid #d1d5db;
+        background: #fff;
+        color: #374151;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-cancel:hover {
+        background: #f3f4f6;
+      }
+      .btn-draft {
+        padding: 10px 20px;
+        border: 1px solid #64748b;
+        background: #f1f5f9;
+        color: #475569;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-draft:hover {
+        background: #e2e8f0;
+      }
+      .btn-draft i {
+        width: 16px;
+        height: 16px;
+      }
+      .btn-submit {
+        padding: 10px 24px;
+        border: none;
+        background: #3f4d67;
+        color: #fff;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-submit:hover {
+        background: #2d3a4f;
+      }
+      .btn-submit i {
+        width: 18px;
+        height: 18px;
+      }
+      .btn-submit-pending {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      }
+      .btn-submit-pending:hover {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      }
+
+      /* Currency Input */
+      .currency-input-wrapper {
+        position: relative;
+      }
+      .currency-prefix {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 14px;
+        color: #6b7280;
+        font-weight: 500;
+      }
+      .currency-input-wrapper .form-control {
+        padding-left: 42px;
+      }
+
+      @media (max-width: 1024px) {
+        .form-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .jenis-selector {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 768px) {
+        .form-grid, .form-grid-2 {
+          grid-template-columns: 1fr;
+        }
+        .jenis-selector {
+          grid-template-columns: 1fr;
+        }
+        .form-span-2 {
+          grid-column: span 1;
+        }
+      }</style></head><body><!-- [ Pre-loader ] start --><div class="loader-bg fixed inset-0 bg-white dark:bg-themedark-cardbg z-[1034]"><div class="loader-track h-[5px] w-full inline-block absolute overflow-hidden top-0"><div class="loader-fill w-[300px] h-[5px] bg-primary-500 absolute top-0 left-0 animate-[hitZak_0.6s_ease-in-out_infinite_alternate]"></div></div></div><!-- [ Pre-loader ] End --><!-- [ Sidebar Menu ] start --><nav class="pc-sidebar"><div class="navbar-wrapper"><div class="m-header flex items-center py-4 px-6 h-header-height"><a href="dashboard/index.html" class="b-brand flex items-center gap-3"><!-- ========   Change your logo from here   ============ --><!-- <img src="/sistem-manajemen-aset-desa/assets/images/logo-white.svg" class="img-fluid logo logo-lg" alt="logo" />       --> <span class="pc-item pc-caption"><label class="text-white uppercase font-bold">Sistem Manajemen Aset</label> </span><img src="/sistem-manajemen-aset-desa/assets/images/favicon.svg" class="img-fluid logo logo-sm" alt="logo"></a></div><div class="navbar-content h-[calc(100vh_-_74px)] py-2.5"><ul class="pc-navbar"><li class="pc-item pc-caption"><label>Navigasi</label></li><li class="pc-item"><a href="dashboard/index.html" class="pc-link"><span class="pc-micon"><i data-feather="home"></i> </span><span class="pc-mtext">Home</span></a></li><li class="pc-item pc-caption"><label>Inventaris</label> <i data-feather="monitor"></i></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/manajemen-aset.html" class="pc-link"><span class="pc-micon"><i data-feather="book"></i></span> <span class="pc-mtext">Manajemen Aset</span></a></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/export-data.html" class="pc-link"><span class="pc-micon"><i data-feather="file-text"></i></span> <span class="pc-mtext">Export Data</span></a></li><li class="pc-item pc-caption"><label>Master Data</label> <i data-feather="feather"></i></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/users.html" class="pc-link"><span class="pc-micon"><i data-feather="users"></i></span> <span class="pc-mtext">Users</span></a></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/pejabats.html" class="pc-link"><span class="pc-micon"><i data-feather="user-check"></i></span> <span class="pc-mtext">Pejabat</span></a></li><li class="pc-item pc-hasmenu"><a href="/sistem-manajemen-aset-desa/pages/jenis-inventaris.html" class="pc-link"><span class="pc-micon"><i data-feather="wind"></i></span> <span class="pc-mtext">Jenis Inventaris</span></a></li></ul></div></div></nav><!-- [ Sidebar Menu ] end --><!-- [ Header Topbar ] start --><header class="pc-header"><div class="header-wrapper flex max-sm:px-[15px] px-[25px] grow"><!-- [Mobile Media Block] start --><div class="me-auto pc-mob-drp"><ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center"><!-- ======= Menu collapse Icon ===== --><li class="pc-h-item pc-sidebar-collapse max-lg:hidden lg:inline-flex"><a href="#" class="pc-head-link ltr:!ml-0 rtl:!mr-0" id="sidebar-hide"><i data-feather="menu"></i></a></li><li class="pc-h-item pc-sidebar-popup lg:hidden"><a href="#" class="pc-head-link ltr:!ml-0 rtl:!mr-0" id="mobile-collapse"><i data-feather="menu"></i></a></li><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="search"></i></a><div class="dropdown-menu pc-h-dropdown drp-search"><form class="px-2 py-1"><input type="search" class="form-control !border-0 !shadow-none" placeholder="Search here. . ."></form></div></li></ul></div><!-- [Mobile Media Block end] --><div class="ms-auto"><ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center"><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="sun"></i></a><div class="dropdown-menu dropdown-menu-end pc-h-dropdown"><a href="#!" class="dropdown-item" onclick="layout_change('dark')"><i data-feather="moon"></i> <span>Dark</span> </a><a href="#!" class="dropdown-item" onclick="layout_change('light')"><i data-feather="sun"></i> <span>Light</span> </a><a href="#!" class="dropdown-item" onclick="layout_change_default()"><i data-feather="settings"></i> <span>Default</span></a></div></li><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="settings"></i></a><div class="dropdown-menu dropdown-menu-end pc-h-dropdown"><a href="#!" class="dropdown-item"><i class="ti ti-user"></i> <span>My Account</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-settings"></i> <span>Settings</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-headset"></i> <span>Support</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-lock"></i> <span>Lock Screen</span> </a><a href="#!" class="dropdown-item"><i class="ti ti-power"></i> <span>Logout</span></a></div></li><li class="dropdown pc-h-item"><a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="bell"></i> <span class="badge bg-success-500 text-white rounded-full z-10 absolute right-0 top-0">3</span></a><div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown p-2"><div class="dropdown-header flex items-center justify-between py-4 px-5"><h5 class="m-0">Notifications</h5><a href="#!" class="btn btn-link btn-sm">Mark all read</a></div><div class="dropdown-body header-notification-scroll relative py-4 px-5" style="max-height: calc(100vh - 215px)"><p class="text-span mb-3">Today</p><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-1.jpg" alt="Generic placeholder image"></div><div class="grow"><span class="float-end text-sm text-muted">2 min ago</span><h5 class="text-body mb-2">UI/UX Design</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p></div></div></div></div><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-2.jpg" alt="Generic placeholder image"></div><div class="grow"><span class="float-end text-sm text-muted">1 hour ago</span><h5 class="text-body mb-2">Message</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500.</p></div></div></div></div><p class="text-span mb-3 mt-4">Yesterday</p><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-3.jpg" alt="Generic placeholder image"></div><div class="grow ms-3"><span class="float-end text-sm text-muted">2 hour ago</span><h5 class="text-body mb-2">Forms</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p></div></div></div></div><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-4.jpg" alt="Generic placeholder image"></div><div class="grow ms-3"><span class="float-end text-sm text-muted">12 hour ago</span><h5 class="text-body mb-2">Challenge invitation</h5><p class="mb-2"><strong>Jonny aber</strong> invites to join the challenge</p><button class="btn btn-sm btn-outline-secondary me-2">Decline</button> <button class="btn btn-sm btn-primary">Accept</button></div></div></div></div><div class="card mb-2"><div class="card-body"><div class="flex gap-4"><div class="shrink-0"><img class="img-radius w-12 h-12 rounded-0" src="/sistem-manajemen-aset-desa/assets/images/user/avatar-5.jpg" alt="Generic placeholder image"></div><div class="grow ms-3"><span class="float-end text-sm text-muted">5 hour ago</span><h5 class="text-body mb-2">Security</h5><p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p></div></div></div></div></div><div class="text-center py-2"><a href="#!" class="text-danger-500 hover:text-danger-600 focus:text-danger-600 active:text-danger-600">Clear all Notifications</a></div></div></li><li class="dropdown pc-h-item header-user-profile"><a class="pc-head-link dropdown-toggle arrow-none me-0" data-pc-toggle="dropdown" href="#" role="button" aria-haspopup="false" data-pc-auto-close="outside" aria-expanded="false"><i data-feather="user"></i></a><div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown p-2 overflow-hidden"><div class="dropdown-header flex items-center justify-between py-4 px-5 bg-primary-500"><div class="flex mb-1 items-center"><div class="shrink-0"><img src="/sistem-manajemen-aset-desa/assets/images/user/avatar-2.jpg" alt="user-image" class="w-10 rounded-full"></div><div class="grow ms-3"><h6 class="mb-1 text-white">Carson Darrin 🖖</h6><span class="text-white">carson.darrin@company.io</span></div></div></div><div class="dropdown-body py-4 px-5"><div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 225px)"><a href="#" class="dropdown-item"><span><svg class="pc-icon text-muted me-2 inline-block"><use xlink:href="#custom-setting-outline"></use></svg> <span>Settings</span> </span></a><a href="#" class="dropdown-item"><span><svg class="pc-icon text-muted me-2 inline-block"><use xlink:href="#custom-share-bold"></use></svg> <span>Share</span> </span></a><a href="#" class="dropdown-item"><span><svg class="pc-icon text-muted me-2 inline-block"><use xlink:href="#custom-lock-outline"></use></svg> <span>Change Password</span></span></a><div class="grid my-3"><button class="btn btn-primary flex items-center justify-center"><svg class="pc-icon me-2 w-[22px] h-[22px]"><use xlink:href="#custom-logout-1-outline"></use></svg> Logout</button></div></div></div></div></li></ul></div></div></header><!-- [ Header ] end --><div class="pc-container"><div class="pc-content"><!-- [ breadcrumb ] start --><div class="page-header"><div class="page-block"><div class="page-header-title"><h5 class="mb-0 font-medium">Tambah Inventaris</h5></div><ul class="breadcrumb"><li class="breadcrumb-item"><a href="dashboard/index.html">Inventaris</a></li><li class="breadcrumb-item"><a href="javascript: void(0)">Manajemen Aset</a></li><!-- <li class="breadcrumb-item" aria-current="page">Tambah Inventaris</li> --></ul></div></div><!-- [ breadcrumb ] end --><div class="grid grid-cols-12 gap-x-6"><div class="col-span-12"><div class="card"><div class="card-header border-b border-gray-100"><div class="flex items-center justify-between"><div class="flex items-center"><div class="card-header-icon"><i data-feather="package"></i></div><div><h5 class="mb-1">Tambah Inventaris Baru</h5><p class="text-muted text-sm mb-0">Isi data inventaris sesuai jenis yang dipilih</p></div></div><div class="flex items-center gap-3"><span class="text-sm text-muted">Status:</span> <span class="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600" id="status-display">Draft</span></div></div></div><div class="card-body pt-4"><form id="inventaris-form"><!-- Step 1: Pilih Jenis Inventaris --><div class="form-section"><div class="form-section-title"><i data-feather="layers"></i> Pilih Jenis Inventaris</div><div class="jenis-selector" id="jenis-selector"><!-- Jenis options akan di-render oleh JavaScript --></div></div><!-- Step 2: Data Umum (Default Fields) --><div class="form-section"><div class="form-section-title"><i data-feather="file-text"></i> Data Umum Inventaris</div><div class="form-grid"><div class="form-group"><label class="form-label" for="kode_barang">Kode Barang <span class="required">*</span></label> <input type="text" id="kode_barang" name="kode_barang" class="form-control" placeholder="Contoh: 01.01.01.02.003" required><p class="form-hint">Kode sesuai klasifikasi aset desa</p></div><div class="form-group"><label class="form-label" for="nama_barang">Nama Barang <span class="required">*</span></label> <input type="text" id="nama_barang" name="nama_barang" class="form-control" placeholder="Nama barang inventaris" required></div><div class="form-group"><label class="form-label" for="nup">NUP <span class="optional">(opsional)</span></label> <input type="text" id="nup" name="nup" class="form-control" placeholder="Nomor Urut Pendaftaran"></div><div class="form-group"><label class="form-label" for="tahun_perolehan">Tahun Perolehan <span class="required">*</span></label> <input type="number" id="tahun_perolehan" name="tahun_perolehan" class="form-control" placeholder="2024" min="1900" max="2100" required></div><div class="form-group"><label class="form-label" for="nilai_perolehan">Nilai Perolehan <span class="required">*</span></label><div class="currency-input-wrapper"><span class="currency-prefix">Rp</span> <input type="text" id="nilai_perolehan" name="nilai_perolehan" class="form-control" placeholder="0" required></div></div><div class="form-group"><label class="form-label" for="lokasi">Lokasi <span class="optional">(opsional)</span></label> <input type="text" id="lokasi" name="lokasi" class="form-control" placeholder="Lokasi penyimpanan/penempatan"></div><div class="form-group form-full"><label class="form-label">Kondisi Barang <span class="required">*</span></label><div class="kondisi-group"><div class="kondisi-option baik"><input type="radio" name="kondisi" id="kondisi-baik" value="baik" checked="checked"> <label for="kondisi-baik"><i data-feather="check-circle"></i> Baik</label></div><div class="kondisi-option rusak-ringan"><input type="radio" name="kondisi" id="kondisi-rr" value="rusak_ringan"> <label for="kondisi-rr"><i data-feather="alert-circle"></i> Rusak Ringan</label></div><div class="kondisi-option rusak-berat"><input type="radio" name="kondisi" id="kondisi-rb" value="rusak_berat"> <label for="kondisi-rb"><i data-feather="x-circle"></i> Rusak Berat</label></div></div></div><div class="form-group form-full"><label class="form-label" for="keterangan">Keterangan <span class="optional">(opsional)</span></label> <textarea id="keterangan" name="keterangan" class="form-control" rows="3" placeholder="Catatan tambahan tentang inventaris ini..."></textarea></div></div></div><!-- Step 3: Dynamic Fields (berdasarkan jenis) --><div class="dynamic-fields-section" id="dynamic-fields-section"><div class="form-section"><div class="dynamic-fields-header"><i data-feather="sliders"></i> <span id="dynamic-fields-title">Field Tambahan</span></div><div class="dynamic-fields-body"><div class="form-grid" id="dynamic-fields-container"><!-- Dynamic fields akan di-render oleh JavaScript berdasarkan jenis --></div></div></div></div><!-- Pejabat Default Section --><div class="pejabat-default-section"><div class="pejabat-default-header"><div class="pejabat-default-title"><i data-feather="users"></i> Pejabat Penandatangan Default</div></div><p class="pejabat-info-text">Pejabat yang akan menandatangani dokumen untuk jenis inventaris yang dipilih:</p><div class="pejabat-list" id="pejabat-list"><p style="color: #6b7280; font-size: 12px; width: 100%; margin: 0;">Silakan pilih jenis inventaris terlebih dahulu</p></div></div><div class="info-box"><i data-feather="info"></i><div class="info-box-text"><strong>Alur Persetujuan:</strong> Inventaris akan disimpan sebagai <strong>Draft</strong> atau langsung dikirim ke <strong>Pending</strong> untuk menunggu persetujuan Sekretaris Desa.<!--setelah disetujui, inventaris dapat diexport  --></div></div><!-- Form Actions --><div class="form-actions"><div class="form-actions-left"><button type="button" class="btn-cancel" onclick="confirmCancel()">Batal</button></div><div class="form-actions-right"><button type="button" class="btn-draft" onclick="saveAsDraft()"><i data-feather="save"></i> Simpan Draft</button> <button type="button" class="btn-submit btn-submit-pending" onclick="submitForApproval()"><i data-feather="send"></i> Kirim untuk Approval</button></div></div></form></div></div></div></div></div></div><footer class="pc-footer"><div class="footer-wrapper container-fluid mx-10"><div class="grid grid-cols-12 gap-1.5"><div class="col-span-12 sm:col-span-6 my-1"><p class="m-0"><a href="https://codedthemes.com/" class="text-theme-bodycolor dark:text-themedark-bodycolor hover:text-primary-500 dark:hover:text-primary-500" target="_blank">Sistem</a> Informasi Manajemen Aset</p></div><div class="col-span-12 sm:col-span-6 my-1 justify-self-end"><p class="inline-block max-sm:mr-3 sm:ml-2">Build: v1.0.0</p></div></div></div></footer><!-- Required Js --><script src="/sistem-manajemen-aset-desa/assets/js/plugins/simplebar.min.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/plugins/popper.min.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/icon/custom-icon.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/plugins/feather.min.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/component.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/theme.js"></script><script src="/sistem-manajemen-aset-desa/assets/js/script.js"></script><div class="floting-button fixed bottom-[50px] right-[30px] z-[1030]"></div><script>layout_change('false');</script><script>layout_theme_sidebar_change('dark');</script><script>change_box_container('false');</script><script>layout_caption_change('true');</script><script>layout_rtl_change('false');</script><script>preset_change('preset-1');</script><script>main_layout_change('vertical');</script><script>(function(){
+        // Jenis inventaris dengan icon dan warna (sesuai dengan jenis-inventaris.html)
+        const jenisInventaris = [
+          { id: 1, nama: 'Buku Inventaris Desa', icon: 'book', color: '#6366f1' },
+          { id: 2, nama: 'Inventaris Kendaraan', icon: 'truck', color: '#10b981' },
+          { id: 3, nama: 'Inventaris Peralatan dan Mesin', icon: 'settings', color: '#f59e0b' },
+          { id: 4, nama: 'Inventaris Bangunan', icon: 'home', color: '#3b82f6' },
+          { id: 5, nama: 'Inventaris Tanah', icon: 'map', color: '#ec4899' },
+          { id: 6, nama: 'Inventaris Jalan, Irigasi, dan Jaringan', icon: 'git-branch', color: '#8b5cf6' },
+          { id: 7, nama: 'Aset Tetap Lainnya', icon: 'archive', color: '#14b8a6' },
+          { id: 8, nama: 'Barang Tidak Ditemukan', icon: 'alert-circle', color: '#ef4444' }
+        ];
+
+        // Dynamic fields per jenis (dari tabel jenis_inventaris_data)
+        const dynamicFieldsByJenis = {
+          1: [ // Kendaraan
+            { nama: 'nomor_polisi', label: 'Nomor Polisi', tipe: 'text', required: true },
+            { nama: 'nomor_rangka', label: 'Nomor Rangka', tipe: 'text', required: true },
+            { nama: 'nomor_mesin', label: 'Nomor Mesin', tipe: 'text', required: true },
+            { nama: 'merk', label: 'Merk/Tipe', tipe: 'text', required: true },
+            { nama: 'cc', label: 'CC/Kapasitas', tipe: 'text', required: false },
+            { nama: 'bahan_bakar', label: 'Bahan Bakar', tipe: 'text', required: false },
+            { nama: 'warna', label: 'Warna', tipe: 'text', required: false },
+            { nama: 'nomor_bpkb', label: 'Nomor BPKB', tipe: 'text', required: false },
+            { nama: 'tanggal_stnk', label: 'Tanggal STNK', tipe: 'date', required: false }
+          ],
+          2: [ // Peralatan & Mesin
+            { nama: 'merk', label: 'Merk/Type', tipe: 'text', required: true },
+            { nama: 'ukuran', label: 'Ukuran/Kapasitas', tipe: 'text', required: false },
+            { nama: 'bahan', label: 'Bahan', tipe: 'text', required: false },
+            { nama: 'nomor_pabrik', label: 'Nomor Pabrik', tipe: 'text', required: false }
+          ],
+          3: [ // Bangunan
+            { nama: 'luas_lantai', label: 'Luas Lantai (m²)', tipe: 'number', required: true },
+            { nama: 'alamat', label: 'Alamat Lengkap', tipe: 'textarea', required: true },
+            { nama: 'dokumen_hak', label: 'Dokumen Hak', tipe: 'text', required: false },
+            { nama: 'tanggal_dokumen', label: 'Tanggal Dokumen', tipe: 'date', required: false },
+            { nama: 'nomor_dokumen', label: 'Nomor Dokumen', tipe: 'text', required: false },
+            { nama: 'status_tanah', label: 'Status Tanah', tipe: 'text', required: false },
+            { nama: 'kode_tanah', label: 'Kode Tanah', tipe: 'text', required: false }
+          ],
+          4: [ // Tanah
+            { nama: 'luas', label: 'Luas (m²)', tipe: 'number', required: true },
+            { nama: 'alamat', label: 'Alamat/Lokasi', tipe: 'textarea', required: true },
+            { nama: 'hak_tanah', label: 'Hak Tanah', tipe: 'text', required: false },
+            { nama: 'tanggal_sertifikat', label: 'Tanggal Sertifikat', tipe: 'date', required: false },
+            { nama: 'nomor_sertifikat', label: 'Nomor Sertifikat', tipe: 'text', required: false },
+            { nama: 'penggunaan', label: 'Penggunaan', tipe: 'text', required: false }
+          ],
+          5: [ // Jalan & Jaringan
+            { nama: 'konstruksi', label: 'Konstruksi', tipe: 'text', required: true },
+            { nama: 'panjang', label: 'Panjang (m)', tipe: 'number', required: true },
+            { nama: 'lebar', label: 'Lebar (m)', tipe: 'number', required: false },
+            { nama: 'alamat', label: 'Alamat/Lokasi', tipe: 'textarea', required: true },
+            { nama: 'dokumen', label: 'Dokumen', tipe: 'text', required: false },
+            { nama: 'tanggal_dokumen', label: 'Tanggal Dokumen', tipe: 'date', required: false },
+            { nama: 'nomor_dokumen', label: 'Nomor Dokumen', tipe: 'text', required: false }
+          ],
+          6: [ // Aset Tetap Lainnya
+            { nama: 'judul_buku', label: 'Judul/Nama', tipe: 'text', required: false },
+            { nama: 'spesifikasi', label: 'Spesifikasi', tipe: 'textarea', required: false },
+            { nama: 'pencipta', label: 'Pencipta/Penulis', tipe: 'text', required: false }
+          ],
+          7: [ // Konstruksi
+            { nama: 'bangunan_fisik', label: 'Bangunan Fisik (%)', tipe: 'number', required: true },
+            { nama: 'alamat', label: 'Alamat/Lokasi', tipe: 'textarea', required: true }
+          ],
+          8: [ // Aset Tidak Berwujud
+            { nama: 'jenis_aset', label: 'Jenis Aset', tipe: 'text', required: true },
+            { nama: 'masa_manfaat', label: 'Masa Manfaat (tahun)', tipe: 'number', required: false }
+          ]
+        };
+
+        let selectedJenis = null;
+
+        // Render jenis selector
+        function renderJenisSelector() {
+          const container = document.getElementById('jenis-selector');
+          container.innerHTML = jenisInventaris.map(j => `
+            <label class="jenis-option" data-id="${j.id}">
+              <input type="radio" name="jenis_inventaris_id" value="${j.id}" />
+              <div class="jenis-option-icon" style="background: linear-gradient(135deg, ${j.color} 0%, ${adjustColor(j.color, -20)} 100%);">
+                <i data-feather="${j.icon}"></i>
+              </div>
+              <div class="jenis-option-name">${j.nama}</div>
+            </label>
+          `).join('');
+
+          // Add click handlers
+          container.querySelectorAll('.jenis-option').forEach(opt => {
+            opt.addEventListener('click', function() {
+              container.querySelectorAll('.jenis-option').forEach(o => o.classList.remove('selected'));
+              this.classList.add('selected');
+              this.querySelector('input').checked = true;
+              selectedJenis = parseInt(this.dataset.id);
+              renderDynamicFields(selectedJenis);
+              renderPejabatDefault(selectedJenis);
+            });
+          });
+
+          feather.replace();
+        }
+
+        // Adjust color brightness
+        function adjustColor(color, amount) {
+          const hex = color.replace('#', '');
+          const num = parseInt(hex, 16);
+          const r = Math.min(255, Math.max(0, (num >> 16) + amount));
+          const g = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + amount));
+          const b = Math.min(255, Math.max(0, (num & 0x0000FF) + amount));
+          return '#' + (0x1000000 + r * 0x10000 + g * 0x100 + b).toString(16).slice(1);
+        }
+
+        // Render dynamic fields based on selected jenis
+        function renderDynamicFields(jenisId) {
+          const section = document.getElementById('dynamic-fields-section');
+          const container = document.getElementById('dynamic-fields-container');
+          const title = document.getElementById('dynamic-fields-title');
+          const fields = dynamicFieldsByJenis[jenisId] || [];
+
+          if (fields.length === 0) {
+            section.classList.remove('show');
+            return;
+          }
+
+          const jenisName = jenisInventaris.find(j => j.id === jenisId)?.nama || 'Inventaris';
+          title.textContent = `Data Khusus ${jenisName}`;
+
+          container.innerHTML = fields.map(f => {
+            let inputHtml = '';
+            const reqMark = f.required ? '<span class="required">*</span>' : '<span class="optional">(opsional)</span>';
+            
+            if (f.tipe === 'textarea') {
+              inputHtml = `<textarea id="${f.nama}" name="dynamic[${f.nama}]" class="form-control" rows="2" placeholder="${f.label}..." ${f.required ? 'required' : ''}></textarea>`;
+            } else if (f.tipe === 'date') {
+              inputHtml = `<input type="date" id="${f.nama}" name="dynamic[${f.nama}]" class="form-control" ${f.required ? 'required' : ''} />`;
+            } else if (f.tipe === 'number') {
+              inputHtml = `<input type="number" id="${f.nama}" name="dynamic[${f.nama}]" class="form-control" placeholder="0" ${f.required ? 'required' : ''} />`;
+            } else {
+              inputHtml = `<input type="text" id="${f.nama}" name="dynamic[${f.nama}]" class="form-control" placeholder="${f.label}" ${f.required ? 'required' : ''} />`;
+            }
+
+            return `
+              <div class="form-group ${f.tipe === 'textarea' ? 'form-span-2' : ''}">
+                <label class="form-label" for="${f.nama}">
+                  ${f.label} ${reqMark}
+                </label>
+                ${inputHtml}
+              </div>
+            `;
+          }).join('');
+
+          section.classList.add('show');
+        }
+
+        // Format currency input
+        const nilaiInput = document.getElementById('nilai_perolehan');
+        nilaiInput.addEventListener('input', function() {
+          let value = this.value.replace(/\D/g, '');
+          this.value = new Intl.NumberFormat('id-ID').format(value);
+        });
+
+        // Initialize
+        renderJenisSelector();
+      })();
+
+      // Render pejabat default based on jenis
+      function renderPejabatDefault(jenisId) {
+        // Data pejabat default per jenis inventaris
+        const pejabatByJenis = {
+          1: [
+            { nama: 'I Nyoman Suwarjana, SE', jabatan: 'Perbekel', order: 1 },
+            { nama: 'I Putu Suadnyana', jabatan: 'Sekdes', order: 2 }
+          ],
+          2: [
+            { nama: 'I Nyoman Suwarjana, SE', jabatan: 'Perbekel', order: 1 },
+            { nama: 'I Putu Suadnyana', jabatan: 'Sekdes', order: 2 }
+          ],
+          3: [
+            { nama: 'I Nyoman Suwarjana, SE', jabatan: 'Perbekel', order: 1 },
+            { nama: 'I Putu Suadnyana', jabatan: 'Sekdes', order: 2 }
+          ],
+          4: [
+            { nama: 'I Nyoman Suwarjana, SE', jabatan: 'Perbekel', order: 1 },
+            { nama: 'I Putu Suadnyana', jabatan: 'Sekdes', order: 2 }
+          ],
+          5: [
+            { nama: 'I Nyoman Suwarjana, SE', jabatan: 'Perbekel', order: 1 },
+            { nama: 'I Putu Suadnyana', jabatan: 'Sekdes', order: 2 }
+          ],
+          6: [
+            { nama: 'I Nyoman Suwarjana, SE', jabatan: 'Perbekel', order: 1 },
+            { nama: 'I Putu Suadnyana', jabatan: 'Sekdes', order: 2 }
+          ],
+          7: [
+            { nama: 'I Nyoman Suwarjana, SE', jabatan: 'Perbekel', order: 1 },
+            { nama: 'I Putu Suadnyana', jabatan: 'Sekdes', order: 2 }
+          ],
+          8: [
+            { nama: 'I Nyoman Suwarjana, SE', jabatan: 'Perbekel', order: 1 },
+            { nama: 'I Putu Suadnyana', jabatan: 'Sekdes', order: 2 }
+          ]
+        };
+
+        const pejabatList = document.getElementById('pejabat-list');
+        const pejabat = pejabatByJenis[jenisId] || [];
+
+        if (pejabat.length === 0) {
+          pejabatList.innerHTML = '<p style="color: #6b7280; font-size: 12px; margin: 0;">Data pejabat tidak ditemukan untuk jenis ini</p>';
+          return;
+        }
+
+        pejabatList.innerHTML = pejabat.map(p => {
+          const initials = p.nama.split(' ').map(n => n[0]).join('').substring(0, 2);
+          return `
+            <div class="pejabat-item">
+              <div class="pejabat-avatar">${initials}</div>
+              <div class="pejabat-item-info">
+                <h6>${p.nama}</h6>
+                <span>${p.jabatan}</span>
+              </div>
+              <div class="pejabat-item-order">${p.order}</div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Confirm Cancel
+      function confirmCancel() {
+        if (confirm('Apakah Anda yakin ingin membatalkan? Data yang sudah diisi tidak akan tersimpan.')) {
+          window.location.href = 'manajemen-aset.html';
+        }
+      }
+
+      // Save as Draft
+      function saveAsDraft() {
+        if (!validateForm()) return;
+        
+        if (confirm('Simpan inventaris sebagai Draft?')) {
+          submitForm('draft');
+        }
+      }
+
+      // Submit for Approval
+      function submitForApproval() {
+        if (!validateForm()) return;
+        
+        if (confirm('Kirim inventaris untuk menunggu persetujuan Sekretaris Desa?')) {
+          submitForm('pending');
+        }
+      }
+
+      // Validate form
+      function validateForm() {
+        const form = document.getElementById('inventaris-form');
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return false;
+        }
+
+        const jenisSelected = document.querySelector('input[name="jenis_inventaris_id"]:checked');
+        if (!jenisSelected) {
+          alert('Pilih jenis inventaris terlebih dahulu!');
+          return false;
+        }
+
+        return true;
+      }
+
+      // Submit form
+      function submitForm(status) {
+        const form = document.getElementById('inventaris-form');
+        const formData = new FormData(form);
+        
+        // Collect dynamic fields
+        const dynamicFields = {};
+        form.querySelectorAll('[name^="dynamic["]').forEach(input => {
+          const key = input.name.match(/\[(.*?)\]/)[1];
+          dynamicFields[key] = input.value;
+        });
+
+        const payload = {
+          jenis_inventaris_id: parseInt(formData.get('jenis_inventaris_id')),
+          kode_barang: formData.get('kode_barang'),
+          nama_barang: formData.get('nama_barang'),
+          nup: formData.get('nup') || null,
+          tahun_perolehan: parseInt(formData.get('tahun_perolehan')),
+          nilai_perolehan: parseInt(formData.get('nilai_perolehan').replace(/\D/g, '')),
+          lokasi: formData.get('lokasi') || null,
+          kondisi: formData.get('kondisi'),
+          keterangan: formData.get('keterangan') || null,
+          status: status,
+          pejabat_override: null, // Will be set if overridden
+          dynamic_values: dynamicFields,
+          created_at: new Date().toISOString()
+        };
+
+        console.log('Inventaris payload:', payload);
+
+        // Simulate API call
+        fetch('/api/inventaris', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(r => {
+          if(r.ok) return r.json();
+          throw new Error('Network error');
+        }).then(res => {
+          sessionStorage.setItem('inventarisFormSuccess', 'true');
+          sessionStorage.setItem('inventarisFormMessage', status === 'draft' 
+            ? 'Inventaris berhasil disimpan sebagai Draft!' 
+            : 'Inventaris berhasil dikirim untuk persetujuan!');
+          window.location.href = 'manajemen-aset.html';
+        }).catch(err => {
+          console.warn('API not available');
+          sessionStorage.setItem('inventarisFormSuccess', 'true');
+          sessionStorage.setItem('inventarisFormMessage', status === 'draft' 
+            ? 'Inventaris berhasil disimpan sebagai Draft!' 
+            : 'Inventaris berhasil dikirim untuk persetujuan!');
+          window.location.href = 'manajemen-aset.html';
+        });
+      }</script></body></html>
